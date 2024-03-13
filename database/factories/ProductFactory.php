@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             "description" => fake()->sentences(asText: true),
             "icon" => fake()->filePath(),
             "amount" => fake()->numberBetween(),
+            "unit_price" => fake()->randomFloat(),
             "category_id" => Category::factory()
         ];
     }
