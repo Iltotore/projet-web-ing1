@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('application');
 });
 
 Route::post("/auth/login", [AuthController::class, "login"]);
