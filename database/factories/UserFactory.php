@@ -29,16 +29,25 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'is_admin' => false
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
-    {
+    public function unverified(): static {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'email_verified_at' => null
+        ]);
+    }
+
+    /**
+     * Give the admin status to the generated user.
+     */
+    public function admin() {
+        return $this->state(fn (array $attributes) => [
+            'is_admin' => true
         ]);
     }
 }
