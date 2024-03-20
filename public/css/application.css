@@ -1,42 +1,103 @@
 body {
 	margin: 0; /* Prevents the browser from putting a white zone around the page */
-	font-family: 'Arial', sans-serif;
+	font-family: 'Minecraft', sans-serif;
 	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	height: 100%
 }
+
+/* Header */
 
 header {
-	background-color: green;
+	display: flex;
+
+	background-image: url("https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Screenshots_2023/minecraft-coastal-village.png");
+	background-size: cover;
+	background-position: center;
 }
-header img {
-	max-width: 5%;
-	max-height: 5%;
-	margin: 1%;
+div#logo_zone {
+	display: flex;
+	align-items: center;
+	min-width: fit-content;
+	padding: 1%;
+}
+div#logo_zone img#logo_icon {
+	max-width: 5vw;
+	margin-right: 1vw;
+}
+div#logo_zone img#logo_text {
+	max-width: 18vw;
 }
 
-div.container {
+div#link_zone {
 	display: flex;
+	margin-top: auto;
+	width: fit-content;
+}
+div#link_zone a {
+	border: 1px solid;
+	border-bottom: 0;
+	border-top-right-radius: 0.5vw;
+	border-top-left-radius: 0.5vw;
+	padding: 0.8vw;
+	padding-top: 0.5vw;
+	padding-bottom: 0.5vw;
+
+	border-color: rgb(81, 81, 81);
+	background-color: gray;
+	color: rgb(214, 214, 214);
+}
+
+/* Middle zone */
+
+div#middle_zone {
+	display: flex;
+	flex: 1 1 auto;
+
+	border: 2px solid rgb(51, 51, 51);
 }
 nav {
-	background-color: gray;
-	width: 10%
+	padding: 1%;
+	width: 10vw;
+	min-width: fit-content;
+
+	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e6/Oak_Planks_%28texture%29_JE6_BE3.png/revision/latest?cb=20201001140156");
+	background-size: 10vw;
+	color: rgb(255, 255, 255);
 }
 
 main {
-	background-color: rgb(82, 27, 0);
+	flex: 1 1 auto;
+	padding: 1vw;
+
+	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/dc/Stone_%28texture%29_JE5_BE3.png/revision/latest?cb=20201001141805");
+	background-size: 10vw;
+	box-shadow: inset 2px 2px 0.25em 0.25em rgba(0, 0, 0, 0.552);
+	color:white
 }
+
+/* Bottom */
 
 footer {
-	background-color: rgb(49, 49, 58);
-	width: 100%;
 	padding: 1%;
-
 	display: flex;
-
+	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+
+	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5a/Obsidian_%28texture%29_JE3_BE2.png/revision/latest?cb=20201001140204");
+}
+footer div.footer_column {
+	margin-left: 3vw;
+	margin-right: 3vw;
+	display: flex;
+	flex-direction: column;
 }
 
-footer p {
-	color: rgb(214, 214, 214);
+footer div.footer_column a {
 	width: max-content;
+
+	color: rgb(255, 255, 255);
+	opacity: 0.7;
 }

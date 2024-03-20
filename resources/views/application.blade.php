@@ -4,21 +4,32 @@
 		<title>HurrShop</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
+		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 	</head>
     <!-- Contenu de la page -->
 	<body>
 		<header>
-			<img id="logo" src="https://minecraftfaces.com/wp-content/bigfaces/big-villager-face.png"/>
-			<h2>HurrShop</h2>
+			<div id="logo_zone">
+				<img id="logo_icon" src="https://minecraftfaces.com/wp-content/bigfaces/big-villager-face.png"/>
+				<img id="logo_text" src="{{ asset('img/logo.png') }}"/>
+			</div>
+
+			<div id="link_zone">
+				<a>Link1</a>
+				<a>Link2</a>
+				<a>Link3</a>
+				<a>Link4</a>
+				<a>Link5</a>
+			</div>
 		</header>
 
-		<div id="container">
+		<div id="middle_zone">
 			<nav>
 				<ul>
-					<li>Home</li>
-					<li>About</li>
-					<li>FAQ</li>
-					<li>Contact</li>
+					<li><a>Home</a></li>
+					<li><a>About</a></li>
+					<li><a>FAQ</a></li>
+					<li><a>Contact</a></li>
 				</ul>
 			</nav>
 			<main>
@@ -27,9 +38,27 @@
 		</div>
 
 		<footer>
-			<p>Plan</p>
-			<p>Mention</p>
-			<p>Contact</p>
+			<div class="footer_column">
+				<a>Link1</a>
+				<a>Link2</a>
+				<a>Link3</a>
+				<a>Link4</a>
+				<a>Link5</a>
+			</div>
+			<div class="footer_column">
+				<a>Link1</a>
+				<a>Link2</a>
+				<a>Link3</a>
+				<a>Link4</a>
+				<a>Link5</a>
+			</div>
+			<div class="footer_column">
+				<a>Link1</a>
+				<a>Link2</a>
+				<a>Link3</a>
+				<a>Link4</a>
+				<a>Link5</a>
+			</div>
 		</footer>
 	</body>
 </html>
