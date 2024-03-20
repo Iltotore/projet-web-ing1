@@ -49,4 +49,8 @@ class User extends Authenticatable
             ->belongsToMany(Product::class, table:'shopping_cart')
             ->withPivot(['amount']);
     }
+
+    public function username() {
+        return "name";
+    }
 }
