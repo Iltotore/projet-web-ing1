@@ -21,9 +21,7 @@ class AuthController extends Controller {
             "password" => ["required"],
         ]);
 
-        $redirect = $request->validate([
-            "redirect" => ["nullable", "url"]
-        ]) ?? "/";
+        $redirect = $request->redirect ?? "/";
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
