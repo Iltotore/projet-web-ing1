@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,9 @@ class AuthController extends Controller {
 
     /**
      * Handle an authentication attempt.
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function login(Request $request): RedirectResponse {
 
@@ -36,6 +40,9 @@ class AuthController extends Controller {
 
     /**
      * Logout the connected user.
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function logout(Request $request): RedirectResponse {
         Auth::logout();
@@ -43,5 +50,31 @@ class AuthController extends Controller {
         $request->session()->invalidate();
 
         return redirect("/");
+    }
+
+    /**
+     * Register a new user.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function register(Request $request): RedirectResponse {
+        $infos = $request->validate([
+            "name" => ["required", "string", "max:255", "unique:users,name"],
+            "email" => ["required", "email", "unique:users,email"],
+            "password" => ["required", "confirmed"],
+            "password_confirmation" => ["required"]
+        ]);
+
+        $newUser = User::create([
+            "name" => $infos["name"],
+            "email" => $infos["email"],
+            "password" => $infos["password"],
+            "is_admin" => false
+        ]);
+
+        return redirect()
+            ->to("/registered")
+            ->with(["user" => $newUser]);
     }
 }
