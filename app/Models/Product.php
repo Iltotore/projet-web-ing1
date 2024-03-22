@@ -35,4 +35,5 @@ class Product extends Model
             ->belongsToMany(User::class, table: "shopping_cart")
             ->withPivot(['amount']);
     }
+
 }
