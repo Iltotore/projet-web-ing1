@@ -26,8 +26,9 @@ class AuthController extends Controller {
         ]);
 
         $redirect = $request->redirect ?? "/";
+        $remember_me = $request->remember_me ?? false;
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
 
             return redirect()->to($redirect);
