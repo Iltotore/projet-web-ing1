@@ -89,4 +89,17 @@ class CartTest extends TestCase {
         $user->deleteCartItem($product);
         assertEquals(0, $user->cart()->count());
     }
+
+    /**
+     * Delete all products from cart.
+     */
+    public function test_clear(): void {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+
+        $user->cart()->attach($product, ["amount" => 1]);
+
+        $user->clearCart();
+        assertEquals(0, $user->cart()->count());
+    }
 }

@@ -146,7 +146,7 @@ class User extends Authenticatable {
      * @return void
      */
     public function clearCart(): void {
-        $this->cart()->delete();
+        $this->cart()->detach();
     }
 
     /**

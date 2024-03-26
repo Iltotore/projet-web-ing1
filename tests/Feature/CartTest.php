@@ -231,4 +231,19 @@ class CartTest extends TestCase {
         $response->assertSuccessful();
         $this->assertEquals(null, $user->cart()->find($product));
     }
+
+    /**
+     * Successfully clear item cart.
+     */
+    public function test_clear_successful() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+
+        Auth::login($user);
+
+        $response = $this->post("/cart/clear");
+
+        $response->assertSuccessful();
+        $this->assertEquals(null, $user->cart()->find($product));
+    }
 }

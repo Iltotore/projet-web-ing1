@@ -59,4 +59,10 @@ class CartController extends Controller {
 
         return response(status: 200);
     }
+
+    public function clear(): Response {
+        Auth::user()->clearCart();
+
+        return response(status: 200);
+    }
 }

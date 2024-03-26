@@ -27,3 +27,4 @@ Route::post("/auth/register", [AuthController::class, "register"]);
 Route::post("/cart/add", [CartController::class, "add"]);
 Route::post("/cart/remove", [CartController::class, "remove"]);
 Route::post("/cart/delete", [CartController::class, "delete"]);
+Route::post("/cart/clear", [CartController::class, "clear"]);
