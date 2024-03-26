@@ -24,10 +24,25 @@ class CartController extends Controller {
 
         $result = Auth::user()->addCartItem(Product::find($args["product"]), $args["amount"]);
 
-        return response()->json(data: $result->toJson());
+        return response()->json($result->toJson());
     }
 
+    /**
+     * Remove a product in given amount from cart.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function remove(Request $request): JsonResponse {
+        $args = $request->validate([
+            "product" => ["required", "exists:products,id"],
+            "amount" => ["required", "numeric", "gt:0"]
+        ]);
 
+        $result = Auth::user()->removeCartItem(Product::find($args["product"]), $args["amount"]);
+
+        return response()->json($result->toJson());
+    }
 
     /**
      * Set product amount in cart.

@@ -108,7 +108,7 @@ class User extends Authenticatable {
                 return CartResult::delete();
             }
             else {
-                $existing->update(["amount" => $finalAmount]);
+                $existing->pivot->update(["amount" => $finalAmount]);
                 return $finalAmount == $available ? CartResult::full($finalAmount) : CartResult::ok($finalAmount);
             }
         }

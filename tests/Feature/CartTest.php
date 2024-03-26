@@ -76,6 +76,122 @@ class CartTest extends TestCase {
     }
 
     /**
+     * Successfully cap item count when adding a too big amount.
+     */
+    public function test_add_full() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(["amount" => 5]);
+
+        Auth::login($user);
+
+        $response = $this->postJson(
+            "/cart/add",
+            [
+                "product" => $product->id,
+                "amount" => 10
+            ]
+        );
+
+        $response->assertJson([
+            "state" => "full",
+            "amount" => 5
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertEquals(5, $user->cart()->find($product)->pivot->amount);
+    }
+
+    /**
+     * Return errors when sent data are either missing or invalid.
+     */
+    public function test_remove_invalid_data(): void {
+        $user = User::factory()->create();
+
+        Auth::login($user);
+
+        $missingData = $this->postJson("/cart/remove");
+        $missingData->assertInvalid(["product", "amount"]);
+
+        $invalidData = $this->postJson(
+            "/cart/remove",
+            [
+                "product" => 1,
+                "amount" => -5
+            ]
+        );
+
+        $invalidData->assertInvalid(["product", "amount"]);
+    }
+
+    /**
+     * Successfully remove item when valid arguments are given.
+     */
+    public function test_remove_successful() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(["amount" => fake()->numberBetween(int1: 11)]);
+        $user->cart()->attach($product, ["amount" => 11]);
+
+        Auth::login($user);
+
+        $response = $this->postJson(
+            "/cart/remove",
+            [
+                "product" => $product->id,
+                "amount" => 5
+            ]
+        );
+        $response->assertSuccessful();
+        $response->assertJson([
+            "state" => "ok",
+            "amount" => 6
+        ]);
+
+        $this->assertEquals(6, $user->cart()->find($product)->pivot->amount);
+
+        $response = $this->postJson(
+            "/cart/remove",
+            [
+                "product" => $product->id,
+                "amount" => 5
+            ]
+        );
+
+        $response->assertJson([
+            "state" => "ok",
+            "amount" => 1
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertEquals(1, $user->cart()->find($product)->pivot->amount);
+    }
+
+    /**
+     * Successfully delete item when removing a too big amount.
+     */
+    public function test_remove_zero() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $user->cart()->attach($product, ["amount" => 5]);
+
+        Auth::login($user);
+
+        $response = $this->postJson(
+            "/cart/remove",
+            [
+                "product" => $product->id,
+                "amount" => 10
+            ]
+        );
+
+        $response->assertJson([
+            "state" => "delete"
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertEquals(null, $user->cart()->find($product));
+    }
+
+    /**
      * Return errors when sent data are either missing or invalid.
      */
     public function test_set_invalid_data(): void {
