@@ -194,49 +194,6 @@ class CartTest extends TestCase {
     /**
      * Return errors when sent data are either missing or invalid.
      */
-    public function test_set_invalid_data(): void {
-        $user = User::factory()->create();
-
-        Auth::login($user);
-
-        $missingData = $this->postJson("/cart/set");
-        $missingData->assertInvalid(["product", "amount"]);
-
-        $invalidData = $this->postJson(
-            "/cart/set",
-            [
-                "product" => 1,
-                "amount" => -5
-            ]
-        );
-
-        $invalidData->assertInvalid(["product", "amount"]);
-    }
-
-    /**
-     * Successfully set item when valid arguments are given.
-     */
-    public function test_set_successful() {
-        $user = User::factory()->create();
-        $product = Product::factory()->create();
-
-        Auth::login($user);
-
-        $response = $this->postJson(
-            "/cart/set",
-            [
-                "product" => $product->id,
-                "amount" => 5
-            ]
-        );
-
-        $response->assertSuccessful();
-        $this->assertEquals(5, $user->cart()->find($product)->pivot->amount);
-    }
-
-    /**
-     * Return errors when sent data are either missing or invalid.
-     */
     public function test_delete_invalid_data(): void {
         $user = User::factory()->create();
 

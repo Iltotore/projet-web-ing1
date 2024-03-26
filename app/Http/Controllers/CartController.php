@@ -45,23 +45,6 @@ class CartController extends Controller {
     }
 
     /**
-     * Set product amount in cart.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function set(Request $request): Response {
-        $args = $request->validate([
-            "product" => ["required", "exists:products,id"],
-            "amount" => ["required", "numeric", "gt:0"]
-        ]);
-
-        Auth::user()->setCartItem($args["product"], $args["amount"]);
-
-        return response(status: 200);
-    }
-
-    /**
      * Delete product from cart.
      *
      * @param Request $request
