@@ -10,8 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -48,7 +47,7 @@ class User extends Authenticatable
 
     public function cart(): BelongsToMany {
         return $this
-            ->belongsToMany(Product::class, table:"shopping_cart")
+            ->belongsToMany(Product::class, table: "shopping_cart")
             ->withPivot(["amount"]);
     }
 
@@ -79,12 +78,39 @@ class User extends Authenticatable
      * @param int $amount the amount of the given product to add
      * @return void
      */
-    public function addCartItem(Product|int $product, int $amount): void {
-        $validAmount = max($amount, 0);
+    public function addCartItem(Product $product, int $amount): CartResult {
+        $validAmount = max($amount, 1);
         $existing = $this->cart()->find($product);
-        if($existing == null) $this->cart()->attach($product, ["amount" => $validAmount]);
+        $available = $product->amount;
+        if ($existing == null) {
+            $finalAmount = min(max($validAmount, 0), $available);
+            $this->cart()->attach($product, ["amount" => $finalAmount]);
+        } else {
+            $finalAmount = min(max($existing->pivot->amount + $validAmount, 0), $available);
+            if($finalAmount == 0) {
+                $this->deleteCartItem($product);
+                return CartResult::delete();
+            } else $existing->pivot->update(["amount" => $finalAmount]);
+        }
+
+        return $finalAmount == $available ? CartResult::full($finalAmount) : CartResult::ok($finalAmount);
+    }
+
+    public function removeCartItem(Product $product, int $amount): CartResult {
+        $validAmount = max($amount, 1);
+        $existing = $this->cart()->find($product);
+        $available = $product->amount;
+        if ($existing == null) return CartResult::doesNotExist();
         else {
-            $existing->pivot->update(["amount" => DB::raw("amount+".$validAmount)]);
+            $finalAmount = min(max($existing->pivot->amount - $validAmount, 0), $available);
+            if($finalAmount == 0) {
+                $this->deleteCartItem($product);
+                return CartResult::delete();
+            }
+            else {
+                $existing->update(["amount" => $finalAmount]);
+                return $finalAmount == $available ? CartResult::full($finalAmount) : CartResult::ok($finalAmount);
+            }
         }
     }
 
@@ -98,7 +124,7 @@ class User extends Authenticatable
     public function setCartItem(Product|int $product, int $amount): void {
         $validAmount = max($amount, 0);
         $existing = $this->cart()->find($product);
-        if($existing == null) $this->cart()->attach($product, ["amount" => $validAmount]);
+        if ($existing == null) $this->cart()->attach($product, ["amount" => $validAmount]);
         else {
             $existing->pivot->update(["amount" => $validAmount]);
         }
@@ -110,8 +136,17 @@ class User extends Authenticatable
      * @param Product|int $product the product type to remove
      * @return void
      */
-    public function removeCartItem(Product|int $product): void {
+    public function deleteCartItem(Product|int $product): void {
         $this->cart()->detach($product);
+    }
+
+    /**
+     * Remove all items from cart.
+     *
+     * @return void
+     */
+    public function clearCart(): void {
+        $this->cart()->delete();
     }
 
     /**

@@ -39,7 +39,7 @@ class CartTest extends TestCase {
      */
     public function test_add_successful() {
         $user = User::factory()->create();
-        $product = Product::factory()->create();
+        $product = Product::factory()->create(["amount" => fake()->numberBetween(int1: 11)]);
 
         Auth::login($user);
 
@@ -50,8 +50,12 @@ class CartTest extends TestCase {
                 "amount" => 5
             ]
         );
-
         $response->assertSuccessful();
+        $response->assertJson([
+            "state" => "ok",
+            "amount" => 5
+        ]);
+
         $this->assertEquals(5, $user->cart()->find($product)->pivot->amount);
 
         $response = $this->postJson(
@@ -61,6 +65,11 @@ class CartTest extends TestCase {
                 "amount" => 5
             ]
         );
+
+        $response->assertJson([
+            "state" => "ok",
+            "amount" => 10
+        ]);
 
         $response->assertSuccessful();
         $this->assertEquals(10, $user->cart()->find($product)->pivot->amount);
@@ -112,16 +121,16 @@ class CartTest extends TestCase {
     /**
      * Return errors when sent data are either missing or invalid.
      */
-    public function test_remove_invalid_data(): void {
+    public function test_delete_invalid_data(): void {
         $user = User::factory()->create();
 
         Auth::login($user);
 
-        $missingData = $this->postJson("/cart/remove");
+        $missingData = $this->postJson("/cart/delete");
         $missingData->assertInvalid(["product"]);
 
         $invalidData = $this->postJson(
-            "/cart/set",
+            "/cart/delete",
             [
                 "product" => 1
             ]
@@ -131,16 +140,16 @@ class CartTest extends TestCase {
     }
 
     /**
-     * Successfully remove item from cart when valid arguments are given.
+     * Successfully delete item from cart when valid arguments are given.
      */
-    public function test_remove_successful() {
+    public function test_delete_successful() {
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
         Auth::login($user);
 
         $response = $this->postJson(
-            "/cart/remove",
+            "/cart/delete",
             [
                 "product" => $product->id,
             ]

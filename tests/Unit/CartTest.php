@@ -71,7 +71,7 @@ class CartTest extends TestCase {
 
         $user->cart()->attach($product, ["amount" => 1]);
 
-        $user->removeCartItem($product);
+        $user->deleteCartItem($product);
         assertEquals(0, $user->cart()->count());
     }
 }
