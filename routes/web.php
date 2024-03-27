@@ -25,5 +25,7 @@ Route::post("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 
 Route::post("/cart/add", [CartController::class, "add"]);
-Route::post("/cart/set", [CartController::class, "set"]);
 Route::post("/cart/remove", [CartController::class, "remove"]);
+Route::post("/cart/delete", [CartController::class, "delete"]);
+Route::post("/cart/clear", [CartController::class, "clear"]);
+Route::post("/cart/buy", [CartController::class, "buy"]);

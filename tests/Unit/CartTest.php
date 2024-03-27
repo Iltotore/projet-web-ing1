@@ -52,6 +52,21 @@ class CartTest extends TestCase {
     }
 
     /**
+     * Remove product from cart with given amount and delete it if final amount is < 0.
+     */
+    public function test_remove_item(): void {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(["amount" => fake()->numberBetween(int1: 10)]);
+        $user->cart()->attach($product, ["amount" => 10]);
+
+        $user->removeCartItem($product, 5);
+        $this->assertEquals(5, $user->getAmount($product));
+
+        $user->removeCartItem($product, 5);
+        $this->assertEquals(null, $user->cart()->find($product));
+    }
+
+    /**
      * Set product with given amount in cart.
      */
     public function test_set_item(): void {
@@ -63,15 +78,28 @@ class CartTest extends TestCase {
     }
 
     /**
-     * Remove product from cart.
+     * Delete product from cart.
      */
-    public function test_remove_item(): void {
+    public function test_delete_item(): void {
         $user = User::factory()->create();
         $product = Product::factory()->create();
 
         $user->cart()->attach($product, ["amount" => 1]);
 
-        $user->removeCartItem($product);
+        $user->deleteCartItem($product);
+        assertEquals(0, $user->cart()->count());
+    }
+
+    /**
+     * Delete all products from cart.
+     */
+    public function test_clear(): void {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+
+        $user->cart()->attach($product, ["amount" => 1]);
+
+        $user->clearCart();
         assertEquals(0, $user->cart()->count());
     }
 }

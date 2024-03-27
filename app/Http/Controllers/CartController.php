@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,49 +15,83 @@ class CartController extends Controller {
      * Add a product in given amount to cart.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function add(Request $request): Response {
+    public function add(Request $request): JsonResponse {
         $args = $request->validate([
             "product" => ["required", "exists:products,id"],
             "amount" => ["required", "numeric", "gt:0"]
         ]);
 
-        Auth::user()->addCartItem($args["product"], $args["amount"]);
+        $result = Auth::user()->addCartItem(Product::find($args["product"]), $args["amount"]);
 
-        return response(status: 200);
+        return response()->json($result->toJson());
     }
 
     /**
-     * Set product amount in cart.
+     * Remove a product in given amount from cart.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function set(Request $request): Response {
+    public function remove(Request $request): JsonResponse {
         $args = $request->validate([
             "product" => ["required", "exists:products,id"],
             "amount" => ["required", "numeric", "gt:0"]
         ]);
 
-        Auth::user()->setCartItem($args["product"], $args["amount"]);
+        $result = Auth::user()->removeCartItem(Product::find($args["product"]), $args["amount"]);
 
-        return response(status: 200);
+        return response()->json($result->toJson());
     }
 
     /**
-     * Remove product from cart.
+     * Delete product from cart.
      *
      * @param Request $request
      * @return Response
      */
-    public function remove(Request $request): Response {
+    public function delete(Request $request): Response {
         $args = $request->validate([
             "product" => ["required", "exists:products,id", ]
         ]);
 
-        Auth::user()->removeCartItem($args["product"]);
+        Auth::user()->deleteCartItem($args["product"]);
 
         return response(status: 200);
+    }
+
+    /**
+     * Delete all items from cart.
+     *
+     * @return Response
+     */
+    public function clear(): Response {
+        Auth::user()->clearCart();
+
+        return response(status: 200);
+    }
+
+    /**
+     * Buy items in cart then clear it.
+     *
+     * @return RedirectResponse
+     */
+    public function buy(): RedirectResponse {
+        $user = Auth::user();
+        $inCart = $user->getCartItems();
+
+        $errorItems = [];
+
+        foreach ($inCart as $item) {
+            if ($item->pivot->amount > $item->amount) array_push($errorItems, $item);
+        }
+
+        if(empty($errorItems)) {
+            $user->clearCart();
+            return redirect()->back();
+        } else {
+            return redirect()->back()->withErrors(["tooManyItems" => $errorItems]);
+        }
     }
 }
