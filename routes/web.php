@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('application', ["page_to_load" => "home"]);});
+Route::get('/about', function () {return view('application', ["page_to_load" => "about"]);});
+Route::get('/404_test', function () {return view('application');});
 
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/logout", [AuthController::class, "logout"]);
