@@ -1,10 +1,11 @@
 body {
 	margin: 0; /* Prevents the browser from putting a white zone around the page */
-	font-family: 'Minecraft', sans-serif;
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
-	height: 100%
+	min-height: 100vh;
+
+	font-family: 'Minecraft', sans-serif
 }
 
 /* Header */
@@ -12,10 +13,12 @@ body {
 header {
 	display: flex;
 
-	background-image: url("https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Screenshots_2023/minecraft-coastal-village.png");
+	background-image: url('../img/banner.webp');
 	background-size: cover;
 	background-position: center;
 }
+
+/* Header Left side */
 div#logo_zone {
 	display: flex;
 	align-items: center;
@@ -23,11 +26,58 @@ div#logo_zone {
 	padding: 1%;
 }
 div#logo_zone img#logo_icon {
-	max-width: 5vw;
-	margin-right: 1vw;
+	width: 4vw;
+	min-width: 13%;
+	margin-right: 1.3vw;
+	box-shadow: 0px 0px 0.25em 0.1em rgba(255, 77, 0, 0.356);
+
+	animation: rotation 1s ease-in-out 0s infinite;
+}
+@keyframes rotation {
+	from {
+		transform: rotate(-2deg);
+	}
+
+	50% {
+		transform: rotate(2deg);
+	}
+
+	to {
+		transform: rotate(-2deg);
+	}
 }
 div#logo_zone img#logo_text {
-	max-width: 18vw;
+	width: 17vw;
+	min-width: 50%;
+
+	animation: bounce 2s ease-in-out 0s infinite;
+}
+@keyframes bounce {
+	from {
+		transform: scale(0.97, 0.97);
+	}
+
+	50% {
+		transform: scale(1.01, 1.05);
+	}
+
+	to {
+		transform: scale(0.97, 0.97);
+	}
+}
+
+/* Header right side */
+div#header_end_zone {
+	margin-left: auto;
+	display: flex;
+	flex-direction: column;
+}
+div#account_zone {
+	margin-top: 1%;
+	margin-right: 1%;
+	margin-left: auto;
+
+	color: white;
 }
 
 div#link_zone {
@@ -36,17 +86,38 @@ div#link_zone {
 	width: fit-content;
 }
 div#link_zone a {
-	border: 1px solid;
-	border-bottom: 0;
 	border-top-right-radius: 0.5vw;
 	border-top-left-radius: 0.5vw;
 	padding: 0.8vw;
 	padding-top: 0.5vw;
 	padding-bottom: 0.5vw;
 
-	border-color: rgb(81, 81, 81);
-	background-color: gray;
-	color: rgb(214, 214, 214);
+	background-color: rgb(117, 117, 117);
+	color: rgb(255, 255, 255);
+	box-shadow: inset 0px 0px 0.25em 0.1em rgb(55, 55, 55);
+}
+
+/* Header - Mobile mode */
+@media (max-width: 768px) {
+	header {
+		flex-direction: column;
+	}
+	div#logo_zone {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: fit-content;
+		padding: 1%;
+	}
+	div#logo_zone img#logo_icon {
+		margin-right: 4vw;
+	}
+	div#header_end_zone {
+		margin-right: auto
+	}
+	div#account_zone {
+		margin-right: auto;
+	}
 }
 
 /* Middle zone */
@@ -60,20 +131,21 @@ div#middle_zone {
 nav {
 	padding: 1%;
 	width: 10vw;
-	min-width: fit-content;
 
-	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e6/Oak_Planks_%28texture%29_JE6_BE3.png/revision/latest?cb=20201001140156");
+	background-image: url("../img/oak.webp");
 	background-size: 10vw;
 	color: rgb(255, 255, 255);
+
+	text-wrap: wrap;
 }
 
 main {
 	flex: 1 1 auto;
 	padding: 1vw;
 
-	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/dc/Stone_%28texture%29_JE5_BE3.png/revision/latest?cb=20201001141805");
+	background-image: url("../img/stone.webp");
 	background-size: 10vw;
-	box-shadow: inset 2px 2px 0.25em 0.25em rgba(0, 0, 0, 0.552);
+	box-shadow: inset 3px 0px 0.25em 0.2em rgba(0, 0, 0, 0.552);
 	color:white
 }
 
@@ -82,22 +154,49 @@ main {
 footer {
 	padding: 1%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 
-	background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5a/Obsidian_%28texture%29_JE3_BE2.png/revision/latest?cb=20201001140204");
+	background-image: url("../img/obsidian.webp");
+	box-shadow: 0px -8px 5px rgba(255, 77, 0, 0.356);
+	color: rgb(170, 170, 170);
 }
+
+footer div.footer_grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 footer div.footer_column {
-	margin-left: 3vw;
-	margin-right: 3vw;
 	display: flex;
 	flex-direction: column;
 }
-
 footer div.footer_column a {
 	width: max-content;
+	height: fit-content;
 
+	color: rgb(160, 160, 160);
+	text-decoration: none;
+}
+footer div.footer_column a:hover {
 	color: rgb(255, 255, 255);
-	opacity: 0.7;
+}
+footer div.footer_column a.emerald {
+	color: rgb(55, 255, 0);
+}
+footer div.footer_column a.blaze {
+	color: rgb(229, 38, 0);
+}
+footer div.footer_column a.blaze:hover {
+	color: rgb(255, 0, 0);
+}
+footer p {
+	margin-top: 0.2vw;
+	margin-bottom: 0.2vw;
+
+	color: rgb(180, 180, 180);
+}
+footer p.please_dont_see_this {
+	opacity: 0.5;
 }

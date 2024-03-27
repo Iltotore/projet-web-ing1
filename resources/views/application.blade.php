@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 	<head>
-		<link rel="icon" href="https://minecraftfaces.com/wp-content/bigfaces/big-villager-face.png">
+		<link rel="icon" href="{{ asset("img/icon.webp") }}">
 		<title>HurrShop</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
@@ -10,21 +11,30 @@
 	<body>
 		<header>
 			<div id="logo_zone">
-				<img id="logo_icon" src="https://minecraftfaces.com/wp-content/bigfaces/big-villager-face.png"/>
-				<img id="logo_text" src="{{ asset('img/logo.png') }}"/>
+				<img id="logo_icon" src="{{ asset("img/icon.webp") }}"/>
+				<img id="logo_text" src="{{ asset('img/logo.webp') }}"/>
 			</div>
 
-			<div id="link_zone">
-				<a>Link1</a>
-				<a>Link2</a>
-				<a>Link3</a>
-				<a>Link4</a>
-				<a>Link5</a>
+			<div id="header_end_zone">
+				<div id="account_zone">
+					<a>USERNAME</a>
+					-
+					<a>Se connecter</a>
+				</div>
+				<div id="link_zone">
+					<a>Accueil</a>
+					<a>Link2</a>
+					<a>Link3</a>
+					<a>Link4</a>
+					<a>Contact</a>
+				</div>
 			</div>
 		</header>
 
 		<div id="middle_zone">
 			<nav>
+				<p>HurrShop est votre nouvel espace de vente de materiaux.</p>
+				<hr>
 				<ul>
 					<li><a>Home</a></li>
 					<li><a>About</a></li>
@@ -38,27 +48,28 @@
 		</div>
 
 		<footer>
-			<div class="footer_column">
-				<a>Link1</a>
-				<a>Link2</a>
-				<a>Link3</a>
-				<a>Link4</a>
-				<a>Link5</a>
+			<div class="footer_grid">
+				<div class="footer_column">
+					<a>Plan du site</a>
+				</div>
+				<div class="footer_column">
+					<a>A propos</a>
+					<a>Contact</a>
+					<a>FAQ</a>
+				</div>
+				<div class="footer_column">
+					<a href="https://minecraft.wiki/w/Villager">Reseaux sociaux</a>
+				</div>
+				<div class="footer_column">
+					<a class="emerald">Emerald.net</a>
+					<a>Ender.man</a>
+					<a href="https://www.reddit.com/r/Minecrafthmmm/">r/Minecrafthmmm</a>
+					<a class="blaze" href="https://minecraft.wiki/w/Blaze">Blazes.hot (+18)</a>
+					<a>StopTradingHalls.org</a>
+				</div>
 			</div>
-			<div class="footer_column">
-				<a>Link1</a>
-				<a>Link2</a>
-				<a>Link3</a>
-				<a>Link4</a>
-				<a>Link5</a>
-			</div>
-			<div class="footer_column">
-				<a>Link1</a>
-				<a>Link2</a>
-				<a>Link3</a>
-				<a>Link4</a>
-				<a>Link5</a>
-			</div>
+			<p>© 2024 HurrShop. Tous droits réservés.</p>
+			<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
 		</footer>
 	</body>
 </html>
