@@ -238,6 +238,7 @@ class CartTest extends TestCase {
     public function test_clear_successful() {
         $user = User::factory()->create();
         $product = Product::factory()->create();
+        $user->cart()->attach($product, ["amount" => 1]);
 
         Auth::login($user);
 
@@ -245,5 +246,35 @@ class CartTest extends TestCase {
 
         $response->assertSuccessful();
         $this->assertEquals(null, $user->cart()->find($product));
+    }
+
+    /**
+     * Do not buy item in carts if there is not enough available quantity..
+     */
+    public function test_buy_not_enough() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(["amount" => 9]);
+        $user->cart()->attach($product, ["amount" => 10]);
+
+        Auth::login($user);
+
+        $response = $this->post("/cart/buy");
+
+        $response->assertInvalid(["tooManyItems" => [$product]]);
+    }
+
+    /**
+     * Successfully buy items in cart.
+     */
+    public function test_buy_success() {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(["amount" => 10]);
+        $user->cart()->attach($product, ["amount" => 10]);
+
+        Auth::login($user);
+
+        $response = $this->post("/cart/buy");
+
+        $response->assertRedirect();
     }
 }

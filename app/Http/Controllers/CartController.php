@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -60,9 +61,37 @@ class CartController extends Controller {
         return response(status: 200);
     }
 
+    /**
+     * Delete all items from cart.
+     *
+     * @return Response
+     */
     public function clear(): Response {
         Auth::user()->clearCart();
 
         return response(status: 200);
+    }
+
+    /**
+     * Buy items in cart then clear it.
+     *
+     * @return RedirectResponse
+     */
+    public function buy(): RedirectResponse {
+        $user = Auth::user();
+        $inCart = $user->getCartItems();
+
+        $errorItems = [];
+
+        foreach ($inCart as $item) {
+            if ($item->pivot->amount > $item->amount) array_push($errorItems, $item);
+        }
+
+        if(empty($errorItems)) {
+            $user->clearCart();
+            return redirect()->back();
+        } else {
+            return redirect()->back()->withErrors(["tooManyItems" => $errorItems]);
+        }
     }
 }
