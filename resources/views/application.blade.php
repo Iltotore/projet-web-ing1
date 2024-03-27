@@ -39,8 +39,18 @@
 				<p>HurrShop est votre nouvel espace de vente de materiaux.</p>
 				<hr>
 				<ul>
-					<li><a>Home</a></li>
-					<li><a>About</a></li>
+					<li><a href="/">Page d'accueil</a></li>
+				</ul>
+				<hr>
+				<ul id="product_list">
+					<h3>Produits</h3>
+					@foreach(\App\Models\Category::all() as $category)
+						<li><img src="{{ asset("img/placeholder.png") }}"/><a>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
+    				@endforeach
+				</ul>
+				<hr>
+				<ul>
+					<li><a href="/about">A propos</a></li>
 					<li><a>FAQ</a></li>
 					<li><a>Contact</a></li>
 				</ul>

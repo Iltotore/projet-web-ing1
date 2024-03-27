@@ -128,6 +128,9 @@ div#middle_zone {
 
 	border: 2px solid rgb(51, 51, 51);
 }
+
+/* Navigation bar */
+
 nav {
 	padding: 1%;
 	width: 10vw;
@@ -138,6 +141,26 @@ nav {
 
 	text-wrap: wrap;
 }
+nav a {
+	color: white;
+	text-decoration: none;
+}
+ul#product_list {
+	padding-left: 10px;
+}
+ul#product_list li {
+	list-style-type: none;
+
+	display: flex;
+	align-items: center;
+	margin-bottom: 2%;
+}
+ul#product_list li img {
+	width: 13%;
+	padding-right: 5%;
+}
+
+/* Main area */
 
 main {
 	flex: 1 1 auto;
