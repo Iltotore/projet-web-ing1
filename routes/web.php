@@ -24,8 +24,8 @@ Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 
-Route::post("/cart/add", [CartController::class, "add"]);
-Route::post("/cart/remove", [CartController::class, "remove"]);
-Route::post("/cart/delete", [CartController::class, "delete"]);
-Route::post("/cart/clear", [CartController::class, "clear"]);
-Route::post("/cart/buy", [CartController::class, "buy"]);
+Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
+Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");
+Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth");
+Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
+Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
