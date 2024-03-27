@@ -6,6 +6,9 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
 		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+		<!-- Style de la zone main -->
+		<link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
 	</head>
     <!-- Contenu de la page -->
 	<body>
@@ -43,7 +46,7 @@
 				</ul>
 			</nav>
 			<main>
-				@include('home_content')
+				@include($page_to_load ?? "error")
 			</main>
 		</div>
 
