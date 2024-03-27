@@ -16,9 +16,45 @@ class MiddlewareTest extends TestCase
     protected function setUp(): void {
         parent::setUp();
 
-        Route::get("/test/auth", function () {
+        $okResponse = function () {
             return response(status: 200);
-        })->middleware("auth");
+        };
+
+        Route::get("/test/admin", $okResponse)->middleware("admin");
+        Route::get("/test/auth", $okResponse)->middleware("auth");
+    }
+
+    /**
+     * Abort with 404 if user is not logged in.
+     */
+    public function test_admin_guest(): void
+    {
+        $response = $this->get("/test/admin");
+        $response->assertNotFound();
+    }
+
+    /**
+     * Abort with 404 if user is not an admin.
+     */
+    public function test_admin_no_permission(): void
+    {
+        $user = User::factory()->create(["is_admin" => false]);
+        Auth::login($user);
+
+        $response = $this->get("/test/admin");
+        $response->assertNotFound();
+    }
+
+    /**
+     * Do not redirect the user if logged in with an admin account.
+     */
+    public function test_admin_ok(): void
+    {
+        $user = User::factory()->create(["is_admin" => true]);
+        Auth::login($user);
+
+        $response = $this->get("/test/auth");
+        $response->assertSuccessful();
     }
 
     /**
