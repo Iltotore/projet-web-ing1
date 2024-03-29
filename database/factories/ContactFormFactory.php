@@ -18,8 +18,8 @@ class ContactFormFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => fake()->name(),
-            "firstname" => fake()->firstName(),
+            "first_name" => fake()->firstName(),
+            "last_name" => fake()->lastName(),
             "email" => fake()->email(),
             "gender" => fake()->boolean(),
             "birth" => fake()->date(),
