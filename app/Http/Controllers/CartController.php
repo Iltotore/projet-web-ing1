@@ -88,6 +88,10 @@ class CartController extends Controller {
         }
 
         if(empty($errorItems)) {
+            foreach ($inCart as $item) {
+                $item->amount -= $item->pivot->amount;
+                $item->save();
+            }
             $user->clearCart();
             return redirect()->back();
         } else {

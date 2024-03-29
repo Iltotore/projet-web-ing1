@@ -274,7 +274,9 @@ class CartTest extends TestCase {
         Auth::login($user);
 
         $response = $this->post("/cart/buy");
-
         $response->assertRedirect();
+        $response->assertValid();
+
+        $this->assertEquals(0, $product->refresh()->amount);
     }
 }
