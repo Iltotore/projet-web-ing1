@@ -160,6 +160,10 @@ ul#product_list li img {
 	padding-right: 5%;
 }
 
+.hidden {
+	display: none;
+}
+
 /* Main area */
 
 main {

@@ -13,6 +13,8 @@
     <!-- Contenu de la page -->
 	<body>
 		<header>
+			<button id="toggle_nav">Toggle Navbar</button>
+
 			<div id="logo_zone">
 				<img id="logo_icon" src="{{ asset("img/icon.webp") }}"/>
 				<img id="logo_text" src="{{ asset('img/logo.webp') }}"/>
@@ -26,16 +28,14 @@
 				</div>
 				<div id="link_zone">
 					<a>Accueil</a>
-					<a>Link2</a>
-					<a>Link3</a>
-					<a>Link4</a>
+					<a>Produits</a>
 					<a>Contact</a>
 				</div>
 			</div>
 		</header>
 
 		<div id="middle_zone">
-			<nav>
+			<nav id="navbar" class=hidden>
 				<p>HurrShop est votre nouvel espace de vente de materiaux.</p>
 				<hr>
 				<ul>
@@ -44,7 +44,7 @@
 				<hr>
 				<ul id="product_list">
 					<h3>Produits</h3>
-					@foreach(\App\Models\Category::all() as $category)
+					@foreach(\App\Models\Category::all()->sortBy('name') as $category)
 						<li><img src="{{ asset("img/placeholder.png") }}"/><a>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
     				@endforeach
 				</ul>
@@ -55,10 +55,20 @@
 					<li><a>Contact</a></li>
 				</ul>
 			</nav>
+			
 			<main>
 				@include($page_to_load ?? "error")
 			</main>
 		</div>
+
+		<script>
+			const navBar = document.getElementById('navbar');
+			const toggleNav = document.getElementById('toggle_nav');
+
+			toggleNav.addEventListener('click', function() {
+				navBar.classList.toggle('hidden');
+			});
+		</script>
 
 		<footer>
 			<div class="footer_grid">
