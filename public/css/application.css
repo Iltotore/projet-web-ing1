@@ -8,6 +8,80 @@ body {
 	font-family: 'Minecraft', sans-serif
 }
 
+/* Navigation bar */
+
+nav#navbar {
+	padding: 1%;
+	width: 12vw;
+	min-width: 200px;
+	min-height: 100vh;
+
+	background-image: url("../img/oak.webp");
+	background-size: 10vw;
+	color: rgb(255, 255, 255);
+	border-right: 2px solid rgba(25, 25, 25, 0.3);
+
+	text-wrap: wrap;
+}
+nav#navbar a {
+	color: white;
+	text-decoration: none;
+	margin-bottom: 0;
+}
+ul#product_list {
+	padding-left: 10px;
+}
+ul#product_list li {
+	list-style-type: none;
+
+	display: flex;
+	align-items: center;
+	margin-bottom: 2%;
+}
+ul#product_list li img {
+	width: 13%;
+	padding-right: 5%;
+}
+
+/* Dynamic navbar */
+
+#navbar {
+    position: fixed;
+    z-index: 9999;
+    
+	/* Animation */
+    transition: transform 0.2s;
+	transform: translateX(-92%);
+
+    overflow-y: auto;
+
+	box-shadow: 2px 0px 0.25em 0.1em rgba(0, 0, 0, 0.6);
+}
+#navbar.active {
+    transform: translateX(0);
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9998; /* Ensure the overlay is behind the navbar */
+    display: none;
+}
+#overlay.active {
+    display: block;
+}
+
+/* Main view */
+div#page_content {
+	margin-left: 1%;
+	display: flex;
+
+	flex-direction: column;
+	flex-grow: 1;
+}
+
 /* Header */
 
 header {
@@ -28,7 +102,7 @@ div#logo_zone {
 div#logo_zone img#logo_icon {
 	width: 4vw;
 	min-width: 13%;
-	margin-right: 1.3vw;
+	margin-right: 1.5vw;
 	box-shadow: 0px 0px 0.25em 0.1em rgba(255, 77, 0, 0.356);
 
 	animation: rotation 1s ease-in-out 0s infinite;
@@ -120,32 +194,15 @@ div#link_zone a {
 	}
 }
 
-/* Middle zone */
-
-div#middle_zone {
-	display: flex;
-	flex: 1 1 auto;
-
-	border: 2px solid rgb(51, 51, 51);
-}
-nav {
-	padding: 1%;
-	width: 10vw;
-
-	background-image: url("../img/oak.webp");
-	background-size: 10vw;
-	color: rgb(255, 255, 255);
-
-	text-wrap: wrap;
-}
+/* Main area */
 
 main {
 	flex: 1 1 auto;
-	padding: 1vw;
+	padding: 2vw;
 
 	background-image: url("../img/stone.webp");
 	background-size: 10vw;
-	box-shadow: inset 3px 0px 0.25em 0.2em rgba(0, 0, 0, 0.552);
+	box-shadow: inset 0px 0px 0.25em 0.2em rgba(0, 0, 0, 0.552);
 	color:white
 }
 
