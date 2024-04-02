@@ -66,7 +66,7 @@
 						<a>Plan du site</a>
 					</div>
 					<div class="footer_column">
-						<a>A propos</a>
+						<a href="/about">A propos</a>
 						<a>Contact</a>
 						<a>FAQ</a>
 					</div>

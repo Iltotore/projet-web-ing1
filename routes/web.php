@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('application', 
-	["page_to_load" => "home"],
-	["title" => "Accueil"]
-);});
-Route::get('/about', function () {return view('application', 
-	["page_to_load" => "about"],
-	["title" => "À propos"]
-);});
+Route::get('/', function () {return view('application', [
+	"page_to_load" => "home",
+	"title" => "Accueil"
+]);});
+Route::get('/about', function () {return view('application', [
+	"page_to_load" => "about",
+	"title" => "À propos"
+]);});
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 Route::post("/auth/login", [AuthController::class, "login"]);
