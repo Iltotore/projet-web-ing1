@@ -13,7 +13,7 @@
     <!-- Contenu de la page -->
 	<body>
 		<nav id="navbar">
-			<p>HurrShop est votre nouvel espace de vente de materiaux.</p>
+			<p>HurrShop est votre nouvel espace d'achat d'equipements et materiaux.</p>
 			<hr>
 			<ul>
 				<li><a href="/">Page d'accueil</a></li>

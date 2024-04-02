@@ -50,12 +50,12 @@ ul#product_list li img {
     z-index: 9999;
     
 	/* Animation */
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s;
 	transform: translateX(-92%);
 
     overflow-y: auto;
 
-	box-shadow: 2px 0px 0.25em 0.1em rgba(0, 0, 0, 0.356);
+	box-shadow: 2px 0px 0.25em 0.1em rgba(0, 0, 0, 0.6);
 }
 #navbar.active {
     transform: translateX(0);
@@ -102,7 +102,7 @@ div#logo_zone {
 div#logo_zone img#logo_icon {
 	width: 4vw;
 	min-width: 13%;
-	margin-right: 1.3vw;
+	margin-right: 1.5vw;
 	box-shadow: 0px 0px 0.25em 0.1em rgba(255, 77, 0, 0.356);
 
 	animation: rotation 1s ease-in-out 0s infinite;
