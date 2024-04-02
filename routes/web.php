@@ -15,9 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('application', ["page_to_load" => "home"]);});
-Route::get('/about', function () {return view('application', ["page_to_load" => "about"]);});
-Route::get('/404_test', function () {return view('application');});
+Route::get('/', function () {return view('application', 
+	["page_to_load" => "home"],
+	["title" => "Accueil"]
+);});
+Route::get('/about', function () {return view('application', 
+	["page_to_load" => "about"],
+	["title" => "À propos"]
+);});
+Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/logout", [AuthController::class, "logout"]);
