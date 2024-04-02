@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 	<head>
 		<link rel="icon" href="{{ asset("img/icon.webp") }}">
-		<title>HurrShop</title>
+		<title>HurrShop{{ isset($title) ? ' - ' . $title : '' }}</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
 		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
@@ -66,7 +66,7 @@
 						<a>Plan du site</a>
 					</div>
 					<div class="footer_column">
-						<a>A propos</a>
+						<a href="/about">A propos</a>
 						<a>Contact</a>
 						<a>FAQ</a>
 					</div>
