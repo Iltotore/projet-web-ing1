@@ -88,6 +88,17 @@ Route::get('/reset-password/{token}', function ($token) {
 
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
+// Admin-only
+Route::get('/admin/products', function () {return view('application', [
+	"page_to_load" => "admin_products",
+	"title" => "Gestion produits"
+]);});
+Route::get('/admin/users', function () {return view('application', [
+	"page_to_load" => "admin_users",
+	"title" => "Gestion utilisateurs"
+]);});
+	
+
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::get("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);

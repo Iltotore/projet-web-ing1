@@ -1,0 +1,81 @@
+main {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3vw;
+}
+
+/* User list */
+
+main div#user_list {
+	background: rgba(0, 0, 0, 0.6);
+	padding: 1vw;
+}
+
+main div#user_details {
+	background: rgba(73, 35, 1, 0.6);
+}
+
+main hr {
+	margin: 0.8vw 0;
+}
+
+/* Seach bar */
+
+.search_container {
+	display: flex;
+	align-items: center;
+	max-width: 70%;
+	margin: 0 auto;
+
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.search_icon {
+	max-width: 4%;
+
+	color: white;
+	padding: 0.5vw;
+}
+
+.search_input {
+	flex: 1;
+	background: none;
+	border: none;
+	padding: 0.5vw;
+
+	color:white;
+	font-family: 'Minecraft', sans-serif;
+	font-size: 100%;
+}
+
+.search_input:focus {
+	outline: none;
+}
+
+/* User table */
+
+div#user_table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+div#user_table th, div#user_table td {
+	padding: 0.1vw;
+	text-align: center;
+}
+
+div#user_table thead {
+	background: rgba(0, 0, 0, 0.65);
+}
+
+div#user_table tbody {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+div#user_table tbody td {
+	padding: 0.4vw;
+}
+
+div#user_table tbody tr:hover {
+	background: rgba(0, 0, 0, 0.5);
+}
