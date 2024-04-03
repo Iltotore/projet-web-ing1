@@ -27,7 +27,7 @@
                     <input type="text" name="name" class="name" required/>
                     <label for="email">Email: </label>
                     <input type="email" name="email" class="email" required/>
-                    <label for="first_name">Prénom: </label>
+                    <label for="first_name">Prenom: </label>
                     <input type="first_name" name="first_name" class="first_name"/>
                     <label for="last_name">Nom: </label>
                     <input type="text" name="last_name" class="last_name" />
@@ -42,7 +42,7 @@
                         <label for="gender">Autre </label>
                         <input type="radio" name="gender" value="other" class="gender"/>
                     </div>
-                    <label for="profession">Métier: </label>
+                    <label for="profession">Metier: </label>
                     <input type="text" name="profession" class="profession"/>
                     <label for="password">Mot de passe: </label>
                     <input type="password" name="password" class="password" required/>
