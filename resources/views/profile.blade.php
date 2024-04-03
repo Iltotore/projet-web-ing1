@@ -35,7 +35,7 @@
                 <input type="password" name="password_confirmation" class="password" required/>
             </div>
             <div class="button">
-                <input type="submit" value="Inscription"/>
+                <input type="submit" value="Mettre a jour le profil"/>
             </div>
             </form>
         </div>

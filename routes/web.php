@@ -27,6 +27,10 @@ Route::get('/login', function () {return view('application', [
 	"page_to_load" => "login",
 	"title" => "Connexion"
 ]);});
+Route::get('/profile', function () {return view('application', [
+	"page_to_load" => "profile",
+	"title" => "Votre profil"
+]);});
 Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"

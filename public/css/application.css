@@ -273,6 +273,7 @@ input[type=submit]{
 	background-size: 100% 100%;
 	font-family: 'Minecraft', sans-serif;
 	cursor: pointer;
+	color: white;
 }
 
 input[type=submit]:hover{

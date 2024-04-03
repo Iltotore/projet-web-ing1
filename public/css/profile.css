@@ -1,0 +1,7 @@
+.sign {
+    background-image: url("../img/signtropstylezebi.png");
+    padding : 2.5%;
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
