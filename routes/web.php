@@ -29,6 +29,7 @@ Route::fallback(function () {return view('application', ["page_to_load" => "erro
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
+Route::post("/auth/update", [AuthController::class, "update"])->middleware("auth");
 
 Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
 Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");
