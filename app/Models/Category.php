@@ -19,6 +19,13 @@ class Category extends Model
         'icon',
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function (Category $category) {
+            $category->products()->delete();
+        });
+    }
+
     use HasFactory;
 
     public function products(): HasMany
