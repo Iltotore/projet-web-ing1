@@ -63,7 +63,7 @@ class AuthController extends Controller {
         $infos = $request->validate([
             "name" => ["required", "string", "max:255", "unique:users,name"],
             "email" => ["required", "email", "unique:users,email"],
-            "password" => ["required", "confirmed"],
+            "password" => ["required", "confirmed", "between:8,100"],
             "password_confirmation" => ["required"],
             "first_name" => ["string", "max:255"],
             "last_name" => ["string", "max:255"],
@@ -97,7 +97,7 @@ class AuthController extends Controller {
         $infos = $request->validate([
             "name" => ["required", "string", "max:255", "unique:users,name"],
             "email" => ["required", "email", "unique:users,email"],
-            "password" => ["confirmed"],
+            "password" => ["confirmed", "between:8,100"],
             "password_confirmation" => [],
             "first_name" => ["string", "max:255"],
             "last_name" => ["string", "max:255"],
