@@ -249,7 +249,7 @@ class CartTest extends TestCase {
     }
 
     /**
-     * Do not buy item in carts if there is not enough available quantity..
+     * Do not buy item in carts if there is not enough available quantity.
      */
     public function test_buy_not_enough() {
         $user = User::factory()->create();

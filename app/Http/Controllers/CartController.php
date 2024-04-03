@@ -20,7 +20,7 @@ class CartController extends Controller {
     public function add(Request $request): JsonResponse {
         $args = $request->validate([
             "product" => ["required", "exists:products,id"],
-            "amount" => ["required", "numeric", "gt:0"]
+            "amount" => ["required", "integer", "gt:0"]
         ]);
 
         $result = Auth::user()->addCartItem(Product::find($args["product"]), $args["amount"]);
@@ -37,7 +37,7 @@ class CartController extends Controller {
     public function remove(Request $request): JsonResponse {
         $args = $request->validate([
             "product" => ["required", "exists:products,id"],
-            "amount" => ["required", "numeric", "gt:0"]
+            "amount" => ["required", "integer", "gt:0"]
         ]);
 
         $result = Auth::user()->removeCartItem(Product::find($args["product"]), $args["amount"]);

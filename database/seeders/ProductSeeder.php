@@ -493,7 +493,7 @@ class ProductSeeder extends Seeder
         $fruits->products()->create([
             "name" => "feu de camp",
             "icon" => "Campfire_JE2_BE2.webp",
-            "description" => "La tranche de pastèque scintillante est un objet qui s'obtient via la fabrication à partir d'une tranche de pastèque et de pépites d'or. Elle est utilisée en alchimie pour fabriquer des potions de santé instantanée. ",
+            "description" => "Le feu de camp est un bloc lumineux pouvant être utilisé pour cuire de la nourriture ou émettre des signaux de fumée. ",
             "unit_price" => 3,
             "amount" => 16
         ]);

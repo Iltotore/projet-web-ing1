@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
@@ -43,3 +44,17 @@ Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
 
 Route::post("/contact/create", [ContactController::class, "create"]);
 Route::post("/contact/delete", [ContactController::class, "delete"]);
+
+Route::post("/admin/category/get", [AdminController::class, "getCategories"])->middleware("admin");
+Route::post("/admin/category/add", [AdminController::class, "addCategory"])->middleware("admin");
+Route::post("/admin/category/remove", [AdminController::class, "removeCategory"])->middleware("admin");
+Route::post("/admin/category/update", [AdminController::class, "updateCategory"])->middleware("admin");
+Route::post("/admin/product/add", [AdminController::class, "addProduct"])->middleware("admin");
+Route::post("/admin/product/remove", [AdminController::class, "removeProduct"])->middleware("admin");
+Route::post("/admin/product/update", [AdminController::class, "updateProduct"])->middleware("admin");
+Route::post("/admin/product/get", [AdminController::class, "getProducts"])->middleware("admin");
+Route::post("/admin/user/add", [AdminController::class, "addUser"])->middleware("admin");
+Route::post("/admin/user/remove", [AdminController::class, "removeUser"])->middleware("admin");
+Route::post("/admin/user/resetPassword", [AdminController::class, "resetPassword"])->middleware("admin");
+Route::post("/admin/contact/get", [AdminController::class, "getContacts"])->middleware("admin");
+Route::post("/admin/contact/reply", [AdminController::class, "replyContact"])->middleware("admin");

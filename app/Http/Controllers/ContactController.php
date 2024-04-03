@@ -48,7 +48,7 @@ class ContactController extends Controller {
      */
     function delete(Request $request): Response {
         $args = $request->validate([
-            "id" => ["required", "exists:contact_form"]
+            "id" => ["required", "exists:contact_forms"]
         ]);
 
         ContactForm::find($args["id"])->delete();
