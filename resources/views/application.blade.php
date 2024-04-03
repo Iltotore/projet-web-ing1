@@ -22,7 +22,7 @@
 			<ul id="product_list">
 				<h3>Produits</h3>
 				@foreach(\App\Models\Category::all()->sortBy('name') as $category)
-					<li><img src="{{ asset("img/placeholder.png") }}"/><a>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
+					<li><a><img src="{{ asset("category/" . $category['icon']) }}"/>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
 				@endforeach
 			</ul>
 			<hr>

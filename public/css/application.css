@@ -27,7 +27,13 @@ nav#navbar a {
 	color: white;
 	text-decoration: none;
 	margin-bottom: 0;
+	display: flex;
+	align-items: center;
 }
+nav#navbar a:hover {
+	text-decoration: underline;
+}
+
 ul#product_list {
 	padding-left: 10px;
 }
@@ -37,6 +43,10 @@ ul#product_list li {
 	display: flex;
 	align-items: center;
 	margin-bottom: 2%;
+}
+ul#product_list li:hover {
+	transition: transform 0.2s;
+	transform: translateY(-3px);
 }
 ul#product_list li img {
 	width: 13%;
