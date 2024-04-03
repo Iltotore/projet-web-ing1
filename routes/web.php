@@ -31,3 +31,4 @@ Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth")
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
 
 Route::post("/contact/create", [ContactController::class, "create"]);
+Route::post("/contact/delete", [ContactController::class, "delete"]);

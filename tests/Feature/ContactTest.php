@@ -61,4 +61,28 @@ class ContactTest extends TestCase {
 
         $this->assertEquals(1, ContactForm::count());
     }
+
+    /**
+     * Return errors when sent data are either missing or invalid.
+     */
+    public function test_delete_invalid() {
+        $missingResponse = $this->post("/contact/delete");
+        $missingResponse->assertInvalid(["id"]);
+
+        $invalidResponse = $this->postJson("/contact/delete", ["id" => 1]);
+        $invalidResponse->assertInvalid(["id"]);
+    }
+
+    /**
+     * Successfully delete a contact ticket if the passed arguments are valid.
+     */
+    public function test_delete_successful() {
+        $form = ContactForm::factory()->create();
+
+        $response = $this->postJson("/contact/delete", ["id" => $form->id]);
+        $response->assertSuccessful();
+        $response->assertValid();
+
+        $this->assertEquals(0, ContactForm::count());
+    }
 }

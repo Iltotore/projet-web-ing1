@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ContactForm;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ContactController extends Controller {
 
@@ -37,5 +38,21 @@ class ContactController extends Controller {
         //TODO send mail
 
         return redirect()->to("/");
+    }
+
+    /**
+     * Delete an existing ticket.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    function delete(Request $request): Response {
+        $args = $request->validate([
+            "id" => ["required", "exists:contact_form"]
+        ]);
+
+        ContactForm::find($args["id"])->delete();
+
+        return response(status: 200);
     }
 }
