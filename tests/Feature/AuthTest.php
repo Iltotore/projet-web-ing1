@@ -170,4 +170,61 @@ class AuthTest extends TestCase {
             ->where("email", "=", $email)
             ->count() == 1;
     }
+
+    /**
+     * Return an error when the password and confirmation do not match together.
+     */
+    function test_update_invalid() {
+        $user = User::factory()->create();
+        Auth::login($user);
+
+        $missingResponse = $this->post("/auth/update");
+        $missingResponse->assertRedirect();
+        $missingResponse->assertInvalid(["name", "email"]);
+
+        $invalidResponse = $this->post(
+            "/auth/update",
+            [
+                "name" => "",
+                "email" => "abc",
+                "password" => "",
+                "password_confirmation" => "a",
+                "first_name" => str_repeat("a", 256),
+                "last_name" => str_repeat("a", 256),
+                "birth" => "",
+                "job_id" => 2
+            ]
+        );
+
+        $invalidResponse->assertRedirect();
+        $invalidResponse->assertInvalid(["name", "email", "password", "first_name", "last_name", "birth", "job_id"]);
+    }
+
+    /**
+     * Successfully register a new user for valid form parameters.
+     */
+    function test_update_successful() {
+        $user = User::factory()->create();
+        Auth::login($user);
+
+        $body = [
+            "name" => fake()->name(),
+            "email" => fake()->email(),
+            "first_name" => fake()->firstName(),
+            "last_name" => fake()->lastName(),
+            "birth" => fake()->date()
+        ];
+
+        $noPassword = $this->post("/auth/update", $body);
+
+        $noPassword->assertRedirect();
+        $noPassword->assertValid();
+
+        $user->refresh();
+
+        foreach (["name", "email", "first_name", "last_name", "birth"] as $column) {
+            $this->assertEquals($body[$column], $user[$column]);
+        }
+
+    }
 }
