@@ -64,15 +64,23 @@ class AuthController extends Controller {
             "name" => ["required", "string", "max:255", "unique:users,name"],
             "email" => ["required", "email", "unique:users,email"],
             "password" => ["required", "confirmed"],
-            "password_confirmation" => ["required"]
+            "password_confirmation" => ["required"],
+            "first_name" => ["optional", "string", "max:255"],
+            "last_name" => ["optional", "string", "max:255"],
+            "birth" => ["optional", "date"],
+            "job_id" => ["optional", "exists:job,id"]
         ]);
 
-        $newUser = User::create([
-            "name" => $infos["name"],
-            "email" => $infos["email"],
-            "password" => $infos["password"],
-            "is_admin" => false
-        ]);
+        $gender = $request->gender;
+
+        if($gender == null) $infos["gender"] = null;
+        else if($gender == "male") $infos["gender"] = false;
+        else if($gender == "female") $infos["gender"] = true;
+        else return back()->withErrors(["gender" => "Invalid gender"]);
+
+        $infos["is_admin"] = false;
+
+        $newUser = User::create($infos);
 
         return redirect()
             ->to("/registered")

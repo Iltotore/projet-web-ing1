@@ -22,7 +22,11 @@ class User extends Authenticatable {
         "name",
         "email",
         "password",
-        "is_admin"
+        "is_admin",
+        "first_name",
+        "last_name",
+        "birth",
+        "gender"
     ];
 
     /**
