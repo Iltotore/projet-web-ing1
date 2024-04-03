@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,6 @@ Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth
 Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth");
 Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
+
+Route::post("/contact/create", [ContactController::class, "create"]);
+Route::post("/contact/delete", [ContactController::class, "delete"]);

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class ContactFormFactory extends Factory
             "email" => fake()->email(),
             "gender" => fake()->boolean(),
             "birth" => fake()->date(),
-            "job_id" => Category::factory(),
+            "job_id" => Job::factory(),
             "subject" => fake()->word(),
             "content" => fake()->sentences(asText: true)
         ];
