@@ -7,13 +7,14 @@ use App\Models\ContactForm;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Parser\Php7;
 use Tests\TestCase;
 
 class AdminTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase; // refresh database between tests
 
     /**
      * Successfully get the product list.
@@ -37,21 +38,21 @@ class AdminTest extends TestCase
         Auth::login($user);
 
         $missingData = $this->postJson("/admin/product/add");
-        $missingData->assertInvalid(["name", "description", "icon", "unit_price", "amount", "category_id"]);
+        $missingData->assertInvalid(["name", "description", "icon_data", "unit_price", "amount", "category_id"]);
 
         $invalidData = $this->postJson(
             "/admin/product/add",
             [
                 "name" => "",
                 "description" => "",
-                "icon" => "file",
+                "icon_data" => "file",
                 "unit_price" => -0.5,
                 "amount" => -5,
                 "category_id" => 9999
             ]
         );
 
-        $invalidData->assertInvalid(["name", "description", "icon", "unit_price", "amount", "category_id"]);
+        $invalidData->assertInvalid(["name", "description", "icon_data", "unit_price", "amount", "category_id"]);
     }
 
     /**
@@ -59,7 +60,8 @@ class AdminTest extends TestCase
      */
     public function test_add_successful_product() {
         $user = User::factory()->create(["is_admin" => true]);
-        $category = Category::factory()->create(["id" => 1]);
+        $category = Category::factory()->create();
+        $file = UploadedFile::fake()->create('fake.webp');
 
         Auth::login($user);
 
@@ -68,13 +70,21 @@ class AdminTest extends TestCase
             [
                 "name" => "product 01",
                 "description" => "This is the product n°01",
-                "icon" => fake()->file,
+                "icon_data" => $file,
                 "unit_price" => 0.5,
                 "amount" => 5,
                 "category_id" => $category->id
             ]
         );
         $response->assertSuccessful();
+        $response->assertJson([
+            "id" => 1,
+            "name" => "product 01",
+            "description" => "This is the product n°01",
+            "unit_price" => 0.5,
+            "amount" => 5,
+            "category_id" => $category->id
+        ]);
     }
 
     /**
@@ -103,14 +113,14 @@ class AdminTest extends TestCase
      */
     public function test_remove_successful_product() {
         $user = User::factory()->create(["is_admin" => true]);
-        $product = Product::factory()->create(["id" => 1]);
+        $product = Product::factory()->create();
 
         Auth::login($user);
 
         $response = $this->postJson(
             "/admin/product/remove",
             [
-                "id" => 1
+                "id" => $product->id
             ]
         );
         $response->assertSuccessful();
@@ -131,14 +141,14 @@ class AdminTest extends TestCase
             "/admin/product/update",
             [
                 "id" => 9999,
-                "icon" => "test",
+                "icon_data" => "test",
                 "unit_price" => "abc",
                 "amount" => -1,
                 "category_id" => 9999
             ]
         );
 
-        $invalidData->assertInvalid(["id", "icon", "unit_price", "amount", "category_id"]);
+        $invalidData->assertInvalid(["id", "icon_data", "unit_price", "amount", "category_id"]);
     }
 
     /**
@@ -146,25 +156,34 @@ class AdminTest extends TestCase
      */
     public function test_update_successful_product() {
         $user = User::factory()->create(["is_admin" => true]);
-        $category = Category::factory()->create(["id" => 1]);
+        $category = Category::factory()->create();
         $category2 = Category::factory()->create(["id" => 2]);
-        $product = Product::factory()->create(["id" => 1, "category_id" => 1]);
+        $product = Product::factory()->create(["category_id" => $category->id]);
+        $file = UploadedFile::fake()->create('fake.webp');
 
         Auth::login($user);
 
         $response = $this->postJson(
             "/admin/product/update",
             [
-                "id" => 1,
+                "id" => $product->id,
                 "name" => "abc",
                 "description" => "abc",
-                "icon" => "file.webp",
+                "icon_data" => $file,
                 "unit_price" => 10.10,
                 "amount" => 10,
-                "category_id" => 2
+                "category_id" => $category2->id
             ]
         );
         $response->assertSuccessful();
+        $response->assertJson([
+            "id" => $product->id,
+            "name" => "abc",
+            "description" => "abc",
+            "unit_price" => 10.10,
+            "amount" => 10,
+            "category_id" => 2
+        ]);
     }
 
     /**
@@ -189,17 +208,17 @@ class AdminTest extends TestCase
         Auth::login($user);
 
         $missingData = $this->postJson("/admin/product/add");
-        $missingData->assertInvalid(["name", "icon"]);
+        $missingData->assertInvalid(["name", "icon_data"]);
 
         $invalidData = $this->postJson(
             "/admin/category/add",
             [
                 "name" => "",
-                "icon" => "file"
+                "icon_data" => "file"
             ]
         );
 
-        $invalidData->assertInvalid(["name", "icon"]);
+        $invalidData->assertInvalid(["name", "icon_data"]);
     }
 
     /**
@@ -208,6 +227,7 @@ class AdminTest extends TestCase
     public function test_add_successful_category() {
         $user = User::factory()->create(["is_admin" => true]);
         $category = Category::factory()->create(["id" => 1]);
+        $file = UploadedFile::fake()->create('fake.webp');
 
         Auth::login($user);
 
@@ -215,10 +235,13 @@ class AdminTest extends TestCase
             "/admin/category/add",
             [
                 "name" => "product 01",
-                "icon" => "product01.webp"
+                "icon_data" => $file
             ]
         );
         $response->assertSuccessful();
+        $response->assertJson([
+            "name" => "product 01"
+        ]);
     }
 
     /**
@@ -229,8 +252,8 @@ class AdminTest extends TestCase
 
         Auth::login($user);
 
-        $missingData = $this->postJson("/admin/product/add");
-        $missingData->assertInvalid(["name", "icon"]);
+        $missingData = $this->postJson("/admin/category/remove");
+        $missingData->assertInvalid(["id"]);
 
         $invalidData = $this->postJson(
             "/admin/category/remove",
@@ -247,17 +270,65 @@ class AdminTest extends TestCase
      */
     public function test_remove_successful_category() {
         $user = User::factory()->create(["is_admin" => true]);
-        $category = Category::factory()->create(["id" => 1]);
+        $category = Category::factory()->create();
 
         Auth::login($user);
 
         $response = $this->postJson(
             "/admin/category/remove",
             [
-                "id" => 1
+                "id" => $category->id
             ]
         );
         $response->assertSuccessful();
+    }
+
+    /**
+     * Return errors when sent product data are either missing or invalid.
+     */
+    public function test_update_invalid_category(): void {
+        $user = User::factory()->create(["is_admin" => true]);
+
+        Auth::login($user);
+
+        $missingData = $this->postJson("/admin/category/update");
+        $missingData->assertInvalid(["id", "name", "icon_data"]);
+
+        $invalidData = $this->postJson(
+            "/admin/category/update",
+            [
+                "id" => 9999,
+                "name" => "",
+                "icon_data" => "file"
+            ]
+        );
+
+        $invalidData->assertInvalid(["id", "name", "icon_data"]);
+    }
+
+    /**
+     * Successfully update product when valid arguments are given.
+     */
+    public function test_update_successful_category() {
+        $user = User::factory()->create(["is_admin" => true]);
+        $category = Category::factory()->create();
+        $file = UploadedFile::fake()->create('fake.webp');
+
+        Auth::login($user);
+
+        $response = $this->postJson(
+            "/admin/category/update",
+            [
+                "id" => $category->id,
+                "name" => "abc",
+                "icon_data" => $file
+            ]
+        );
+        $response->assertSuccessful();
+        $response->assertJson([
+            "id" => $category->id,
+            "name" => "abc"
+        ]);
     }
 
     /**
@@ -302,6 +373,11 @@ class AdminTest extends TestCase
             ]
         );
         $response->assertSuccessful();
+        $response->assertJson([
+            "name" => "name",
+            "email" => "name@email.com",
+            "is_admin" => 0
+        ]);
     }
 
     /**
@@ -341,6 +417,7 @@ class AdminTest extends TestCase
             ]
         );
         $response->assertSuccessful();
+
     }
 
     /**
@@ -380,6 +457,9 @@ class AdminTest extends TestCase
             ]
         );
         $response->assertSuccessful();
+        $response->assertJson([
+            "id" => $user2->id
+        ]);
     }
 
     /**
@@ -390,11 +470,11 @@ class AdminTest extends TestCase
 
         Auth::login($user);
 
-        $missingData = $this->postJson("/admin/contactForm/reply");
+        $missingData = $this->postJson("/admin/contact/reply");
         $missingData->assertInvalid(["id", "mailBody"]);
 
         $invalidData = $this->postJson(
-            "/admin/contactForm/reply",
+            "/admin/contact/reply",
             [
                 "id" => 9999,
                 "mailBody" => ""
@@ -410,14 +490,15 @@ class AdminTest extends TestCase
     public function test_replyContactForm_successful() {
         $user = User::factory()->create(["is_admin" => true]);
         $form = ContactForm::factory()->create();
+        $sentences = fake()->sentences(asText: true);
 
         Auth::login($user);
 
         $response = $this->postJson(
-            "/admin/contactForm/reply",
+            "/admin/contact/reply",
             [
                 "id" => $form->id,
-                "mailBody" => fake()->sentences
+                "mailBody" => $sentences
             ]
         );
         $response->assertSuccessful();
@@ -427,13 +508,13 @@ class AdminTest extends TestCase
     /**
      * Successfully get the contact form list.
      */
-    public function test_getContactForms_successful() {
+    public function test_getContacts_successful() {
         $user = User::factory()->create(["is_admin" => true]);
         $form = ContactForm::factory()->create();
 
         Auth::login($user);
 
-        $response = $this->postJson("/admin/contactForm/get");
+        $response = $this->postJson("/admin/contact/get");
         $response->assertSuccessful();
     }
 }

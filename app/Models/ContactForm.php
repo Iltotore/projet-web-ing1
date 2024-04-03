@@ -27,8 +27,6 @@ class ContactForm extends Model
         'content',
     ];
 
-    protected $table = "contact_form";
-
     function job(): HasOne {
         return $this->hasOne(Job::class);
     }
