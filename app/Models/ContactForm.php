@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ContactForm extends Model
 {
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -17,14 +18,14 @@ class ContactForm extends Model
     protected $fillable = [
         'name',
         'first_name',
+        'last_name',
         'email',
         'gender',
         'birth',
+        'job_id',
         'subject',
         'content',
     ];
-
-    use HasFactory;
 
     function job(): HasOne {
         return $this->hasOne(Job::class);
