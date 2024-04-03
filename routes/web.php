@@ -20,6 +20,10 @@ Route::get('/', function () {return view('application', [
 	"page_to_load" => "home",
 	"title" => "Accueil"
 ]);});
+Route::get('/login', function () {return view('application', [
+	"page_to_load" => "login",
+	"title" => "Connexion"
+]);});
 Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"
