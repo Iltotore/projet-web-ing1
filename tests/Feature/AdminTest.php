@@ -21,11 +21,17 @@ class AdminTest extends TestCase
      */
     public function test_getProducts_successful() {
         $user = User::factory()->create(["is_admin" => true]);
-        $product = Product::factory()->create();
+        $category = Category::factory()->create();
+        $product = Product::factory()->create(["category_id" => $category->id]);
 
         Auth::login($user);
 
-        $response = $this->postJson("/admin/product/get");
+        $response = $this->postJson(
+            "/admin/product/get",
+            [
+                "category" => $product->category_id
+            ]
+        );
         $response->assertSuccessful();
     }
 

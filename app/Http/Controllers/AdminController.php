@@ -19,9 +19,13 @@ class AdminController extends Controller
      *
      * @return JsonResponse
      */
-    public function getProducts(): JsonResponse
+    public function getProducts(Request $request): JsonResponse
     {
-        $products = Product::all();
+        $args = $request->validate([
+            "category" =>  ["required", "integer", "exists:categories,id"]
+        ]);
+
+        $products = Product::where("category_id", "=", $args["category"]);
 
         return response()->json($products);
     }
