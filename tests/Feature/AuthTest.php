@@ -40,7 +40,7 @@ class AuthTest extends TestCase {
             "/auth/login",
             [
                 "name" => fake()->userName(),
-                "password" => fake()->password()
+                "password" => fake()->password(8, 100)
             ]
         );
 
@@ -52,7 +52,7 @@ class AuthTest extends TestCase {
      * Successfully authenticate the user when valid credentials are given.
      */
     public function test_login_success() {
-        $password = fake()->password();
+        $password = fake()->password(8, 100);
         $user = User::factory()->create(["password" => $password]);
 
         $response = $this->post(
@@ -150,7 +150,7 @@ class AuthTest extends TestCase {
     public function test_register_successful() {
         $name = fake()->userName();
         $email = fake()->email();
-        $password = fake()->password();
+        $password = fake()->password(8, 100);
 
         $request = $this->post(
             "/auth/register",

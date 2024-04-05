@@ -17,15 +17,15 @@ class UserSeeder extends Seeder
             "name" => "Steve", // pseudo
             "email" => "steve@minecraft.block",
             "email_verified_at" => "2009-05-17",
-            "password" => "Hmm",
-            "is_admin" => false/*,
+            "password" => "Hmmmmmmm",
+            "is_admin" => false,
         // optional data
             "first_name" => "Steve",
             "last_name" => "Rogers",
             "birth" => "1970-01-01",
             "gender" => "0", // male
             "job_id" => ""
-            */
+
         ]);
 
         User::create([
@@ -34,14 +34,14 @@ class UserSeeder extends Seeder
             "email" => "notch@minecraft.block",
             "email_verified_at" => "2009-05-17",
             "password" => "Hmm",
-            "is_admin" => true/*,
+            "is_admin" => true,
         // optional data
             "first_name" => "Markus",
             "last_name" => "Persson",
             "birth" => "1979-06-01",
             "gender" => "0", // male
             "job_id" => ""
-            */
+
         ]);
     }
 }

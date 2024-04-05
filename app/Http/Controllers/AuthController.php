@@ -22,7 +22,7 @@ class AuthController extends Controller {
 
         $credentials = $request->validate([
             "name" => ["required", "string", "max:255"],
-            "password" => ["required"],
+            "password" => ["required", "between:8,100"],
         ]);
 
         $redirect = $request->redirect ?? "/";
