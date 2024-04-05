@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,13 @@ Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"
 ]);});
+Route::get('/cart', function () {
+    Auth::login(User::find(2));
+    return view('application', [
+    "page_to_load" => "cart",
+    "title" => "Mon panier"
+]);});
+
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 Route::post("/auth/login", [AuthController::class, "login"]);

@@ -9,6 +9,7 @@
 
 		<!-- Style de la zone main -->
 		<link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
+        <script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
 	</head>
     <!-- Contenu de la page -->
 	<body>
