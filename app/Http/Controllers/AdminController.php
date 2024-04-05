@@ -193,6 +193,18 @@ class AdminController extends Controller
     }
 
     /**
+     * get the users list.
+     *
+     * @return JsonResponse
+     */
+    public function getUsers(): JsonResponse
+    {
+        $users = User::all();
+
+        return response()->json($users);
+    }
+
+    /**
      * Add a given user in the database.
      *
      * @param Request $request

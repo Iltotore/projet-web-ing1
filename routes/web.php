@@ -62,6 +62,7 @@ Route::post("/admin/product/add", [AdminController::class, "addProduct"])->middl
 Route::post("/admin/product/remove", [AdminController::class, "removeProduct"])->middleware("admin");
 Route::post("/admin/product/update", [AdminController::class, "updateProduct"])->middleware("admin");
 Route::post("/admin/product/get", [AdminController::class, "getProducts"])->middleware("admin");
+Route::post("/admin/user/get", [AdminController::class, "getUsers"])->middleware("admin");
 Route::post("/admin/user/add", [AdminController::class, "addUser"])->middleware("admin");
 Route::post("/admin/user/remove", [AdminController::class, "removeUser"])->middleware("admin");
 Route::post("/admin/user/resetPassword", [AdminController::class, "resetPassword"])->middleware("admin");

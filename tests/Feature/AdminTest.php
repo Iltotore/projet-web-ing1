@@ -338,6 +338,19 @@ class AdminTest extends TestCase
     }
 
     /**
+     * Successfully get the users list.
+     */
+    public function test_getUsers_successful() {
+        $user = User::factory()->create(["is_admin" => true]);
+        User::factory()->create();
+
+        Auth::login($user);
+
+        $response = $this->postJson("/admin/user/get");
+        $response->assertSuccessful();
+    }
+
+    /**
      * Return errors when sent user data are either missing or invalid.
      */
     public function test_add_invalid_user(): void {
