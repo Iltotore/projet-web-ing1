@@ -34,7 +34,7 @@ async function addItem(id, token) {
         switch (jsonResponse.state) {
             case "ok":
                 itemAmount.innerHTML = "x" + jsonResponse.amount
-                itemAdd.enable()
+                itemAdd.disabled = false
                 break
 
             case "full":
@@ -80,5 +80,21 @@ async function deleteItem(id, token) {
     const result = await sendJSON("/cart/delete", {product: id, _token: token})
     if(result.status === 200) {
         document.getElementById("item#" + id).remove()
+    }
+}
+
+async function buyItems(token) {
+    const result = await sendJSON("/cart/buy", {_token: token})
+
+    if(result.status === 200) {
+        document.getElementById("items").innerHTML = ""
+    }
+}
+
+async function clearItems(token) {
+    const result = await sendJSON("/cart/clear", {_token: token})
+
+    if(result.status === 200) {
+        document.getElementById("items").innerHTML = ""
     }
 }

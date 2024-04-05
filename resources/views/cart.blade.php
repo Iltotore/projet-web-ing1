@@ -1,7 +1,7 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
 <!DOCTYPE html>
 <body>
-<div>
+<div id="items">
     @foreach(Auth::user()->getCartItems() as $item)
         <div class="item" id="item#{{$item->id}}">
             <div class="info">
@@ -18,7 +18,7 @@
     @endforeach
 </div>
 <div id="actions">
-    <button>Acheter</button>
-    <button>Vider le panier</button>
+    <button onclick="buyItems('{{csrf_token()}}')">Acheter</button>
+    <button onclick="clearItems('{{csrf_token()}}')">Vider le panier</button>
 </div>
 </body>
