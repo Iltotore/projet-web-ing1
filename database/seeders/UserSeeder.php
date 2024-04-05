@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             "last_name" => "Rogers",
             "birth" => "1970-01-01",
             "gender" => "0", // male
-            "job_id" => ""
+            "job_id" => null
 
         ]);
 
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             "last_name" => "Persson",
             "birth" => "1979-06-01",
             "gender" => "0", // male
-            "job_id" => ""
+            "job_id" => null
 
         ]);
     }
