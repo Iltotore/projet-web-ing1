@@ -24,11 +24,11 @@
                 <legend>Genre: </legend>
                 <div id=genre>
                     <label for="gender">Homme </label>
-                    <input type="radio" name="gender" value="male"/>
+                    <input type="radio" name="gender" value="male" @if(Auth::user()->gender === 0) checked @endif />
                     <label for="gender">Femme </label>
-                    <input type="radio" name="gender" value="female"/>
+                    <input type="radio" name="gender" value="female" @if(Auth::user()->gender === 1) checked @endif />
                     <label for="gender">Autre </label>
-                    <input type="radio" name="gender" value="other"/>
+                    <input type="radio" name="gender" value="null" @if(Auth::user()->gender === null) checked @endif />
                 </div>
                 <label for="job">Metier: </label>
                 <input type="text" name="job" value="{{Auth::user()->job}}"/>

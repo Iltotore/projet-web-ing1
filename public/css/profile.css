@@ -24,6 +24,10 @@
     grid-column: 2;
 }
 
+#genre input {
+    margin-right: 20%;
+}
+
 .button {
     display: flex;
     align-items: center;
