@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ContactController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,11 @@ Route::get('/cart', function () {
     "page_to_load" => "cart",
     "title" => "Mon panier"
 ]);});
+Route::get('/catalog', function () {
+    return view('application', [
+        "page_to_load" => "catalog",
+        "title" => "Produits"
+]);});
 
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
@@ -54,6 +60,8 @@ Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth
 Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth");
 Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
+
+Route::get("/catalog/products", [CatalogController::class, "getProducts"]);
 
 Route::post("/contact/create", [ContactController::class, "create"]);
 Route::post("/contact/delete", [ContactController::class, "delete"]);

@@ -5,7 +5,7 @@
     @foreach(Auth::user()->getCartItems() as $item)
         <div class="item" id="item#{{$item->id}}">
             <div class="info">
-                <img src="{{asset("product/" . $item->category->name . "/" . $item->icon)}}" alt="icone"/>
+                <img src="{{asset("product/" . $item->icon)}}" alt="icone"/>
                 <label>{{$item->name}}</label>
                 <label class="amount">x{{$item->pivot->amount}}</label>
             </div>
