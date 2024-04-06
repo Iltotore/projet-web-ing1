@@ -267,3 +267,20 @@ footer p {
 footer p.please_dont_see_this {
 	opacity: 0.5;
 }
+
+input[type=submit]{
+	background-image: url("../img/widget.png");
+	background-size: 100% 100%;
+	font-family: 'Minecraft', sans-serif;
+	cursor: pointer;
+	color: white;
+}
+
+input[type=submit]:hover{
+	background-image: url("../img/widgetclicked.png");
+	border-color: white;
+}
+
+input{
+	font-family: 'Minecraft', sans-serif;
+}

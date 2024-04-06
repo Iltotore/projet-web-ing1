@@ -1,14 +1,6 @@
-.box {
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding : 2%;
-    line-height: 150%;
-}
-
 .sign {
     background-image: url("../img/signtropstylezebi.png");
-    padding : 2.5%;
+    padding : 2%;
     border : solid;
     border-color: black;
     border-width: 6px;
@@ -32,6 +24,10 @@
     grid-column: 2;
 }
 
+#genre input {
+    margin-right: 20%;
+}
+
 .button {
     display: flex;
     align-items: center;
@@ -45,4 +41,24 @@
     border-width: 1px;
     width: 40%;
     padding: 10px;
+}
+
+#imgprofile {
+    background-image: url("../img/signtropstylezebi.png");
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
+
+#title {
+    font-size:xx-large;
+}
+
+.sign #title img {
+    height: 4%;
+    width: 4%;
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+    margin-right: 50px;
 }

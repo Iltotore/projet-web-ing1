@@ -15,7 +15,7 @@
                     <input type="password" name="password" required/>
                 </div>
                 <div class="button">
-                    <input type="submit" value="Connexion" class="button"/>
+                    <input type="submit" value="Connexion"/>
                 </div>
                 </form>
             </div>
@@ -24,30 +24,30 @@
                 @csrf
                 <div class="grill">
                     <label for="name">Pseudo: </label>
-                    <input type="text" name="name" class="name" required/>
+                    <input type="text" name="name" required/>
                     <label for="email">Email: </label>
-                    <input type="email" name="email" class="email" required/>
-                    <label for="first_name">Prénom: </label>
-                    <input type="first_name" name="first_name" class="first_name"/>
+                    <input type="email" name="email" required/>
+                    <label for="first_name">Prenom: </label>
+                    <input type="first_name" name="first_name"/>
                     <label for="last_name">Nom: </label>
-                    <input type="text" name="last_name" class="last_name" />
+                    <input type="text" name="last_name"/>
                     <label for="birth">Date de naissance: </label>
-                    <input type="date" name="birth" class="birth"/>
+                    <input type="date" name="birth"/>
                     <legend>Genre: </legend>
                     <div id=genre>
                         <label for="gender">Homme </label>
-                        <input type="radio" name="gender" value="male" class="gender"/>
+                        <input type="radio" name="gender" value="male"/>
                         <label for="gender">Femme </label>
-                        <input type="radio" name="gender" value="female" class="gender"/>
+                        <input type="radio" name="gender" value="female"/>
                         <label for="gender">Autre </label>
-                        <input type="radio" name="gender" value="other" class="gender"/>
+                        <input type="radio" name="gender" value="other"/>
                     </div>
-                    <label for="profession">Métier: </label>
-                    <input type="text" name="profession" class="profession"/>
+                    <label for="job">Metier: </label>
+                    <input type="text" name="job"/>
                     <label for="password">Mot de passe: </label>
-                    <input type="password" name="password" class="password" required/>
+                    <input type="password" name="password" required/>
                     <label for="password_confirmation">Confirmation du mot de passe: </label>
-                    <input type="password" name="password_confirmation" class="password" required/>
+                    <input type="password" name="password_confirmation" required/>
                 </div>
                 <div class="button">
                     <input type="submit" value="Inscription"/>
