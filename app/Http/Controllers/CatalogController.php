@@ -6,6 +6,7 @@ use App\Models\Product;
 use http\Exception\RuntimeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CatalogController extends Controller
@@ -23,7 +24,11 @@ class CatalogController extends Controller
         ]);
 
         $products = Product::where("category_id", "=", $args["category"])->get();
+        foreach ($products as $product) {
+            $product->in_cart = Auth::check() ? Auth::user()->getAmount($product->id) : "???";
+        }
 
         return response()->json($products);
     }
+
 }

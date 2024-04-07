@@ -8,6 +8,8 @@
     <label id="price"></label>
     <label>En stock:</label>
     <label id="available"></label>
+    <label>Dans le panier:</label>
+    <label id="in_cart"></label>
     <p id="description"></p>
     <div id="actions">
         <input name="amount" type="number" value="1">
