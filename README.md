@@ -1,66 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hurr Shop
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Hurr Shop est le projet noté de développement web de l'année 2023-2024 de CY Tech, réalisé par:
+- Jordan DIZIN
+- Raphaël FROMENTIN
+- Clément PRAUD
+- Gaëtan RETHEL
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Installer les dépendances de PHP Composer (Linux)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Si vous avez déjà Composer installé sur votre système, vous pouvez passer cette étape, car vous avez déjà les dépendances
+nécessaires.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Composer est l'outil qui permet d'installer les dépendances du projet. Pour fonctionner sur votre ordinateur, Composer
+nécessite certaines dépendances.
 
-## Learning Laravel
+Pour les installer sous Ubuntu (et distributions similaires), il faut exécuter :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```php
+sudo apt install -y php8.1 php8.1-xml php8.1-sqlite3 php8.1-curl php8.1-mbstring
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Installer les dépendances du projet
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Le projet est basé sur le framework Laravel.
+Pour l'installer avec ses dépendances, il faut exécuter la commande suivante :
 
-## Laravel Sponsors
+```php
+php composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Environnement
 
-### Premium Partners
+Le projet dépend de variables stockées dans le fichier `.env`.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+La configuration par défaut ce situe dans le fichier `.env.example`.
+Vous pouvez le copier/coller ou le renommer en `.env` pour l'utiliser.
 
-## Contributing
+Une base de données par défaut est aussi fournie.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Le projet est maintenant prêt à être utilisé.
 
-## Code of Conduct
+### Mettre en place la base de données
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Le projet dispose de migrations SQL et de seeders pour mettre en place et peupler la base de données. Il faut pour cela
+exécuter la commande suivante :
 
-## Security Vulnerabilities
+```php
+php artisan db:setup
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Lancer le serveur
 
-## License
+### Mode local (*127.0.0.1* ou *localhost* )
+Vous pouvez lancer le serveur via la commande :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```shell
+php artisan serve
+```
+
+Vous pourrez alors retrouver l'interface du projet à l'adresse http://127.0.0.1:8000/.
+
+### Mode réseau
+La commande, très similaire, devient :
+
+```shell
+php artisan serve --host 0.0.0.0 --port=8000
+```
+
+Il faut ensuite remplacer dans le navigateur la partie *127.0.0.1* de l'adresse précédent par l'adresse IP (locale ou public) ou le nom de domaine du serveur.
+
+Pensez à ouvrir une redirection de port pour les échanges réseaux via Internet. Un pare-feu peut également bloquer le bon fonctionnement du projet, il est donc important de vérifier ses paramètres.
+
+## Tester le projet
+
+Le projet est fourni avec des tests qui permettent de s'assurer de son intégrité et d'éviter toute récession lors du
+développement.
+
+Pour les exécuter, il faut utiliser la commande suivante :
+
+```shell
+php artisan test
+```
+
+## Architecture du projet
+
+Le projet utilise Laravel. Laravel est un framework en PHP qui offre gère à notre place de nombreux aspects techniques
+du projet :
+
+- Gestion des routes
+- Gestion de l'authentification/de la session
+- Interactions avec la base de données grâce à l'ORM Eloquent
+- Tests grâce à PHPUnit
+- SSR grâce à Blade
+
+### Front-end
+
+Le front-end du projet est fait avec le trio HTML/CSS/JS et Blade. Blade est une bibliothèque qui permet de générer du
+HTML côté serveur via des directives et du code en PHP.
+
+### Back-end
+
+Le back-end du projet est fait en PHP avec Laravel. Il suit la même architecture que leur projet minimal sur GitHub.
+Grâce à l'abstraction technique proposée par Laravel, nous avons pu nous concentrer sur la logique métier du site et
+avancer efficacement.
