@@ -8,6 +8,10 @@ body {
 	font-family: 'Minecraft', sans-serif
 }
 
+.hidden {
+    display: none !important;
+}
+
 /* Navigation bar */
 
 nav#navbar {
@@ -58,7 +62,7 @@ ul#product_list li img {
 #navbar {
     position: fixed;
     z-index: 9999;
-    
+
 	/* Animation */
     transition: transform 0.2s;
 	transform: translateX(-92%);
