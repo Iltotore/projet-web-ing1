@@ -36,9 +36,7 @@ Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"
 ]);});
-Route::get('/cart', function () {
-    Auth::login(User::find(2));
-    return view('application', [
+Route::get('/cart', function () {return view('application', [
     "page_to_load" => "cart",
     "title" => "Mon panier"
 ]);});
