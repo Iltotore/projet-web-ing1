@@ -92,11 +92,11 @@ Route::fallback(function () {return view('application', ["page_to_load" => "erro
 Route::get('/admin/products', function () {return view('application', [
 	"page_to_load" => "admin_products",
 	"title" => "Gestion produits"
-]);});
+]);})->middleware("admin");
 Route::get('/admin/users', function () {return view('application', [
 	"page_to_load" => "admin_users",
 	"title" => "Gestion utilisateurs"
-]);});
+]);})->middleware("admin");
 	
 
 Route::post("/auth/login", [AuthController::class, "login"]);

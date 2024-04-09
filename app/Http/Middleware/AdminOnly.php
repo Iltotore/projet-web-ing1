@@ -15,7 +15,7 @@ class AdminOnly extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        abort(404);
+        abort(403);
     }
 
     /**
@@ -32,7 +32,7 @@ class AdminOnly extends Middleware
     {
         $this->authenticate($request, $guards);
 
-        if(!Auth::user()->is_admin) abort(404);
+        if(!Auth::user()->is_admin) abort(403);
 
         return $next($request);
     }

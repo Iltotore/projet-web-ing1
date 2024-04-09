@@ -45,20 +45,28 @@
 
 		<div id="page_content">
 			<header>
-				<div id="logo_zone">
+				<a href="/" id="logo_zone">
 					<img id="logo_icon" src="{{ asset("img/icon.webp") }}" alt="logo image"/>
 					<img id="logo_text" src="{{ asset('img/logo.webp') }}" alt="logo text image"/>
-				</div>
+				</a>
 
 				<div id="header_end_zone">
 					<div id="account_zone">
-						<a>USERNAME</a>
-						-
-						<a>Se connecter</a>
+						@auth
+							<a href="/profile">{{ Auth::user()->name }}</a>
+							-
+							<a href="/auth/logout">Se deconnecter</a>
+						@else
+							<a href="/login">Se connecter</a>
+						@endauth
 					</div>
 					<div id="link_zone">
 						<a href="/">Accueil</a>
 						<a href="/catalog">Produits</a>
+						@auth
+							<a href="/profile">Compte</a>
+						@endauth
+						<a href="/cart">Panier</a>
 						<a href="/contact">Contact</a>
 					</div>
 				</div>
@@ -93,5 +101,20 @@
 				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
 			</footer>
 		</div>
+
+		<script type="text/javascript">
+			const navbar = document.getElementById('navbar');
+			const overlay = document.getElementById('overlay');
+
+			navbar.addEventListener('mouseenter', function() {
+				navbar.classList.toggle('active');
+				overlay.classList.toggle('active');
+			});
+
+			overlay.addEventListener('mouseenter', function() {
+				navbar.classList.remove('active');
+				overlay.classList.remove('active');
+			});
+		</script>
 	</body>
 </html>
