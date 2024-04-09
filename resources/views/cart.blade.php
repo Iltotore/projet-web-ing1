@@ -15,20 +15,21 @@
                         </div>
                         <div class="info">
                             <label>{{$item->name}}</label>
-                            <label class="amount">x{{$item->pivot->amount}}</label>
+                            <label>x{{$item->pivot->amount}}</label>
+                            <label>49,99€</label>
                             <button @if($item->pivot->amount >= $item->amount) disabled @endif class="add" onclick="addItem({{$item->id}}, '{{csrf_token()}}')">+</button>
-                            <button class="sub" onclick="removeItem({{$item->id}}, '{{csrf_token()}}')">-</button>
+                            <button onclick="removeItem({{$item->id}}, '{{csrf_token()}}')">-</button>
                             <button onclick="deleteItem({{$item->id}}, '{{csrf_token()}}')">X</button>
                         </div>
                     </div>
                 @endforeach
                 <div id="actions">
-                    <button onclick="buyItems('{{csrf_token()}}')">Acheter</button>
                     <button onclick="clearItems('{{csrf_token()}}')">Vider le panier</button>
                 </div>
             </div>
             <div id="summary">
-                Total
+                <div id="title">Total :</div>
+                <button onclick="buyItems('{{csrf_token()}}')">Acheter</button>
             </div>
         </div>
     </body>

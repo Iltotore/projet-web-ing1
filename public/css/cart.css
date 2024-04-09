@@ -9,6 +9,7 @@
 #cart {
     background-image: url("../img/signtropstylezebi.png");
     padding : 2.5%;
+    width: 60%;
     border : solid;
     border-color: black;
     border-width: 6px;
@@ -17,6 +18,8 @@
 #summary {
     background-image: url("../img/signtropstylezebi.png");
     padding : 2.5%;
+    width: 10%;
+    height: 50%;
     border : solid;
     border-color: black;
     border-width: 6px;
@@ -42,8 +45,10 @@
 .info {
     grid-column: 2;
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto auto;
     gap: 5px;
+    min-width: 500px;
 }
 
 .info label {
@@ -51,11 +56,13 @@
 }
 
 .info button {
-    grid-row: 2; /* Bouton sur la deuxième ligne */
+    grid-row: 2;
+    width: 70px;
 }
 
 #title {
     font-size: x-large;
+    padding-bottom: 10px;
 }
 
 button{
@@ -64,9 +71,29 @@ button{
 	font-family: 'Minecraft', sans-serif;
 	cursor: pointer;
 	color: white;
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.button input {   
+    width: 40%;
+    padding: 10px;
 }
 
 button:hover{
 	background-image: url("../img/widgetclicked.png");
 	border-color: white;
+}
+
+#actions button {
+    margin-top: 20px;
+    padding: 5px;
+    float: right;
+    width: 15%;
+}
+
+#summary button {
+    padding: 5px;
+    width: 100%;
 }
