@@ -25,7 +25,7 @@ class AdminController extends Controller
             "category" =>  ["required", "integer", "exists:categories,id"]
         ]);
 
-        $products = Product::where("category_id", "=", $args["category"]);
+        $products = Product::where("category_id", "=", $args["category"])->get();
 
         return response()->json($products);
     }

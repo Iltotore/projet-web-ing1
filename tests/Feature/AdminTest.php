@@ -6,9 +6,13 @@ use App\Models\Category;
 use App\Models\ContactForm;
 use App\Models\Product;
 use App\Models\User;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\ProductSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use PhpParser\Parser\Php7;
 use Tests\TestCase;
 
@@ -21,18 +25,24 @@ class AdminTest extends TestCase
      */
     public function test_getProducts_successful() {
         $user = User::factory()->create(["is_admin" => true]);
-        $category = Category::factory()->create();
-        $product = Product::factory()->create(["category_id" => $category->id]);
+
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+        $maxCategory = Category::max('category_id');
+        $category = fake()->numberBetween(0, $maxCategory);
 
         Auth::login($user);
 
         $response = $this->postJson(
             "/admin/product/get",
             [
-                "category" => $product->category_id
+                "category" => $category
             ]
         );
         $response->assertSuccessful();
+        $response->assertJsonIsArray();
+
+        $products = Product::where("category_id", "=", $category)->get()->toArray();
+        $response->assertJson($products);
     }
 
     /**
@@ -197,12 +207,15 @@ class AdminTest extends TestCase
      */
     public function test_getCategories_successful() {
         $user = User::factory()->create(["is_admin" => true]);
-        $category = Category::factory()->create();
+        $this->seed([CategorySeeder::class]);
+        $category = Category::all()->toArray();
 
         Auth::login($user);
 
         $response = $this->postJson("/admin/category/get");
         $response->assertSuccessful();
+        $response->assertJsonIsArray();
+        $response->assertJson($category);
     }
 
     /**
@@ -341,13 +354,16 @@ class AdminTest extends TestCase
      * Successfully get the users list.
      */
     public function test_getUsers_successful() {
-        $user = User::factory()->create(["is_admin" => true]);
-        User::factory()->create();
+        $userAdmin = User::factory()->create(["is_admin" => true]);
+        $this->seed([UserSeeder::class]);
+        $user = Category::all()->toArray();
 
-        Auth::login($user);
+        Auth::login($userAdmin);
 
         $response = $this->postJson("/admin/user/get");
         $response->assertSuccessful();
+        $response->assertJsonIsArray();
+        $response->assertJson($user);
     }
 
     /**
@@ -529,11 +545,15 @@ class AdminTest extends TestCase
      */
     public function test_getContacts_successful() {
         $user = User::factory()->create(["is_admin" => true]);
-        $form = ContactForm::factory()->create();
+        ContactForm::factory()->create();
 
         Auth::login($user);
 
+        $form = ContactForm::all()->toArray();
+
         $response = $this->postJson("/admin/contact/get");
         $response->assertSuccessful();
+        $response->assertJsonIsArray();
+        $response->assertJson($form);
     }
 }
