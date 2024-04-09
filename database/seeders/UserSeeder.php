@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             "name" => "Notch", // pseudo
             "email" => "notch@minecraft.block",
             "email_verified_at" => "2009-05-17",
-            "password" => "Hmm",
+            "password" => "Hmmmmmmm",
             "is_admin" => true,
         // optional data
             "first_name" => "Markus",
