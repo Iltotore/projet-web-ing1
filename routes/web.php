@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ContactController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +30,7 @@ Route::get('/login', function () {return view('application', [
 Route::get('/profile', function () {return view('application', [
 	"page_to_load" => "profile",
 	"title" => "Votre profil"
-]);});
+]);})->middleware("auth");
 Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"
@@ -39,7 +38,7 @@ Route::get('/about', function () {return view('application', [
 Route::get('/cart', function () {return view('application', [
     "page_to_load" => "cart",
     "title" => "Mon panier"
-]);});
+]);})->middleware("auth");
 Route::get('/catalog', function () {
     return view('application', [
         "page_to_load" => "catalog",
@@ -66,24 +65,24 @@ Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
 Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");
 Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth");
 Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
-Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
+Route::post("/cart/buy", [CartController::class, "buy"])->middleware(["auth", "verified"]);
 
 Route::get("/catalog/products", [CatalogController::class, "getProducts"]);
 
 Route::post("/contact/create", [ContactController::class, "create"]);
 Route::post("/contact/delete", [ContactController::class, "delete"]);
 
-Route::post("/admin/category/get", [AdminController::class, "getCategories"])->middleware("admin");
-Route::post("/admin/category/add", [AdminController::class, "addCategory"])->middleware("admin");
-Route::post("/admin/category/remove", [AdminController::class, "removeCategory"])->middleware("admin");
-Route::post("/admin/category/update", [AdminController::class, "updateCategory"])->middleware("admin");
-Route::post("/admin/product/add", [AdminController::class, "addProduct"])->middleware("admin");
-Route::post("/admin/product/remove", [AdminController::class, "removeProduct"])->middleware("admin");
-Route::post("/admin/product/update", [AdminController::class, "updateProduct"])->middleware("admin");
-Route::post("/admin/product/get", [AdminController::class, "getProducts"])->middleware("admin");
-Route::post("/admin/user/get", [AdminController::class, "getUsers"])->middleware("admin");
-Route::post("/admin/user/add", [AdminController::class, "addUser"])->middleware("admin");
-Route::post("/admin/user/remove", [AdminController::class, "removeUser"])->middleware("admin");
-Route::post("/admin/user/resetPassword", [AdminController::class, "resetPassword"])->middleware("admin");
-Route::post("/admin/contact/get", [AdminController::class, "getContacts"])->middleware("admin");
-Route::post("/admin/contact/reply", [AdminController::class, "replyContact"])->middleware("admin");
+Route::post("/admin/category/get", [AdminController::class, "getCategories"])->middleware(["admin", "verified"]);
+Route::post("/admin/category/add", [AdminController::class, "addCategory"])->middleware(["admin", "verified"]);
+Route::post("/admin/category/remove", [AdminController::class, "removeCategory"])->middleware(["admin", "verified"]);
+Route::post("/admin/category/update", [AdminController::class, "updateCategory"])->middleware(["admin", "verified"]);
+Route::post("/admin/product/add", [AdminController::class, "addProduct"])->middleware(["admin", "verified"]);
+Route::post("/admin/product/remove", [AdminController::class, "removeProduct"])->middleware(["admin", "verified"]);
+Route::post("/admin/product/update", [AdminController::class, "updateProduct"])->middleware(["admin", "verified"]);
+Route::post("/admin/product/get", [AdminController::class, "getProducts"])->middleware(["admin", "verified"]);
+Route::post("/admin/user/get", [AdminController::class, "getUsers"])->middleware(["admin", "verified"]);
+Route::post("/admin/user/add", [AdminController::class, "addUser"])->middleware(["admin", "verified"]);
+Route::post("/admin/user/remove", [AdminController::class, "removeUser"])->middleware(["admin", "verified"]);
+Route::post("/admin/user/resetPassword", [AdminController::class, "resetPassword"])->middleware(["admin", "verified"]);
+Route::post("/admin/contact/get", [AdminController::class, "getContacts"])->middleware(["admin", "verified"]);
+Route::post("/admin/contact/reply", [AdminController::class, "replyContact"])->middleware(["admin", "verified"]);

@@ -63,7 +63,7 @@ class MiddlewareTest extends TestCase
     public function test_auth_redirect(): void
     {
         $response = $this->get("/test/auth");
-        $response->assertRedirect("/login?redirect=http://localhost/test/auth");
+        $response->assertRedirect("http://localhost/login?redirect=http%3A%2F%2Flocalhost%2Ftest%2Fauth");
     }
 
     /**

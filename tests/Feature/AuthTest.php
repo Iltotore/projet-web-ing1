@@ -77,7 +77,7 @@ class AuthTest extends TestCase {
 
         $this->assertAuthenticatedAs($user);
 
-        $response = $this->post("/auth/logout");
+        $response = $this->get("/auth/logout");
 
         $response->assertRedirect("/");
         $this->assertGuest();
