@@ -3,11 +3,12 @@
     <head>
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     </head>
-    <body>    
+    <body>
         <div class="box">
             <div class="sign">
                 <form action="/auth/login" method="post">
                 @csrf
+                <input type="hidden" name="redirect" value="{{ request()->get('redirect') ?? '/' }}">
                 <div class="grill">
                     <label for="name" >Pseudo: </label>
                     <input type="text" name="name" required/>
