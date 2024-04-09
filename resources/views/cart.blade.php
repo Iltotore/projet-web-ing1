@@ -12,11 +12,11 @@
                 @foreach(Auth::user()->getCartItems() as $item)
                     <div class="item" id="item#{{$item->id}}">
                         <div>
-                            <img src="{{asset("product/" . $item->category->name . "/" . $item->icon)}}" alt="icone"/>
+                            <img src="{{asset("product/" . $item->icon)}}" alt="icone"/>
                         </div>
                         <div class="info">
                             <label>{{$item->name}}</label>
-                            <label>x{{$item->pivot->amount}}</label>
+                            <label class="amount">x{{$item->pivot->amount}}</label>
                             <label>{{$item->unit_price * $item->pivot->amount}} €</label>
                             <button @if($item->pivot->amount >= $item->amount) disabled @endif class="add" onclick="addItem({{$item->id}}, '{{csrf_token()}}')">+</button>
                             <button onclick="removeItem({{$item->id}}, '{{csrf_token()}}')">-</button>

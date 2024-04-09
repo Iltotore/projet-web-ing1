@@ -77,7 +77,11 @@ button{
     border-width: 1px;
 }
 
-.button input {   
+button:disabled {
+    opacity: 50%;
+}
+
+.button input {
     width: 40%;
     padding: 10px;
 }
