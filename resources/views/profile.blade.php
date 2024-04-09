@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class="sign">
-            <div id="title"> 
+            <div id="title">
                 <img src="../img/user_image.jpg" />Votre profil :
             </div>
             <form action="/auth/register" method="post" >
@@ -31,7 +31,12 @@
                     <input type="radio" name="gender" value="null" @if(Auth::user()->gender === null) checked @endif />
                 </div>
                 <label for="job">Metier: </label>
-                <input type="text" name="job" value="{{Auth::user()->job}}"/>
+                <select name="job" id="job">
+                    <option value="null"></option>
+                    @foreach(\App\Models\Job::all() as $job)
+                        <option value="{{$job->id}}" @if(Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
+                    @endforeach
+                </select>
                 <label for="password">Mot de passe: </label>
                 <input type="password" name="password" required/>
                 <label for="password_confirmation">Confirmation du mot de passe: </label>

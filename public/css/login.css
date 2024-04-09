@@ -39,10 +39,14 @@
     margin-top: 15px;
 }
 
-.button input {   
+.button input {
     border : solid;
     border-color: black;
     border-width: 1px;
     width: 40%;
     padding: 10px;
+}
+
+#job {
+    font-family: 'Minecraft', sans-serif;
 }

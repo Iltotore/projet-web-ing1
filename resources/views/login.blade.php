@@ -44,7 +44,12 @@
                         <input type="radio" name="gender" value="other"/>
                     </div>
                     <label for="job">Metier: </label>
-                    <input type="text" name="job"/>
+                    <select name="job" id="job">
+                        <option value="null"></option>
+                        @foreach(\App\Models\Job::all() as $job)
+                            <option value="{{$job->id}}">{{$job->name}}</option>
+                        @endforeach
+                    </select>
                     <label for="password">Mot de passe: </label>
                     <input type="password" name="password" required/>
                     <label for="password_confirmation">Confirmation du mot de passe: </label>
