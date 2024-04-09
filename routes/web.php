@@ -45,13 +45,22 @@ Route::get('/catalog', function () {
         "page_to_load" => "catalog",
         "title" => "Produits"
 ]);});
+Route::get('/registered', function () {
+    return view('application', [
+        "page_to_load" => "registered",
+        "title" => "Confirmez votre email"
+    ]);
+})->name('verification.notice');
 
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 Route::post("/auth/login", [AuthController::class, "login"]);
-Route::post("/auth/logout", [AuthController::class, "logout"]);
+Route::get("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 Route::post("/auth/update", [AuthController::class, "update"])->middleware("auth");
+Route::get("/auth/verify/{id}/{hash}", [AuthController::class, "verifyEmail"])
+    ->middleware(["auth", "signed"])
+    ->name("verification.verify");
 
 Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
 Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");
