@@ -5,9 +5,17 @@ function sendJSON(url, data, method = "POST") {
         xhr.open(method, url)
 
         xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
+                try {
+                    const json = JSON.parse(xhr.responseText)
+                    if(json.hasOwnProperty("redirect")) {
+                        window.location.href = json.redirect
+                        reject()
+                    }
+                } catch (e) {}
                 resolve(xhr)
             }
         }

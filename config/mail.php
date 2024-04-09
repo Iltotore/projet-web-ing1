@@ -44,6 +44,8 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
+            'sendmail' => env('MAIL_SEND'),
+            'pretend' => env('MAIL_PRETEND', false)
         ],
 
         'ses' => [

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Controller for authentification-related requests.
@@ -30,6 +32,8 @@ class AuthController extends Controller {
 
         if (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
+
+            Log::info("Redirect to " . $redirect);
 
             return redirect()->to($redirect);
         } else {
@@ -81,9 +85,10 @@ class AuthController extends Controller {
         $infos["is_admin"] = false;
 
         $newUser = User::create($infos);
+        Auth::login($newUser);
+        $newUser->sendEmailVerificationNotification();
 
-        return redirect()
-            ->to("/registered")
+        return redirect("/registered")
             ->with(["user" => $newUser]);
     }
 
@@ -115,5 +120,12 @@ class AuthController extends Controller {
         Auth::user()->update($infos);
 
         return redirect()->back();
+    }
+
+    public function verifyEmail(EmailVerificationRequest $request): RedirectResponse {
+        $request->fulfill();
+        Log::info($request->getUser() . " registered");
+
+        return redirect('/');
     }
 }
