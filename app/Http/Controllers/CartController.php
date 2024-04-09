@@ -98,4 +98,16 @@ class CartController extends Controller {
             return redirect()->back()->withErrors(["tooManyItems" => $errorItems]);
         }
     }
+
+    /**
+     * Get items in cart.
+     *
+     * @return JsonResponse
+     */
+    public function getCart(): JsonResponse {
+        $user = Auth::user();
+        $inCart = $user->getCartItems();
+
+        return response()->json($inCart);
+    }
 }

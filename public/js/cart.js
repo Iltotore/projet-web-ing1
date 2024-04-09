@@ -1,3 +1,5 @@
+let items;
+
 async function addItem(id, token) {
     const result = await sendJSON("/cart/add", {
         product: id,
@@ -56,6 +58,14 @@ async function removeItem(id, token) {
     }
 }
 
+async function loadItems(token) {
+    const result = await sendJSON("/cart/get", {_token: token});
+
+    if (result.status === 200) {
+        items = JSON.parse(result.responseText);
+    }
+}
+
 async function deleteItem(id, token) {
     const result = await sendJSON("/cart/delete", {product: id, _token: token})
     if(result.status === 200) {
@@ -77,4 +87,8 @@ async function clearItems(token) {
     if(result.status === 200) {
         document.getElementById("items").innerHTML = ""
     }
+}
+
+function updatePrice() {
+    const priceLabel = document.getEl
 }

@@ -1,0 +1,104 @@
+.box {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding : 2%;
+    line-height: 150%;
+}
+
+#cart {
+    background-image: url("../img/signtropstylezebi.png");
+    padding : 2.5%;
+    width: 60%;
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
+
+#summary {
+    background-image: url("../img/signtropstylezebi.png");
+    padding : 2.5%;
+    width: 10%;
+    height: 50%;
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
+
+.box #cart .item img {
+    height: 75px;
+    width: 75px;
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+    margin-right: 50px;
+    grid-column: 1;
+    grid-row: span 2;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 5px;
+    min-width: 500px;
+    padding-bottom: 3%;
+}
+
+.info label {
+    grid-row: 1; /* Label sur la première ligne */
+    font-weight: bold;
+}
+
+.info button {
+    grid-row: 2;
+    width: 120px;
+}
+
+#title {
+    font-size: x-large;
+    padding-bottom: 10px;
+}
+
+button{
+	background-image: url("../img/widget.png");
+	background-size: 100% 100%;
+	font-family: 'Minecraft', sans-serif;
+	cursor: pointer;
+	color: white;
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+button:disabled {
+    opacity: 50%;
+}
+
+.button input {
+    width: 40%;
+    padding: 10px;
+}
+
+button:hover{
+	background-image: url("../img/widgetclicked.png");
+	border-color: white;
+}
+
+#actions button {
+    margin-top: 20px;
+    padding: 5px;
+    float: right;
+    width: 15%;
+}
+
+#summary button {
+    padding: 5px;
+    width: 100%;
+}
