@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,11 @@ Artisan::command("db:setup", function () {
     $this->call("migrate:refresh");
     $this->call("db:seed");
 });
+
+//Send a mail
+Artisan::command("mail:send {to} {subject} {content}", function(string $to, string $subject, string $content) {
+    echo $to;
+    Mail::raw($content, function ($m) use($to, $subject, $content) {
+        $m->to($to)->subject($subject);
+    });
+})->purpose("Send a mail");
