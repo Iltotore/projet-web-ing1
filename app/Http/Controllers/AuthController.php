@@ -85,6 +85,7 @@ class AuthController extends Controller {
         $infos["is_admin"] = false;
 
         $newUser = User::create($infos);
+        Auth::login($newUser);
         $newUser->sendEmailVerificationNotification();
 
         return redirect("/registered")
