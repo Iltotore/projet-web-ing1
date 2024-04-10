@@ -19,8 +19,10 @@ nécessite certaines dépendances.
 Pour les installer sous Ubuntu (et distributions similaires), il faut exécuter :
 
 ```php
-sudo apt install -y php8.1 php8.1-xml php8.1-sqlite3 php8.1-curl php8.1-mbstring
+sudo apt install -y php php-xml php-sqlite3 php-curl php-mbstring
 ```
+
+Note : vous pouvez également préciser la version de PHP souhaitée dans le nom des paquets (e.g `php8.1`, `php8.1-sqlite3`)
 
 ### Installer les dépendances du projet
 
