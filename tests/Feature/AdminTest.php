@@ -354,16 +354,15 @@ class AdminTest extends TestCase
      * Successfully get the users list.
      */
     public function test_getUsers_successful() {
-        $userAdmin = User::factory()->create(["is_admin" => true]);
-        $this->seed([UserSeeder::class]);
-        $user = Category::all()->toArray();
+        $userAdmin = User::factory()->make(["is_admin" => true]);
+        $users = User::factory()->count(3)->create();
 
         Auth::login($userAdmin);
 
         $response = $this->postJson("/admin/user/get");
         $response->assertSuccessful();
         $response->assertJsonIsArray();
-        $response->assertJson($user);
+        $response->assertJson($users->toArray());
     }
 
     /**
