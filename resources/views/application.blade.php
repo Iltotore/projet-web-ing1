@@ -24,7 +24,7 @@
 			<ul id="product_list">
 				<h3>Produits</h3>
 				@foreach(\App\Models\Category::all()->sortBy('name') as $category)
-					<li><a><img src="{{ asset("category/" . $category['icon']) }}"/>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
+					<li><a href="/catalog?category={{$category->id}}"><img src="{{ asset("category/" . $category['icon']) }}" alt="{{$category->name}} category image"/>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
 				@endforeach
 			</ul>
 			<hr>
@@ -40,8 +40,8 @@
 		<div id="page_content">
 			<header>
 				<div id="logo_zone">
-					<img id="logo_icon" src="{{ asset("img/icon.webp") }}"/>
-					<img id="logo_text" src="{{ asset('img/logo.webp') }}"/>
+					<img id="logo_icon" src="{{ asset("img/icon.webp") }}" alt="logo image"/>
+					<img id="logo_text" src="{{ asset('img/logo.webp') }}" alt="logo text image"/>
 				</div>
 
 				<div id="header_end_zone">
@@ -79,7 +79,7 @@
 						<a class="emerald">Emerald.net</a>
 						<a>Ender.man</a>
 						<a href="https://www.reddit.com/r/Minecrafthmmm/">r/Minecrafthmmm</a>
-						<a class="blaze" href="https://minecraft.wiki/w/Blaze">Blazes.hot (+18)</a>
+						<a class="blaze" href="https://minecraft.wiki/w/Blaze">Blazes.com</a>
 						<a>StopTradingHalls.org</a>
 					</div>
 				</div>
