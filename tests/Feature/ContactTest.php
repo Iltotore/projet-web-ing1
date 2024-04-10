@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\ContactForm;
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ContactTest extends TestCase {
@@ -66,6 +68,9 @@ class ContactTest extends TestCase {
      * Return errors when sent data are either missing or invalid.
      */
     public function test_delete_invalid() {
+        $user = User::factory()->create(["is_admin" => true]);
+        Auth::login($user);
+
         $missingResponse = $this->post("/contact/delete");
         $missingResponse->assertInvalid(["id"]);
 
@@ -77,6 +82,9 @@ class ContactTest extends TestCase {
      * Successfully delete a contact ticket if the passed arguments are valid.
      */
     public function test_delete_successful() {
+        $user = User::factory()->create(["is_admin" => true]);
+        Auth::login($user);
+
         $form = ContactForm::factory()->create();
 
         $response = $this->postJson("/contact/delete", ["id" => $form->id]);

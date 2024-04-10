@@ -72,7 +72,7 @@ Route::post("/cart/get", [CartController::class, "getCart"])->middleware("auth")
 Route::get("/catalog/products", [CatalogController::class, "getProducts"]);
 
 Route::post("/contact/create", [ContactController::class, "create"]);
-Route::post("/contact/delete", [ContactController::class, "delete"]);
+Route::post("/contact/delete", [ContactController::class, "delete"])->middleware(["admin", "verified"]);
 
 Route::post("/admin/category/get", [AdminController::class, "getCategories"])->middleware(["admin", "verified"]);
 Route::post("/admin/category/add", [AdminController::class, "addCategory"])->middleware(["admin", "verified"]);
