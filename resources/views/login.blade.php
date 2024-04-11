@@ -14,6 +14,7 @@
                     <input type="text" name="name" required/>
                     <label for="password" >Mot de passe: </label>
                     <input type="password" name="password" required/>
+                    <a href="/forgot-password">Mot de passe oublié ?</a>
                 </div>
                 <div class="button">
                     <input type="submit" value="Connexion"/>
