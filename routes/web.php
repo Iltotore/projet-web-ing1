@@ -61,14 +61,14 @@ Route::get('/reset-sent', function () {
         "page_to_load" => "reset-sent",
         "title" => "Demande envoyée"
     ]);
-})->middleware("guest");
+});
 
 Route::get('/forgot-password', function () {
     return view('application', [
         "page_to_load" => "password-forgot",
         "title" => "Réinitialiser son mot de passe"
     ]);
-})->middleware("guest");
+});
 
 Route::get('/reset-password/{token}', function ($token) {
     return view('application', [
@@ -89,8 +89,7 @@ Route::get("/auth/verify/{id}/{hash}", [AuthController::class, "verifyEmail"])
     ->middleware(["auth", "signed"])
     ->name("verification.verify");
 
-Route::post("/auth/reset-password", [AuthController::class, "resetPassword"])
-    ->middleware('guest');
+Route::post("/auth/reset-password", [AuthController::class, "resetPassword"]);
 
 Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
 Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");

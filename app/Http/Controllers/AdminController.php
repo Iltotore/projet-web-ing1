@@ -253,7 +253,7 @@ class AdminController extends Controller
 
         $user = User::find($args["id"]);
 
-        Password::sendResetLink($user->email);
+        Password::sendResetLink([$user->email]);
 
         return response()->json($user);
     }
