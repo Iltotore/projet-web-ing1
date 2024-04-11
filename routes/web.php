@@ -23,22 +23,27 @@ Route::get('/', function () {return view('application', [
 	"page_to_load" => "home",
 	"title" => "Accueil"
 ]);});
+
 Route::get('/login', function () {return view('application', [
 	"page_to_load" => "login",
 	"title" => "Connexion"
 ]);});
+
 Route::get('/profile', function () {return view('application', [
 	"page_to_load" => "profile",
 	"title" => "Votre profil"
 ]);})->middleware("auth");
+
 Route::get('/about', function () {return view('application', [
 	"page_to_load" => "about",
 	"title" => "À propos"
 ]);});
+
 Route::get('/cart', function () {return view('application', [
     "page_to_load" => "cart",
     "title" => "Mon panier"
 ]);})->middleware("auth");
+
 Route::get('/catalog', function () {
     return view('application', [
         "page_to_load" => "catalog",
@@ -51,15 +56,40 @@ Route::get('/registered', function () {
     ]);
 })->name('verification.notice');
 
+Route::get('/reset-sent', function () {
+    return view('application', [
+        "page_to_load" => "reset-sent",
+        "title" => "Demande envoyée"
+    ]);
+});
+
+Route::get('/forgot-password', function () {
+    return view('application', [
+        "page_to_load" => "password-forgot",
+        "title" => "Réinitialiser son mot de passe"
+    ]);
+});
+
+Route::get('/reset-password/{token}', function ($token) {
+    return view('application', [
+        "page_to_load" => "password-reset",
+        "title" => "Réinitialiser son mot de passe",
+        "token" => $token
+    ]);
+})->middleware("guest")->name('password.reset');
+
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::get("/auth/logout", [AuthController::class, "logout"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
+Route::post("/auth/password-request", [AuthController::class, "passwordRequest"]);
 Route::post("/auth/update", [AuthController::class, "update"])->middleware("auth");
 Route::get("/auth/verify/{id}/{hash}", [AuthController::class, "verifyEmail"])
     ->middleware(["auth", "signed"])
     ->name("verification.verify");
+
+Route::post("/auth/reset-password", [AuthController::class, "resetPassword"]);
 
 Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
 Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");

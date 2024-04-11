@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-// TODO  sudo apt install php8.1-mbstring
-
 class DatabaseSeeder extends Seeder
 {
     /**
