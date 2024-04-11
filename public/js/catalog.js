@@ -17,9 +17,9 @@ async function getProducts(category) {
                 `
                 <div class="product" onclick="showProduct(${product.id})">
                     <img src="/product/${product.icon}" alt="icon"/>
-                    <label>${product.name}</label>
-                    <label>${product.unit_price}€</label>
-                    <label>En stock: ${product.amount}</label>
+                    <label class="infproduct">${product.name}</label>
+                    <label class="infproduct">${product.unit_price}€</label>
+                    <label class="infproduct">En stock: ${product.amount}</label>
                 </div>
                 `
             container.innerHTML += productCard

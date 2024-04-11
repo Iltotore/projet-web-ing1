@@ -55,7 +55,7 @@ Route::get('/catalog', function () {
     return view('application', [
         "page_to_load" => "catalog",
         "title" => "Produits",
-        "category_name" => Category::find(Request::get("category"))->name
+        "category_name" => Category::find(Request::get("category", 0))->name
 ]);});
 Route::get('/registered', function () {
     return view('application', [
