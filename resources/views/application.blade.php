@@ -31,7 +31,7 @@
 			<ul>
 				<li><a href="/about">A propos</a></li>
 				<li><a>FAQ</a></li>
-				<li><a>Contact</a></li>
+				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</nav>
 
@@ -51,9 +51,9 @@
 						<a>Se connecter</a>
 					</div>
 					<div id="link_zone">
-						<a>Accueil</a>
-						<a>Produits</a>
-						<a>Contact</a>
+						<a href="/">Accueil</a>
+						<a href="/catalog">Produits</a>
+						<a href="/contact">Contact</a>
 					</div>
 				</div>
 			</header>
@@ -69,7 +69,7 @@
 					</div>
 					<div class="footer_column">
 						<a href="/about">A propos</a>
-						<a>Contact</a>
+						<a href="/contact">Contact</a>
 						<a>FAQ</a>
 					</div>
 					<div class="footer_column">

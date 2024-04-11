@@ -1,0 +1,13 @@
+#job {
+    font-family: 'Minecraft', sans-serif;
+}
+
+#subject {
+    width: 25vw;
+}
+
+textarea {
+    font-family: 'Minecraft', sans-serif;
+    width: 70vw;
+    height: 50vh;
+}

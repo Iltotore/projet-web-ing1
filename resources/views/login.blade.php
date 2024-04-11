@@ -30,7 +30,7 @@
                     <label for="email">Email: </label>
                     <input type="email" name="email" required/>
                     <label for="first_name">Prenom: </label>
-                    <input type="first_name" name="first_name"/>
+                    <input type="text" name="first_name"/>
                     <label for="last_name">Nom: </label>
                     <input type="text" name="last_name"/>
                     <label for="birth">Date de naissance: </label>
