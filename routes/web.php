@@ -29,6 +29,11 @@ Route::get('/login', function () {return view('application', [
 	"title" => "Connexion"
 ]);});
 
+Route::get('/contact', function () {return view('application', [
+    "page_to_load" => "contact",
+    "title" => "Nous contacter"
+]);});
+
 Route::get('/profile', function () {return view('application', [
 	"page_to_load" => "profile",
 	"title" => "Votre profil"

@@ -17,8 +17,9 @@ class ContactController extends Controller {
      */
     function create(Request $request): RedirectResponse {
         $args = $request->validate([
-            "first_name" => ["required"],
-            "last_name" => ["required"],
+            "first_name" => ["required", "string", "max:255"],
+            "last_name" => ["required", "string", "max:255"],
+            "gender" => ["required", "string", "max:255"],
             "email" => ["required", "email"],
             "birth" => ["required", "date"],
             "job_id" => ["required", "exists:jobs,id"],

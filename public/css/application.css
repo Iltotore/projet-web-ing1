@@ -179,6 +179,7 @@ div#link_zone a {
 	padding: 0.8vw;
 	padding-top: 0.5vw;
 	padding-bottom: 0.5vw;
+    text-decoration: none;
 
 	background-color: rgb(117, 117, 117);
 	color: rgb(255, 255, 255);
