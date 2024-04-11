@@ -25,3 +25,4 @@ function sendJSON(url, data, method = "POST") {
         xhr.send(JSON.stringify(data))
     })
 }
+

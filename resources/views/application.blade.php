@@ -5,6 +5,7 @@
 		<title>HurrShop{{ isset($title) ? ' - ' . $title : '' }}</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
+        <script type="text/javascript" src="{{asset("js/app.js")}}"></script>
         <script type="text/javascript" src="{{asset("js/util.js")}}"></script>
 		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 
@@ -18,7 +19,7 @@
         @endif
 	</head>
     <!-- Contenu de la page -->
-	<body>
+	<body onload="loadNavbarLogic()">
 		<nav id="navbar">
 			<p>HurrShop est votre nouvel espace d'achat d'equipements et materiaux.</p>
 			<hr>
@@ -92,20 +93,5 @@
 				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
 			</footer>
 		</div>
-
-		<script>
-			const navbar = document.getElementById('navbar');
-			const overlay = document.getElementById('overlay');
-
-			navbar.addEventListener('mouseenter', function() {
-				navbar.classList.toggle('active');
-				overlay.classList.toggle('active');
-			});
-
-			overlay.addEventListener('mouseenter', function() {
-				navbar.classList.remove('active');
-				overlay.classList.remove('active');
-			});
-		</script>
 	</body>
 </html>
