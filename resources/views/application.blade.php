@@ -5,12 +5,17 @@
 		<title>HurrShop{{ isset($title) ? ' - ' . $title : '' }}</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
+        <script type="text/javascript" src="{{asset("js/util.js")}}"></script>
 		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 
 		<!-- Style de la zone main -->
-		<link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
-        <script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
-        <script type="text/javascript" src="{{asset("js/util.js")}}"></script>
+        @if(file_exists(public_path("css/" . ($page_to_load ?? "error") . ".css")))
+		    <link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
+        @endif
+
+        @if(file_exists(public_path("js/" . $page_to_load . ".js")))
+            <script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
+        @endif
 	</head>
     <!-- Contenu de la page -->
 	<body>
