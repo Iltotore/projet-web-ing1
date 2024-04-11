@@ -1,21 +1,35 @@
 main {
+	display: flex;
+	flex-direction: column;
+}
+
+div.manager {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 3vw;
+
+	flex: 1 1 auto;
+}
+
+h1 {
+	margin-top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: fit-content;
 }
 
 /* User list */
 
-main div#user_list {
+div.manager div#user_list {
 	background: rgba(0, 0, 0, 0.6);
 	padding: 1vw;
 }
 
-main div#user_details {
+div.manager div#user_details {
 	background: rgba(73, 35, 1, 0.6);
 }
 
-main hr {
+div.manager hr {
 	margin: 0.8vw 0;
 }
 
@@ -78,4 +92,24 @@ div#user_table tbody td {
 
 div#user_table tbody tr:hover {
 	background: rgba(0, 0, 0, 0.5);
+}
+
+/* User details */
+
+div#user_details {
+	display: flex;
+	flex-direction: column;
+	padding: 1vw;
+}
+
+/* Not loaded */
+
+div#user_details div#user_details_not_loaded {
+	margin: auto;
+}
+
+/* Loaded */
+
+div#user_details div#user_details_loaded {
+	margin: auto;
 }

@@ -104,15 +104,19 @@ class AuthController extends Controller {
      */
     public function update(Request $request) {
         $infos = $request->validate([
-            "name" => ["required", "string", "max:255", "unique:users,name"],
-            "email" => ["required", "email", "unique:users,email"],
-            "password" => ["confirmed", "between:8,100"],
-            "password_confirmation" => [],
+            "name" => ["required", "string", "max:255"],
+            "email" => ["required", "email"],
+			"password" => [/*"between:8,100"*/],
+            //"password_confirmation" => [],
             "first_name" => ["string", "max:255"],
             "last_name" => ["string", "max:255"],
             "birth" => ["date"],
             "job_id" => ["exists:jobs,id"]
         ]);
+
+		throw new \Exception("test");
+
+		Log::info("tedst");
 
         $gender = $request->gender;
 
