@@ -6,17 +6,24 @@
     <body onload="loadProducts('{{csrf_token()}}')">
         <div class="box">
             <div id="container">
-                <div id="title">Catalogue</div>
+                <div id="title">Catalogue: {{$category_name}}</div>
+                <hr />
             </div>
             <div id="details" hidden>
-                <img id="icon" src="{{ asset("img/placeholder.png") }}" alt="icon"/>
-                <h1 id="name"></h1>
-                <label>Prix:</label>
-                <label id="price"></label>
-                <label>En stock:</label>
-                <label id="available"></label>
-                <label>Dans le panier:</label>
-                <label id="in_cart"></label>
+                <div class="box2">
+                    <div>
+                        <img id="icon" src="{{ asset("img/placeholder.png") }}" alt="icon"/>
+                    </div>
+                    <div>
+                        <h1 id="name"></h1>
+                        <label>Prix:</label>
+                        <label id="price"></label>
+                        <label>En stock:</label>
+                        <label id="available"></label>
+                        <label>Dans le panier:</label>
+                        <label id="in_cart"></label>
+                    </div>
+                </div>
                 <p id="description"></p>
                 <div id="actions">
                     <input name="amount" type="number" value="1">

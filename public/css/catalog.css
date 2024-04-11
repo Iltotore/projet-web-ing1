@@ -42,6 +42,11 @@
     border-width: 6px;
 }
 
+.box2 {
+    display:flex;
+    flex-direction: row;
+}
+
 #title {
     font-size: x-large;
     padding-bottom: 10px;
