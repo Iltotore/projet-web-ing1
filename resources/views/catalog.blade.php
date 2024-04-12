@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
-    </head>
-    <body onload="loadProducts('{{csrf_token()}}')">
+    <body>
+    <script>
+        window.onload = () => loadProducts('{{csrf_token()}}')
+    </script>
         <div class="box">
             <div id="container">
                 <div id="title">Catalogue: {{$category_name}}</div>

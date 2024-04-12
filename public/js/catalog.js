@@ -105,12 +105,15 @@ async function addItem() {
     if(result.status === 422) {
         const jsonResponse = JSON.parse(result.responseText)
         if(jsonResponse.hasOwnProperty("errors")) {
-            for(const [name, error] in Object.entries(jsonResponse.errors)) {
+            const errors = Object.entries(jsonResponse.errors)
+            for(const [name, error] of errors) {
                 const elements = document.getElementsByName(name)
-                for(const element in elements.values()) {
+                for(let i = 0; i < elements.length; i++) {
+                    const element = elements[i]
                     element.classList.add("invalid")
-                    element.childNodes.add(`<li class="error>${error}</li>`)
                 }
+                const errorDiv = document.getElementById(name + "_error")
+                if(errorDiv !== null) errorDiv.innerHTML = `<li class="error">${error}</li>`
             }
         }
     }
@@ -154,12 +157,15 @@ async function removeItem() {
     if(result.status === 422) {
         const jsonResponse = JSON.parse(result.responseText)
         if(jsonResponse.hasOwnProperty("errors")) {
-            for(const [name, error] in Object.entries(jsonResponse.errors)) {
+            const errors = Object.entries(jsonResponse.errors)
+            for(const [name, error] of errors) {
                 const elements = document.getElementsByName(name)
-                for(const element in elements.values()) {
+                for(let i = 0; i < elements.length; i++) {
+                    const element = elements[i]
                     element.classList.add("invalid")
-                    element.childNodes.add(`<li class="error>${error}</li>`)
                 }
+                const errorDiv = document.getElementById(name + "_error")
+                if(errorDiv !== null) errorDiv.innerHTML = `<li class="error">${error}</li>`
             }
         }
     }
