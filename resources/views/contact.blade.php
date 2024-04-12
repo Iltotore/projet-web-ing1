@@ -12,6 +12,8 @@
         @endforeach
         <div class="box">
             <div class="sign">
+                <div id="title">Formulaire de contact :</div>
+                <hr/>
                 <form action="/contact/create" method="post">
                     @csrf
                     <div class="grill">
@@ -39,13 +41,18 @@
                                 <option value="{{$job->id}}" @if(Auth::user() != null && Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
                             @endforeach
                         </select>
+                    </div> 
+                    <hr/>   
+                    <div class="inputsub">
+                        <label for="subject">Objet: </label> 
+                        <input type="text" id="subject" name="subject" maxlength="100" oninput="updateCounterSubject()" required/>
+                        <div id="counterSubject">0/100</div>
                     </div>
-                    <label for="subject">Objet: </label>
-                    <input type="text" id="subject" name="subject" maxlength="100" oninput="updateCounterSubject()" required/>
-                    <div id="counterSubject">0/100</div>
-                    <label for="content">Message: </label>
-                    <textarea name="content" maxlength="1000" oninput="updateCounterContent()" required></textarea>
-                    <div id="counterContent">0/1000</div>
+                    <div class="inputsub">
+                        <label for="content">Message: </label>
+                        <textarea name="content" maxlength="1000" oninput="updateCounterContent()" required></textarea>
+                        <div id="counterContent">0/1000</div>
+                    </div>
                     <div class="button">
                         <input type="submit" value="Envoyer"/>
                     </div>

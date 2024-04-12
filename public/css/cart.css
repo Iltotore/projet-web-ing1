@@ -18,7 +18,7 @@
 #summary {
     background-image: url("../img/signtropstylezebi.png");
     padding : 2.5%;
-    width: 10%;
+    width: 12%;
     height: 50%;
     border : solid;
     border-color: black;
@@ -71,6 +71,11 @@
 }
 
 #title {
+    font-size: x-large;
+    padding-bottom: 10px;
+}
+
+#total_price {
     font-size: x-large;
     padding-bottom: 10px;
 }
