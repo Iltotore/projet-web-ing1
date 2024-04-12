@@ -105,7 +105,7 @@ Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth
 Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware(["auth", "verified"]);
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
-Route::post("/cart/get", [CartController::class, "getCart"])->middleware("auth");
+Route::get("/cart/get", [CartController::class, "getCart"])->middleware("auth");
 
 Route::get("/catalog/products", [CatalogController::class, "getProducts"]);
 
