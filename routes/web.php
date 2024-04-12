@@ -84,7 +84,7 @@ Route::get('/reset-password/{token}', function ($token) {
         "title" => "Réinitialiser son mot de passe",
         "token" => $token
     ]);
-})->middleware("guest")->name('password.reset');
+})->name('password.reset');
 
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
