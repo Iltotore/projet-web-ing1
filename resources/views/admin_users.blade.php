@@ -105,8 +105,13 @@
 
 				<!-- Métier -->
 				<div class="user_details_field">
-					<label for="job">Métier :</label>
-					<input type="text" id="job" name="job_id"/>
+					<label for="job">Métier: </label>
+					<select name="job" id="job">
+						<option value="null"></option>
+						@foreach(\App\Models\Job::all() as $job)
+							<option value="{{$job->id}}" @if(Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
+						@endforeach
+					</select>
 				</div>
 
 				<!-- Mot de passe : Ne pas l'afficher, simplement en autoriser la modification -->
@@ -139,6 +144,7 @@
 		};
 		let job_field = document.querySelector('#job');
 		let password_field = document.querySelector('#password');
+
 		function displayUserDetails(user) {
 			loaded_div.classList.remove('hidden');
 			not_loaded_div.classList.add('hidden');
@@ -160,7 +166,7 @@
 					gender_field[2].checked = true;
 					break;
 			}
-			job_field.value = user.job;
+			job_field.value = user.job_id;
 		}
 	</script>
 </div>

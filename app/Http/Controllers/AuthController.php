@@ -114,8 +114,6 @@ class AuthController extends Controller {
             "job_id" => ["exists:jobs,id"]
         ]);
 
-		throw new \Exception("test");
-
 		Log::info("tedst");
 
         $gender = $request->gender;
@@ -124,6 +122,9 @@ class AuthController extends Controller {
         else if($gender == "male") $infos["gender"] = false;
         else if($gender == "female") $infos["gender"] = true;
         else return back()->withErrors(["gender" => "Invalid gender"]);
+
+		// If password is missing, set the already existing password
+		if($infos["password"] = "") $infos["password"] = Auth::user()->password;
 
         Auth::user()->update($infos);
 
