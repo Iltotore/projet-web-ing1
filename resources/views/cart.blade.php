@@ -3,7 +3,10 @@
 <html>
     <body>
         <script>
-            window.onload = () => loadCart('{{csrf_token()}}')
+            window.onload = () => {
+                loadCart('{{csrf_token()}}')
+                loadNavbarLogic()
+            }
         </script>
         <div class="box">
             <div id="cart">

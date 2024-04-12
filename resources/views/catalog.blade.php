@@ -2,7 +2,10 @@
 <html>
     <body>
     <script>
-        window.onload = () => loadProducts('{{csrf_token()}}')
+        window.onload = () => {
+            loadProducts('{{csrf_token()}}')
+            loadNavbarLogic()
+        }
     </script>
         <div class="box">
             <div id="container">
