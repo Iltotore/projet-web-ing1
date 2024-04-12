@@ -31,6 +31,7 @@
                     <button id="remove" onclick="removeItem()">Supprimer du panier</button>
                     <button id="close" onclick="closeProduct()">Fermer</button>
                 </div>
+                <div id="amount_error"></div>
             </div>
         </div>
     </body>
