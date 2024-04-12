@@ -2,7 +2,7 @@
 <div id="product_manager_zone">
 	<div id="category_list">
 		@foreach(\App\Models\Category::all()->sortBy('name') as $category)
-			<button class="category_button" onclick="loadCategoryProducts({{ $category }})">
+			<button class="category_button" onclick="loadCategoryProducts({{$category}})">
 				<img class="category_button_image" src="{{ asset("category/" . $category['icon']) }}"/>
 			</button>
 		@endforeach
@@ -10,17 +10,18 @@
 	</div>
 	<div id="manager_bottom">
 		<div id="product_list">
-			<table>
+			<table id="product_table">
 				<thead>
 					<tr>
 						<th>Id</th>
+						<th>Icône</th>
 						<th>Produit</th>
-						<th>Categorie</th>
+						<th>Quantité</th>
 						<th>Prix</th>
 					</tr>
 				</thead>
 
-				<tbody id="product_table">
+				<tbody id="product_table_list_container">
 
 				</tbody>
 			</table>
@@ -31,7 +32,7 @@
 	</div>
 
 	<script type="text/javascript">
-		let product_table = document.getElementById('product_table');
+		let product_table_list_container = document.getElementById('product_table_list_container');
 
 		function loadCategoryProducts(category) {
 			fetch("/admin/product/get", {
@@ -45,8 +46,23 @@
 					"category": category.id
 				})
 			})
-			.then(response => response.json());
-			// Can go further once the JSON response is valid.
+			.then(response => response.json())
+			.then(products => {
+				// Empty the table
+				product_table_list_container.innerHTML = "";
+
+				products.forEach(product => {
+					product_table_list_container.innerHTML += `
+						<tr onclick="showProduct(${product.id})" class="product_row">
+							<td>${product.id}</td>
+							<td><img src="/product/${product.icon}" alt="icon" class="product_icon"/></td>
+							<td>${product.name}</td>
+							<td>${product.amount}</td>
+							<td>${product.unit_price}€</td>
+						</tr>
+					`;
+				});
+			});
 		}
 	</script>
 </div>

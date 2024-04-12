@@ -57,7 +57,7 @@
 		</div>
 		<div id="user_details_loaded" class="hidden">
 			<!-- img src="../img/user_image.jpg" /-->
-			<form action="/auth/update" method="post" >
+			<form action="/auth/update" method="post" autocomplete="off" >
 				@csrf
 
 				<!-- Nom d'utilisateur -->
@@ -117,7 +117,7 @@
 				<!-- Mot de passe : Ne pas l'afficher, simplement en autoriser la modification -->
 				<div class="user_details_field">
 					<label for="password">Mot de passe :</label>
-					<input type="password" name="password" id="password"/>
+					<input type="password" name="password" id="password" autocomplete="new-password"/>
 				</div>
 
 				<!-- Submit -->

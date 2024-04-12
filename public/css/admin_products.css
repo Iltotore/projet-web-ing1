@@ -47,3 +47,19 @@ img.category_button_image {
 
 /* Product list */
 
+table#product_table {
+	border-collapse: collapse;
+}
+
+tr.product_row {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+tr.product_row td {
+	padding: 1vw;
+}
+
+tr.product_row img {
+	max-height: 4vw;
+	max-width: 4vw;
+}
