@@ -289,3 +289,28 @@ input[type=submit]:hover{
 input{
 	font-family: 'Minecraft', sans-serif;
 }
+
+input.invalid {
+    color: red;
+    background-color: #ffb7be;
+    border: solid red 1px;
+    margin-bottom: 5px;
+}
+
+select.invalid {
+    border: solid red 1px;
+}
+
+div.invalid > label {
+    color: red;
+}
+
+div.invalid > input[type=radio] {
+    background-color: #ffb7be;
+    border: solid red 1px;
+}
+
+.error {
+    color: red;
+    font-size: small;
+}

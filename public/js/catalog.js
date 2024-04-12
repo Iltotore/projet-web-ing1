@@ -101,6 +101,22 @@ async function addItem() {
 
         itemInCart.innerHTML = product.in_cart
     }
+
+    if(result.status === 422) {
+        const jsonResponse = JSON.parse(result.responseText)
+        if(jsonResponse.hasOwnProperty("errors")) {
+            const errors = Object.entries(jsonResponse.errors)
+            for(const [name, error] of errors) {
+                const elements = document.getElementsByName(name)
+                for(let i = 0; i < elements.length; i++) {
+                    const element = elements[i]
+                    element.classList.add("invalid")
+                }
+                const errorDiv = document.getElementById(name + "_error")
+                if(errorDiv !== null) errorDiv.innerHTML = `<li class="error">${error}</li>`
+            }
+        }
+    }
 }
 
 async function removeItem() {
@@ -136,5 +152,21 @@ async function removeItem() {
         }
 
         itemInCart.innerHTML = product.in_cart
+    }
+
+    if(result.status === 422) {
+        const jsonResponse = JSON.parse(result.responseText)
+        if(jsonResponse.hasOwnProperty("errors")) {
+            const errors = Object.entries(jsonResponse.errors)
+            for(const [name, error] of errors) {
+                const elements = document.getElementsByName(name)
+                for(let i = 0; i < elements.length; i++) {
+                    const element = elements[i]
+                    element.classList.add("invalid")
+                }
+                const errorDiv = document.getElementById(name + "_error")
+                if(errorDiv !== null) errorDiv.innerHTML = `<li class="error">${error}</li>`
+            }
+        }
     }
 }
