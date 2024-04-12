@@ -21,7 +21,7 @@ async function getProducts(category) {
                     </div>
                     <label class="infproduct">${product.name}</label>
                     <label class="infproduct">${product.unit_price}€</label>
-                    <label class="infproduct">En stock: ${product.amount}</label>
+                    <label class="infproduct" id="amount_${product.id}">En stock: ${product.amount - (product.in_cart === "???" ? 0 : product.in_cart)}</label>
                 </div>
                 `
             container.innerHTML += productCard
@@ -87,19 +87,24 @@ async function addItem() {
     if(result.status === 200) {
         const jsonResponse = JSON.parse(result.responseText)
         const product = getProduct(selectedId)
+        const productDiv = document.getElementById("amount_" + selectedId)
+
         switch (jsonResponse.state) {
             case "ok":
                 itemAdd.disabled = false
                 product.in_cart = jsonResponse.amount
+                productDiv.innerHTML = "En stock: " + jsonResponse.amount
                 break
 
             case "full":
                 itemAdd.disabled = true
                 product.in_cart = jsonResponse.amount
+                productDiv.innerHTML = "En stock: " + jsonResponse.amount
                 break
         }
 
         itemInCart.innerHTML = product.in_cart
+        productDiv.innerHTML = "En stock: " + (product.amount - (product.in_cart === "???" ? 0 : product.in_cart))
     }
 
     if(result.status === 422) {
@@ -133,8 +138,9 @@ async function removeItem() {
 
     if(result.status === 200) {
         const jsonResponse = JSON.parse(result.responseText)
-        console.log(jsonResponse)
         const product = getProduct(selectedId)
+        const productDiv = document.getElementById("amount_" + selectedId)
+
         switch (jsonResponse.state) {
             case "ok":
                 itemAdd.disabled = false
@@ -148,10 +154,12 @@ async function removeItem() {
 
             case "doesNotExist":
             case "delete":
+                itemAdd.disabled = false
                 product.in_cart = 0
         }
 
         itemInCart.innerHTML = product.in_cart
+        productDiv.innerHTML = "En stock: " + (product.amount - (product.in_cart === "???" ? 0 : product.in_cart))
     }
 
     if(result.status === 422) {
