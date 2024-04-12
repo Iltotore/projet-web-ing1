@@ -16,3 +16,7 @@ function loadNavbarLogic() {
         }, 150);
     });
 }
+
+function closeElement(element) {
+    element.remove()
+}
