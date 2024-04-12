@@ -11,7 +11,7 @@
             </div>
             <div id="details" hidden>
                 <div class="box2">
-                    <div>
+                    <div class="imgbox2">
                         <img id="icon" src="{{ asset("img/placeholder.png") }}" alt="icon"/>
                     </div>
                     <div>
