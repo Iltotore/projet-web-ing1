@@ -101,6 +101,19 @@ async function addItem() {
 
         itemInCart.innerHTML = product.in_cart
     }
+
+    if(result.status === 422) {
+        const jsonResponse = JSON.parse(result.responseText)
+        if(jsonResponse.hasOwnProperty("errors")) {
+            for(const [name, error] in Object.entries(jsonResponse.errors)) {
+                const elements = document.getElementsByName(name)
+                for(const element in elements.values()) {
+                    element.classList.add("invalid")
+                    element.childNodes.add(`<li class="error>${error}</li>`)
+                }
+            }
+        }
+    }
 }
 
 async function removeItem() {
@@ -136,5 +149,18 @@ async function removeItem() {
         }
 
         itemInCart.innerHTML = product.in_cart
+    }
+
+    if(result.status === 422) {
+        const jsonResponse = JSON.parse(result.responseText)
+        if(jsonResponse.hasOwnProperty("errors")) {
+            for(const [name, error] in Object.entries(jsonResponse.errors)) {
+                const elements = document.getElementsByName(name)
+                for(const element in elements.values()) {
+                    element.classList.add("invalid")
+                    element.childNodes.add(`<li class="error>${error}</li>`)
+                }
+            }
+        }
     }
 }

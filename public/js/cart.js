@@ -90,5 +90,5 @@ async function clearItems(token) {
 }
 
 function updatePrice() {
-    const priceLabel = document.getEl
+    //TODO Update price
 }
