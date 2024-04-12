@@ -10,43 +10,47 @@
                 <p>{{$error}}</p>
             </div>
         @endforeach
-        <div>
-            <form action="/contact/create" method="post">
-                @csrf
-                <label for="name">Nom: </label>
-                <input type="text" name="last_name" value="{{Auth::check() ? Auth::user()->last_name : "" }}" required/>
-                <label for="first_name">Prénom: </label>
-                <input type="text" name="first_name" value="{{Auth::check() ? Auth::user()->first_name : ""}}" required/>
-                <label for="email">Email: </label>
-                <input type="email" name="email" value="{{Auth::user() ? Auth::user()->email : ""}}" required/>
-                <label for="birth">Date de naissance: </label>
-                <input type="date" name="birth" value="{{Auth::user() ? Auth::user()->birth : ""}}" required/>
-                <legend>Genre: </legend>
-                <div id=genre>
-                    <label for="gender">Homme </label>
-                    <input type="radio" name="gender" value="male" @if(Auth::user() != null && Auth::user()->gender === 0) checked @endif />
-                    <label for="gender">Femme </label>
-                    <input type="radio" name="gender" value="female" @if(Auth::user() != null && Auth::user()->gender === 1) checked @endif />
-                    <label for="gender">Autre </label>
-                    <input type="radio" name="gender" value="null" @if(Auth::user() != null && Auth::user()->gender === null) checked @endif />
-                </div>
-                <label for="job_id">Metier: </label>
-                <select name="job_id" id="job" required>
-                    <option value="null"></option>
-                    @foreach(\App\Models\Job::all() as $job)
-                        <option value="{{$job->id}}" @if(Auth::user() != null && Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
-                    @endforeach
-                </select>
-                <label for="subject">Objet: </label>
-                <input type="text" id="subject" name="subject" maxlength="100" oninput="updateCounterSubject()" required/>
-                <div id="counterSubject">0/100</div>
-                <label for="content">Message: </label>
-                <textarea name="content" maxlength="1000" oninput="updateCounterContent()" required></textarea>
-                <div id="counterContent">0/1000</div>
-                <div class="button">
-                    <input type="submit" value="Envoyer"/>
-                </div>
-            </form>
+        <div class="box">
+            <div class="sign">
+                <form action="/contact/create" method="post">
+                    @csrf
+                    <div class="grill">
+                        <label for="name">Nom: </label>
+                        <input type="text" name="last_name" value="{{Auth::check() ? Auth::user()->last_name : "" }}" required/>
+                        <label for="first_name">Prénom: </label>
+                        <input type="text" name="first_name" value="{{Auth::check() ? Auth::user()->first_name : ""}}" required/>
+                        <label for="email">Email: </label>
+                        <input type="email" name="email" value="{{Auth::user() ? Auth::user()->email : ""}}" required/>
+                        <label for="birth">Date de naissance: </label>
+                        <input type="date" name="birth" value="{{Auth::user() ? Auth::user()->birth : ""}}" required/>
+                        <legend>Genre: </legend>
+                        <div id=genre>
+                            <label for="gender">Homme </label>
+                            <input type="radio" name="gender" value="male" @if(Auth::user() != null && Auth::user()->gender === 0) checked @endif />
+                            <label for="gender">Femme </label>
+                            <input type="radio" name="gender" value="female" @if(Auth::user() != null && Auth::user()->gender === 1) checked @endif />
+                            <label for="gender">Autre </label>
+                            <input type="radio" name="gender" value="null" @if(Auth::user() != null && Auth::user()->gender === null) checked @endif />
+                        </div>
+                        <label for="job_id">Metier: </label>
+                        <select name="job_id" id="job" required>
+                            <option value="null"></option>
+                            @foreach(\App\Models\Job::all() as $job)
+                                <option value="{{$job->id}}" @if(Auth::user() != null && Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <label for="subject">Objet: </label>
+                    <input type="text" id="subject" name="subject" maxlength="100" oninput="updateCounterSubject()" required/>
+                    <div id="counterSubject">0/100</div>
+                    <label for="content">Message: </label>
+                    <textarea name="content" maxlength="1000" oninput="updateCounterContent()" required></textarea>
+                    <div id="counterContent">0/1000</div>
+                    <div class="button">
+                        <input type="submit" value="Envoyer"/>
+                    </div>
+                </form>
+            </div>
         </div>
         <script type="text/javascript"> <!-- unable to load js in file.js ; error MIME type invalid -->
 

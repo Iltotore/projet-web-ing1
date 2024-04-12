@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div id="summary">
-                <div id="total_price">Total :</div>
+                <div id="total_price">Total :vofndvd</div>
                 <button onclick="buyItems('{{csrf_token()}}')">Acheter</button>
             </div>
         </div>
