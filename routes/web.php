@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ContactController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +54,8 @@ Route::get('/cart', function () {return view('application', [
 Route::get('/catalog', function () {
     return view('application', [
         "page_to_load" => "catalog",
-        "title" => "Produits"
+        "title" => "Produits",
+        "category_name" => Category::find(Request::get("category", 0))->name
 ]);});
 Route::get('/registered', function () {
     return view('application', [
