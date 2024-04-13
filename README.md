@@ -1,6 +1,6 @@
-# Hurr Shop
+# HurrShop
 
-Hurr Shop est le projet noté de développement web de l'année 2023-2024 de CY Tech, réalisé par:
+HurrShop est le projet noté de développement web de l'année 2023-2024 de CY Tech, réalisé par:
 - Jordan DIZIN
 - Raphaël FROMENTIN
 - Clément PRAUD

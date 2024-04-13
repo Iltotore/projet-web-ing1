@@ -20,7 +20,7 @@
     <!-- Contenu de la page -->
 	<body onload="loadNavbarLogic()">
 		<nav id="navbar">
-			<p>HurrShop est votre nouvel espace d'achat d'equipements et materiaux.</p>
+			<p>HurrShop est votre nouvel espace d'achat d'équipements et de matériaux.</p>
 			<hr>
 			<ul>
 				<li><a href="/">Page d'accueil</a></li>
@@ -97,7 +97,7 @@
 					</div>
 				</div>
 				<p>© 2024 HurrShop. Tous droits réservés.</p>
-				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
+				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un procès pour arnaque.</p>
 			</footer>
 		</div>
 	</body>
