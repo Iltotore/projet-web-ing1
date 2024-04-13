@@ -4,7 +4,7 @@
         <div class="box">
             <div class="box2">
                 <div class="subsign">
-                    <div id="title">BIENVENUE</div>
+                    <div id="title">Bienvenue</div>
                     <hr/>
                     <div>Créé par La Ligue des Villageois et Marchands Humains (LVMH), HurrShop est le site de référence pour l'achat rapide d'objets disponibles dans les villages. Retrouvez vos produits favoris issus de l'Overworld, du Nether ou de l'Ender à moindre prix.
                     </div>
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="sign">
-                <div id="title">CATALOGUE :</div>
+                <div id="title">Catalogue :</div>
                 <hr/>
                 <div class="slider">
                     <div class="slider-viewport">
