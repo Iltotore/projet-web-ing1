@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
             "amount" => 40
         ]);
 
-        $armors->products()->create([
+        $alchemy->products()->create([
             "name" => "poudre de redstone",
             "icon" => "Redstone.webp",
             "description" => "La poudre de redstone peut être obtenue en minant du minerai de redstone avec une pioche en fer ou de qualité supérieure, ou en vainquant une sorcière. ",
