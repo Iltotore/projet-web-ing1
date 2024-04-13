@@ -38,8 +38,8 @@
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="email">Email: </label>
-                    <input type="email" name="email" required class="@error('password') invalid @enderror"/>
-                    @error("password")
+                    <input type="email" name="email" required class="@error('email') invalid @enderror"/>
+                    @error("email")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="first_name">Prenom: </label>
