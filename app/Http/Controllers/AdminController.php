@@ -6,11 +6,14 @@ use App\Models\Category;
 use App\Models\ContactForm;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\ContactReply;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
 class AdminController extends Controller
@@ -272,7 +275,8 @@ class AdminController extends Controller
 
         $contactForm = ContactForm::find($args["id"]);
 
-        // TODO send email and change return
+        Notification::route("mail", $contactForm->email)
+            ->notify(new ContactReply($contactForm->subject, $args["mailBody"], Auth::user()->name));
 
         return response(status: 200);
     }
