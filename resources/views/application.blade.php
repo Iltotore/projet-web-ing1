@@ -65,8 +65,8 @@
 						<a href="/catalog">Produits</a>
 						@auth
 							<a href="/profile">Compte</a>
+                            <a href="/cart">Panier</a>
 						@endauth
-						<a href="/cart">Panier</a>
 						<a href="/contact">Contact</a>
 					</div>
 				</div>
@@ -101,20 +101,5 @@
 				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
 			</footer>
 		</div>
-
-		<script type="text/javascript">
-			const navbar = document.getElementById('navbar');
-			const overlay = document.getElementById('overlay');
-
-			navbar.addEventListener('mouseenter', function() {
-				navbar.classList.toggle('active');
-				overlay.classList.toggle('active');
-			});
-
-			overlay.addEventListener('mouseenter', function() {
-				navbar.classList.remove('active');
-				overlay.classList.remove('active');
-			});
-		</script>
 	</body>
 </html>
