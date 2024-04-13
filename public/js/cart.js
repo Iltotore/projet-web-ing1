@@ -146,5 +146,5 @@ function updatePrice() {
         price += itemPrice
     }
 
-    priceLabel.innerHTML = "Total: " + price.toFixed(2)
+    priceLabel.innerHTML = "Total: " + price.toFixed(2) + " €"
 }
