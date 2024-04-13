@@ -187,7 +187,7 @@ class AuthTest extends TestCase {
             [
                 "name" => "",
                 "email" => "abc",
-                "password" => "",
+                "password" => "b",
                 "password_confirmation" => "a",
                 "first_name" => str_repeat("a", 256),
                 "last_name" => str_repeat("a", 256),

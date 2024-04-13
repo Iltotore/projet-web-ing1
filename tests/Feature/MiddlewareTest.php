@@ -30,7 +30,7 @@ class MiddlewareTest extends TestCase
     public function test_admin_guest(): void
     {
         $response = $this->get("/test/admin");
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 
     /**
@@ -42,7 +42,7 @@ class MiddlewareTest extends TestCase
         Auth::login($user);
 
         $response = $this->get("/test/admin");
-        $response->assertNotFound();
+        $response->assertForbidden();
     }
 
     /**
