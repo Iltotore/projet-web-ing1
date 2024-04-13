@@ -52,11 +52,12 @@
 				product_table_list_container.innerHTML = "";
 
 				products.forEach(product => {
+					const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1)
 					product_table_list_container.innerHTML += `
 						<tr onclick="showProduct(${product.id})" class="product_row">
 							<td>${product.id}</td>
 							<td><img src="/product/${product.icon}" alt="icon" class="product_icon"/></td>
-							<td>${product.name}</td>
+							<td>${product_name}</td>
 							<td>${product.amount}</td>
 							<td>${product.unit_price}€</td>
 						</tr>
