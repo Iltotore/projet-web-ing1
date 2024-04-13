@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactForm;
+use App\Notifications\ContactCreate;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ContactController extends Controller {
 
@@ -35,7 +38,7 @@ class ContactController extends Controller {
 
         ContactForm::create($args);
 
-        //TODO send mail
+        Notification::route("mail", $args["email"])->notify(new ContactCreate($args["subject"], $args["content"]));
 
         return redirect()->to("/");
     }
