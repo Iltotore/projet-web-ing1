@@ -8,6 +8,15 @@ body {
 	font-family: 'Minecraft', sans-serif
 }
 
+/* Custom font */
+
+@font-face {
+	font-family: 'Minecraft';
+	src: url("../fonts/MinecraftRegular-Bmg3.otf");
+	font-weight: normal;
+	font-style: normal;
+}
+
 .hidden {
     display: none !important;
 }

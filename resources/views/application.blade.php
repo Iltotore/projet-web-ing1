@@ -7,7 +7,6 @@
 		<link rel="stylesheet" href="{{ asset('css/application.css') }}">
         <script type="text/javascript" src="{{asset("js/app.js")}}"></script>
         <script type="text/javascript" src="{{asset("js/util.js")}}"></script>
-		<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 
 		<!-- Style de la zone main -->
         @if(file_exists(public_path("css/" . ($page_to_load ?? "error") . ".css")))
@@ -30,12 +29,12 @@
 			<ul id="product_list">
 				<h3>Produits</h3>
 				@foreach(\App\Models\Category::all()->sortBy('name') as $category)
-					<li><a href="/catalog?category={{$category->id}}"><img src="{{ asset("category/" . $category['icon']) }}" alt="{{$category->name}} category image"/>{{ Illuminate\Support\Str::ascii($category['name']) }}</a></li>
+					<li><a href="/catalog?category={{$category->id}}"><img src="{{ asset("category/" . $category['icon']) }}" alt="{{$category->name}} category image"/>{{ ucfirst($category['name']) }}</a></li>
 				@endforeach
 			</ul>
 			<hr>
 			<ul>
-				<li><a href="/about">A propos</a></li>
+				<li><a href="/about">À propos</a></li>
 				<li><a>FAQ</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
@@ -55,7 +54,7 @@
 						@auth
 							<a href="/profile">{{ Auth::user()->name }}</a>
 							-
-							<a href="/auth/logout">Se deconnecter</a>
+							<a href="/auth/logout">Se déconnecter</a>
 						@else
 							<a href="/login">Se connecter</a>
 						@endauth
@@ -82,12 +81,12 @@
 						<a>Plan du site</a>
 					</div>
 					<div class="footer_column">
-						<a href="/about">A propos</a>
+						<a href="/about">À propos</a>
 						<a href="/contact">Contact</a>
 						<a>FAQ</a>
 					</div>
 					<div class="footer_column">
-						<a href="https://minecraft.wiki/w/Villager">Reseaux sociaux</a>
+						<a href="https://minecraft.wiki/w/Villager">Réseaux sociaux</a>
 					</div>
 					<div class="footer_column">
 						<a class="emerald">Emerald.net</a>

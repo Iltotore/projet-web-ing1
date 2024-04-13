@@ -9,7 +9,7 @@
     </script>
         <div class="box">
             <div id="container">
-                <div id="title">Catalogue: {{$category_name}}</div>
+                <div id="title">Catalogue : {{ ucfirst($category_name) }}</div>
                 <hr/>
             </div>
             <div id="details" hidden>

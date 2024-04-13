@@ -13,13 +13,14 @@ async function getProducts(category) {
         const container = document.getElementById("container")
         for (let i = 0; i < jsonResponse.length; i++) {
             const product = jsonResponse[i]
+			const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1)
             const productCard =
                 `
                 <div class="product" onclick="showProduct(${product.id})">
                     <div class="imgbox">
                         <img src="/product/${product.icon}" alt="icon"/>
                     </div>
-                    <label class="infproduct">${product.name}</label>
+                    <label class="infproduct">${product_name}</label>
                     <label class="infproduct">${product.unit_price}€</label>
                     <label class="infproduct" id="amount_${product.id}">En stock: ${product.amount - (product.in_cart === "???" ? 0 : product.in_cart)}</label>
                 </div>
@@ -59,7 +60,8 @@ async function showProduct(id) {
 
     details.hidden = false
     icon.src = `/product/${product.icon}`
-    name.innerHTML = product.name
+	const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1)
+    name.innerHTML = product_name
     price.innerHTML = `${product.unit_price}€`
     available.innerHTML = product.amount
     inCart.innerHTML = product.in_cart
