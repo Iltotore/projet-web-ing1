@@ -14,7 +14,7 @@ async function loadCart(token) {
             const itemCard =
                 `
                     <div class="item" id="item#${item.id}">
-                        <div>
+                        <div class="imgbox">
                             <img src="/product/${item.icon}" alt="icone"/>
                         </div>
                         <div class="info">
@@ -146,5 +146,5 @@ function updatePrice() {
         price += itemPrice
     }
 
-    priceLabel.innerHTML = "Total: " + price.toFixed(2)
+    priceLabel.innerHTML = "Total: " + price.toFixed(2) + " €"
 }

@@ -18,20 +18,29 @@
 #summary {
     background-image: url("../img/signtropstylezebi.png");
     padding : 2.5%;
-    width: 10%;
+    width: 12%;
     height: 50%;
     border : solid;
     border-color: black;
     border-width: 6px;
 }
 
-.box #cart .item img {
+.imgbox {
+    display: flex;
+    justify-content: center;
     height: 75px;
     width: 75px;
     border : solid;
     border-color: black;
     border-width: 1px;
     margin-right: 50px;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+
+.box #cart .item img {
+    max-height: 75px;
+    max-width: 75px;
     grid-column: 1;
     grid-row: span 2;
 }
@@ -62,6 +71,11 @@
 }
 
 #title {
+    font-size: x-large;
+    padding-bottom: 10px;
+}
+
+#total_price {
     font-size: x-large;
     padding-bottom: 10px;
 }

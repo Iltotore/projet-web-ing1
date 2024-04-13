@@ -11,6 +11,7 @@
         <div class="box">
             <div id="cart">
                 <div id="title">Votre panier</div>
+                <hr/>
                 <div id="items"></div>
                 <div id="actions">
                     <button onclick="clearItems('{{csrf_token()}}')">Vider le panier</button>

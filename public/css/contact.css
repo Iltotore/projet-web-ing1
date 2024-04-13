@@ -1,3 +1,63 @@
+.box {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding : 2%;
+    line-height: 150%;
+}
+
+.sign {
+    background-image: url("../img/signtropstylezebi.png");
+    padding : 2.5%;
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
+
+.grill {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.grill input {
+    grid-column: 2;
+}
+
+.grill label {
+    grid-column: 1;
+}
+
+#genre {
+    grid-column: 2;
+}
+
+#genre input {
+    margin-right: 22%;
+}
+
+.inputsub{
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+    gap: 1%;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.button input {
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+    width: 40%;
+    padding: 10px;
+}
+
 #job {
     font-family: 'Minecraft', sans-serif;
 }
@@ -10,4 +70,9 @@ textarea {
     font-family: 'Minecraft', sans-serif;
     width: 70vw;
     height: 50vh;
+}
+
+#title {
+    font-size: x-large;
+    padding-bottom: 10px;
 }
