@@ -97,7 +97,7 @@ Route::get('/admin/users', function () {return view('application', [
 	"page_to_load" => "admin_users",
 	"title" => "Gestion utilisateurs"
 ]);})->middleware("admin");
-	
+
 
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::get("/auth/logout", [AuthController::class, "logout"]);
@@ -110,12 +110,11 @@ Route::get("/auth/verify/{id}/{hash}", [AuthController::class, "verifyEmail"])
 
 Route::post("/auth/reset-password", [AuthController::class, "resetPassword"]);
 
-Route::post("/cart/add", [CartController::class, "add"])->middleware("auth");
-Route::post("/cart/remove", [CartController::class, "remove"])->middleware("auth");
+Route::post("/cart/add", [CartController::class, "add"]);
+Route::post("/cart/remove", [CartController::class, "remove"]);
 Route::post("/cart/delete", [CartController::class, "delete"])->middleware("auth");
 Route::post("/cart/clear", [CartController::class, "clear"])->middleware("auth");
 Route::post("/cart/buy", [CartController::class, "buy"])->middleware(["auth", "verified"]);
-Route::post("/cart/buy", [CartController::class, "buy"])->middleware("auth");
 Route::get("/cart/get", [CartController::class, "getCart"])->middleware("auth");
 
 Route::get("/catalog/products", [CatalogController::class, "getProducts"]);

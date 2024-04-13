@@ -22,6 +22,7 @@ function sendJSON(url, data, method = "POST") {
 
         xhr.onerror = e => reject(xhr.statusText)
 
+        data.origin = window.location.href
         xhr.send(JSON.stringify(data))
     })
 }

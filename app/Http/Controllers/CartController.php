@@ -23,6 +23,9 @@ class CartController extends Controller {
             "amount" => ["required", "integer", "gt:0"]
         ]);
 
+        if(!Auth::check())
+            return response()->json(["redirect" => $request->has("origin") ? "/login?redirect=" . urlencode($request->origin) : "/login"], 302);
+
         $result = Auth::user()->addCartItem(Product::find($args["product"]), $args["amount"]);
 
         return response()->json($result->toJson());
@@ -39,6 +42,9 @@ class CartController extends Controller {
             "product" => ["required", "exists:products,id"],
             "amount" => ["required", "integer", "gt:0"]
         ]);
+
+        if(!Auth::check())
+            return response()->json(["redirect" => $request->has("origin") ? "/login?redirect=" . urlencode($request->origin) : "/login"], 302);
 
         $result = Auth::user()->removeCartItem(Product::find($args["product"]), $args["amount"]);
 
