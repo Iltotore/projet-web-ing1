@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AuthTest extends TestCase {
@@ -201,10 +202,11 @@ class AuthTest extends TestCase {
     }
 
     /**
-     * Successfully register a new user for valid form parameters.
+     * Successfully register a new user for valid form parameters and no password.
      */
-    function test_update_successful() {
+    function test_update_successful_no_password() {
         $user = User::factory()->create();
+        $passwordHash = $user->password;
         Auth::login($user);
 
         $body = [
@@ -226,5 +228,100 @@ class AuthTest extends TestCase {
             $this->assertEquals($body[$column], $user[$column]);
         }
 
+        $this->assertEquals($passwordHash, $user->password);
+    }
+
+    /**
+     * Successfully register a new user for valid form parameters and empty password.
+     */
+    function test_update_successful_empty_password() {
+        $user = User::factory()->create();
+        $passwordHash = $user->password;
+        Auth::login($user);
+
+        $body = [
+            "name" => fake()->name(),
+            "email" => fake()->email(),
+            "first_name" => fake()->firstName(),
+            "last_name" => fake()->lastName(),
+            "birth" => fake()->date(),
+            "password" => "",
+            "password_confirmation" => ""
+        ];
+
+        $noPassword = $this->post("/auth/update", $body);
+
+        $noPassword->assertRedirect();
+        $noPassword->assertValid();
+
+        $user->refresh();
+
+        foreach (["name", "email", "first_name", "last_name", "birth"] as $column) {
+            $this->assertEquals($body[$column], $user[$column]);
+        }
+
+        $this->assertEquals($passwordHash, $user->password);
+    }
+
+    /**
+     * Successfully register a new user for valid form parameters.
+     */
+    function test_update_successful_new_password() {
+        $password = fake()->password(minLength: 8, maxLength: 50);
+        $user = User::factory()->create(["password" => $password]);
+        $passwordHash = $user->password;
+        Auth::login($user);
+
+        $newPassword = fake()->password(minLength: 50, maxLength: 100);
+
+        $body = [
+            "name" => fake()->name(),
+            "email" => fake()->email(),
+            "first_name" => fake()->firstName(),
+            "last_name" => fake()->lastName(),
+            "birth" => fake()->date(),
+            "password" => $newPassword,
+            "password_confirmation" => $newPassword
+        ];
+
+        $noPassword = $this->post("/auth/update", $body);
+
+        $noPassword->assertRedirect();
+        $noPassword->assertValid();
+
+        $user->refresh();
+
+        foreach (["name", "email", "first_name", "last_name", "birth"] as $column) {
+            $this->assertEquals($body[$column], $user[$column]);
+        }
+
+        $this->assertNotEquals($passwordHash, $user->password);
+    }
+
+    /**
+     * Successfully register a new user for valid form parameters and no password.
+     */
+    function test_update_successful_same_data() {
+        $user = User::factory()->create();
+        Auth::login($user);
+
+        $body = [
+            "name" => $user->name,
+            "email" => $user->email,
+            "first_name" => $user->firstName ?? "",
+            "last_name" => $user->lastName ?? "",
+            "birth" => $user->birth
+        ];
+
+        $response = $this->post("/auth/update", $body);
+
+        $response->assertRedirect();
+        $response->assertValid();
+
+        $user->refresh();
+
+        foreach (["name", "email", "first_name", "last_name", "birth"] as $column) {
+            $this->assertEquals($body[$column], $user[$column]);
+        }
     }
 }

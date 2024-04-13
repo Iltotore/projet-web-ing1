@@ -9,7 +9,7 @@
     <div id="title">
         <img src="../img/user_image.jpg"/>Votre profil :
     </div>
-    <form action="/auth/register" method="post">
+    <form action="/auth/update" method="post">
         @csrf
         <div class="grill">
             <label for="name">Pseudo: </label>
@@ -65,7 +65,7 @@
                 <li class="error">{{ $message }}</li>
             @enderror
             <label for="password">Mot de passe: </label>
-            <input type="password" name="password" required class="@error('password') invalid @enderror"/>
+            <input type="password" name="password" class="@error('password') invalid @enderror"/>
             @error("password")
                 <li class="error">{{ $message }}</li>
             @enderror
@@ -73,7 +73,7 @@
             @error("password")
                 <li class="error">{{ $message }}</li>
             @enderror
-            <input type="password" name="password_confirmation" required class="@error('password') invalid @enderror"/>
+            <input type="password" name="password_confirmation" class="@error('password') invalid @enderror"/>
         </div>
         <div class="button">
             <input type="submit" value="Modifier le profil"/>

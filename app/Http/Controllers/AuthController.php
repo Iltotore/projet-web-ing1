@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 /**
  * Controller for authentification-related requests.
@@ -106,12 +107,12 @@ class AuthController extends Controller {
         $infos = $request->validate([
             "name" => ["required", "string", "max:255"],
             "email" => ["required", "email"],
-			"password" => ["between:8,100"],
-            "password_confirmation" => [],
-            "first_name" => ["string", "max:255"],
-            "last_name" => ["string", "max:255"],
+			"password" => ["nullable", "between:8,100", "confirmed"],
+            "password_confirmation" => ["nullable", "required_with:password"],
+            "first_name" => ["nullable", "string", "max:255"],
+            "last_name" => ["nullable", "string", "max:255"],
             "birth" => ["date"],
-            "job_id" => ["exists:jobs,id"]
+            "job_id" => ["nullable", "exists:jobs,id"]
         ]);
 
         $gender = $request->gender;
@@ -122,7 +123,10 @@ class AuthController extends Controller {
         else return back()->withErrors(["gender" => "Invalid gender"]);
 
 		// If password is missing, set it to the already existing password
-		if($infos["password"] = "") $infos["password"] = Auth::user()->password;
+		if(array_key_exists("password", $infos) && $infos["password"] == "") {
+            unset($infos["password"]);
+            unset($infos["password_confirmation"]);
+        }
 
         Auth::user()->update($infos);
 
