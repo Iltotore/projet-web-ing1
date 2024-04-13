@@ -45,20 +45,28 @@
 
 		<div id="page_content">
 			<header>
-				<div id="logo_zone">
+				<a href="/" id="logo_zone">
 					<img id="logo_icon" src="{{ asset("img/icon.webp") }}" alt="logo image"/>
 					<img id="logo_text" src="{{ asset('img/logo.webp') }}" alt="logo text image"/>
-				</div>
+				</a>
 
 				<div id="header_end_zone">
 					<div id="account_zone">
-						<a>USERNAME</a>
-						-
-						<a>Se connecter</a>
+						@auth
+							<a href="/profile">{{ Auth::user()->name }}</a>
+							-
+							<a href="/auth/logout">Se deconnecter</a>
+						@else
+							<a href="/login">Se connecter</a>
+						@endauth
 					</div>
 					<div id="link_zone">
 						<a href="/">Accueil</a>
 						<a href="/catalog">Produits</a>
+						@auth
+							<a href="/profile">Compte</a>
+                            <a href="/cart">Panier</a>
+						@endauth
 						<a href="/contact">Contact</a>
 					</div>
 				</div>

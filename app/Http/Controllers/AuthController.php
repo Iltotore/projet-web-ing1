@@ -104,9 +104,9 @@ class AuthController extends Controller {
      */
     public function update(Request $request) {
         $infos = $request->validate([
-            "name" => ["required", "string", "max:255", "unique:users,name"],
-            "email" => ["required", "email", "unique:users,email"],
-            "password" => ["confirmed", "between:8,100"],
+            "name" => ["required", "string", "max:255"],
+            "email" => ["required", "email"],
+			"password" => ["between:8,100"],
             "password_confirmation" => [],
             "first_name" => ["string", "max:255"],
             "last_name" => ["string", "max:255"],
@@ -120,6 +120,9 @@ class AuthController extends Controller {
         else if($gender == "male") $infos["gender"] = false;
         else if($gender == "female") $infos["gender"] = true;
         else return back()->withErrors(["gender" => "Invalid gender"]);
+
+		// If password is missing, set it to the already existing password
+		if($infos["password"] = "") $infos["password"] = Auth::user()->password;
 
         Auth::user()->update($infos);
 
