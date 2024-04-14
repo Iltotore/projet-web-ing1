@@ -69,6 +69,9 @@
 						<input type="submit" value="Enregistrer"/>
 					</div>
 				</form>
+
+				<!-- Delete -->
+				<div class="product_details_field" id="delete_product_div"></div>
 			</div>
 
 			<div id="category_details" class="hidden">
@@ -94,6 +97,11 @@
 						<input type="submit" value="Enregistrer"/>
 					</div>
 				</form>
+
+				<!-- Delete -->
+				<div class="product_details_field" id="delete_category_div">
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -154,6 +162,8 @@
 		const product_amount = document.getElementById('product_amount');
 		const product_price = document.getElementById('product_price');
 
+		const delete_product_div = document.getElementById('delete_product_div');
+
 		function showProduct(product_id) {
 			const product = current_product_list[product_id];
 
@@ -168,12 +178,34 @@
 			product_description.value = product.description;
 			product_amount.value = product.amount;
 			product_price.value = product.unit_price;
+
+			// Delete button
+			delete_product_div.innerHTML = `
+				<button onclick="deleteProduct(${product_id})">Supprimer</button>
+			`;
+		}
+
+		function deleteProduct(product_id) {
+			fetch("/admin/product/remove", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+				},
+				body: JSON.stringify({
+					"_token": "{{ csrf_token() }}",
+					"id": product_id
+				})
+			})
+			.then(response => location.reload()); // Reload the page
 		}
 
 		// Fields
 		const category_id = document.getElementById('category_id');
 		const category_name = document.getElementById('category_name');
 		const category_icon = document.getElementById('category_icon');
+
+		const delete_category_div = document.getElementById('delete_category_div');
 
 		function showCategory(category) {
 			// Swap views
@@ -185,6 +217,26 @@
 			category_name.value = category.name;
 			category_icon.value = category.icon;
 			category_id.value = category.id;
+
+			// Delete button
+			delete_category_div.innerHTML = `
+				<button onclick="deleteCategory(${category.id})">Supprimer</button>
+			`;
+		}
+
+		function deleteCategory(category_id) {
+			fetch("/admin/category/remove", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+				},
+				body: JSON.stringify({
+					"_token": "{{ csrf_token() }}",
+					"id": category_id
+				})
+			})
+			.then(response => location.reload()); // Reload the page
 		}
 	</script>
 </div>
