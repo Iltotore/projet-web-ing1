@@ -33,6 +33,10 @@ img {
 	max-height: 100%;
 }
 
+textarea {
+	font: inherit;
+}
+
 /* Navigation bar */
 
 nav#navbar {
