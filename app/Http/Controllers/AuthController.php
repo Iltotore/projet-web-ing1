@@ -82,7 +82,7 @@ class AuthController extends Controller {
 
         $gender = $request->gender;
 
-        if($gender == null) $infos["gender"] = null;
+        if($gender == null || $gender == "other") $infos["gender"] = null;
         else if($gender == "male") $infos["gender"] = false;
         else if($gender == "female") $infos["gender"] = true;
         else return back()->withErrors(["gender" => "Invalid gender"]);
@@ -117,7 +117,7 @@ class AuthController extends Controller {
 
         $gender = $request->gender;
 
-        if($gender == null) $infos["gender"] = null;
+        if($gender == null || $gender == "other") $infos["gender"] = null;
         else if($gender == "male") $infos["gender"] = false;
         else if($gender == "female") $infos["gender"] = true;
         else return back()->withErrors(["gender" => "Invalid gender"]);

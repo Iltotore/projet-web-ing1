@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -245,6 +246,7 @@ class AuthTest extends TestCase {
             "first_name" => fake()->firstName(),
             "last_name" => fake()->lastName(),
             "birth" => fake()->date(),
+            "gender" => "other",
             "password" => "",
             "password_confirmation" => ""
         ];
@@ -280,6 +282,7 @@ class AuthTest extends TestCase {
             "first_name" => fake()->firstName(),
             "last_name" => fake()->lastName(),
             "birth" => fake()->date(),
+            "gender" => "other",
             "password" => $newPassword,
             "password_confirmation" => $newPassword
         ];
@@ -310,7 +313,8 @@ class AuthTest extends TestCase {
             "email" => $user->email,
             "first_name" => $user->firstName ?? "",
             "last_name" => $user->lastName ?? "",
-            "birth" => $user->birth
+            "birth" => $user->birth,
+            "gender" => $user->gender ?? "other"
         ];
 
         $response = $this->post("/auth/update", $body);

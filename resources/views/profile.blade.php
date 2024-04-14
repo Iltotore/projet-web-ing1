@@ -7,7 +7,7 @@
 <body>
 <div class="sign">
     <div id="title">
-        <img src="../img/user_image.jpg"/>Votre profil :
+        <img src="{{ asset('img/user_image.jpg') }}" alt="user default image"/>Votre profil :
     </div>
     <form action="/auth/update" method="post">
         @csrf
@@ -25,7 +25,7 @@
                 <li class="error">{{ $message }}</li>
             @enderror
             <label for="first_name">Prenom: </label>
-            <input type="first_name" name="first_name" value="{{Auth::user()->first_name}}"
+            <input type="text" name="first_name" value="{{Auth::user()->first_name}}"
                    class="@error('first_name') invalid @enderror"/>
             @error("first_name")
                 <li class="error">{{ $message }}</li>
@@ -48,7 +48,7 @@
                 <label for="gender">Femme </label>
                 <input type="radio" name="gender" value="female" @if(Auth::user()->gender === 1) checked @endif/>
                 <label for="gender">Autre </label>
-                <input type="radio" name="gender" value="null" @if(Auth::user()->gender === null) checked @endif/>
+                <input type="radio" name="gender" value="other" @if(Auth::user()->gender === null) checked @endif/>
             </div>
             @error("gender")
                 <li class="error">{{ $message }}</li>
