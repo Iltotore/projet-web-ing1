@@ -60,6 +60,8 @@
 			<form action="/auth/update" method="post" autocomplete="off" >
 				@csrf
 
+				<input type="hidden" id="user_id" name="id"/>
+
 				<!-- Nom d'utilisateur -->
 				<div class="user_details_field">
 					<label for="name">Nom d'utilisateur :</label>
@@ -125,6 +127,15 @@
 					<input type="submit" value="Enregistrer"/>
 				</div>
 			</form>
+
+			<!-- Delete button -->
+			<div class="user_details_field">
+				<form action="/admin/user/remove" method="post">
+					@csrf
+					<input type="hidden" id="user_id_delete" name="id"/>
+					<input type="submit" value="Supprimer"/>
+				</form>
+			</div>
 		</div>
 	</div>
 	<script>
@@ -132,6 +143,7 @@
 		let not_loaded_div = document.querySelector('#user_details_not_loaded');
 		let loaded_div = document.querySelector('#user_details_loaded');
 
+		let user_id = document.querySelector('#user_id');
 		let username_field = document.querySelector('#name');
 		let email_field = document.querySelector('#email');
 		let first_name_field = document.querySelector('#first_name');
@@ -144,12 +156,14 @@
 		};
 		let job_field = document.querySelector('#job');
 		let password_field = document.querySelector('#password');
+		let user_id_delete = document.querySelector('#user_id_delete');
 
 		function displayUserDetails(user) {
 			loaded_div.classList.remove('hidden');
 			not_loaded_div.classList.add('hidden');
 
 			// Set values
+			user_id.value = user.id;
 			username_field.value = user.name;
 			email_field.value = user.email;
 			first_name_field.value = user.first_name;
@@ -167,6 +181,9 @@
 					break;
 			}
 			job_field.value = user.job_id;
+
+
+			user_id_delete.value = user.id;
 		}
 	</script>
 </div>
