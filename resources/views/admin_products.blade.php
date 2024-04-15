@@ -32,7 +32,7 @@
 			</div>
 
 			<div id="product_details" class="hidden">
-				<form id="product_form" action="/admin/product/update" method="post" >
+				<form id="product_form" method="post" >
 					@csrf
 
 					<input type="hidden" id="product_id" name="id"/>
@@ -78,7 +78,7 @@
 			</div>
 
 			<div id="category_details" class="hidden">
-				<form id="category_form" action="/admin/category/update" method="post" >
+				<form id="category_form" method="post" >
 					@csrf
 
 					<input type="hidden" id="category_id" name="id"/>

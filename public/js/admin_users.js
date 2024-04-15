@@ -1,9 +1,9 @@
 // Seach system
 document.querySelector('.search_input').addEventListener('input', function() {
-	var searchValue = this.value.toLowerCase();
-	var rows = document.querySelectorAll('#user_table tbody tr');
+	let searchValue = this.value.toLowerCase();
+	let rows = document.querySelectorAll('#user_table tbody tr');
 	rows.forEach(function(row) {
-		var userName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+		let userName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
 		if (userName.indexOf(searchValue) > -1) {
 			row.style.display = '';
 		} else {
