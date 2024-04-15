@@ -13,9 +13,8 @@
 		    <link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
         @endif
 
-        @if(file_exists(public_path("js/" . $page_to_load . ".js")))
-            <script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
-        @endif
+		<!-- CSRF Token -->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
     <!-- Contenu de la page -->
 	<body onload="loadNavbarLogic()">
@@ -101,4 +100,8 @@
 			</footer>
 		</div>
 	</body>
+
+	@if(file_exists(public_path("js/" . $page_to_load . ".js")))
+		<script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
+	@endif
 </html>
