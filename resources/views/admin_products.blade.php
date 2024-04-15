@@ -6,7 +6,7 @@
 				<img class="category_button_image" src="{{ asset("category/" . $category['icon']) }}"/>
 			</button>
 		@endforeach
-		<button class="category_button">+</button>
+		<button class="category_button" onclick="showAddCategory()">+</button>
 	</div>
 	<div id="manager_bottom">
 		<div id="product_list">
@@ -32,8 +32,11 @@
 			</div>
 
 			<div id="product_details" class="hidden">
-				<form action="/admin/product/update" method="post" >
+				<form id="product_form" action="/admin/product/update" method="post" >
 					@csrf
+
+					<input type="hidden" id="product_id" name="id"/>
+
 					<!-- Nom -->
 					<div class="product_details_field">
 						<label for="name">Nom :</label>
@@ -43,7 +46,7 @@
 					<!-- Icône -->
 					<div class="product_details_field">
 						<label for="icon_data">Icône :</label>
-						<input type="text" id="product_icon" name="icon_data" required/>
+						<input type="file" id="product_icon" name="icon_data" required/>
 					</div>
 
 					<!-- Description -->
@@ -75,7 +78,7 @@
 			</div>
 
 			<div id="category_details" class="hidden">
-				<form action="/admin/category/update" method="post" >
+				<form id="category_form" action="/admin/category/update" method="post" >
 					@csrf
 
 					<input type="hidden" id="category_id" name="id"/>
@@ -89,7 +92,7 @@
 					<!-- Icon -->
 					<div class="product_details_field">
 						<label for="icon_data">Icône :</label>
-						<input type="text" id="category_icon" name="icon_data" required/>
+						<input type="file" id="category_icon" name="icon_data" required/>
 					</div>
 
 					<!-- Submit -->
@@ -102,6 +105,9 @@
 				<div class="product_details_field" id="delete_category_div">
 
 				</div>
+
+				<!-- Add product -->
+				<button onclick="showAddProduct()" id="add_product_button">Ajouter un produit</button>
 			</div>
 		</div>
 	</div>
@@ -164,17 +170,20 @@
 
 		const delete_product_div = document.getElementById('delete_product_div');
 
+		const product_form = document.getElementById('product_form');
+
 		function showProduct(product_id) {
-			const product = current_product_list[product_id];
+			product_form.action = `/admin/product/update`
 
 			// Swap views
 			placeholder.classList.add('hidden');
 			category_details.classList.add('hidden');
 			product_details.classList.remove('hidden');
 
+			const product = current_product_list[product_id];
 			// Set values
 			product_name.value = product.name;
-			product_icon.value = product.icon;
+			// product_icon.value = product.icon;
 			product_description.value = product.description;
 			product_amount.value = product.amount;
 			product_price.value = product.unit_price;
@@ -183,6 +192,26 @@
 			delete_product_div.innerHTML = `
 				<button onclick="deleteProduct(${product_id})">Supprimer</button>
 			`;
+		}
+
+		function showAddProduct() {
+			product_form.action = "/admin/product/add";
+
+			// Swap views
+			placeholder.classList.add('hidden');
+			category_details.classList.add('hidden');
+			product_details.classList.remove('hidden');
+
+			// Set values
+			product_id.value = "";
+			product_name.value = "";
+			// product_icon.value = "";
+			product_description.value = "";
+			product_amount.value = "";
+			product_price.value = "";
+
+			// Delete button
+			delete_product_div.innerHTML = "";
 		}
 
 		function deleteProduct(product_id) {
@@ -207,7 +236,13 @@
 
 		const delete_category_div = document.getElementById('delete_category_div');
 
+		const category_form = document.getElementById('category_form');
+		const add_product_button = document.getElementById('add_product_button');
+
 		function showCategory(category) {
+			category_form.action = "/admin/category/update";
+			add_product_button.classList.remove('hidden');
+
 			// Swap views
 			placeholder.classList.add('hidden');
 			product_details.classList.add('hidden');
@@ -215,7 +250,7 @@
 
 			// Set values
 			category_name.value = category.name;
-			category_icon.value = category.icon;
+			// category_icon.value = category.icon;
 			category_id.value = category.id;
 
 			// Delete button
@@ -237,6 +272,24 @@
 				})
 			})
 			.then(response => location.reload()); // Reload the page
+		}
+
+		function showAddCategory() {
+			category_form.action = "/admin/category/add";
+			add_product_button.classList.add('hidden');
+
+			// Swap views
+			placeholder.classList.add('hidden');
+			product_details.classList.add('hidden');
+			category_details.classList.remove('hidden');
+
+			// Set values
+			category_id.value = "";
+			category_name.value = "";
+			// category_icon.value = "";
+
+			// Delete button
+			delete_category_div.innerHTML = "";
 		}
 	</script>
 </div>
