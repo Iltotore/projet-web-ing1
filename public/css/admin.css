@@ -1,0 +1,45 @@
+/* Grid */
+div#admin_menu {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 4vw;
+	margin: 2vw;
+	
+	min-height: 100%;
+	max-width: 100%;
+}
+/* Mobile version */
+@media (max-width: 768px) {
+	div#admin_menu {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Buttons */
+main a {
+	background-image: url("../img/widget.png");
+	background-size: 100% 100%;
+	font-family: 'Minecraft', sans-serif;
+	cursor: pointer;
+	color: white;
+
+	text-align: center;
+	justify-content: center;
+
+	display: flex;
+	flex-direction: column;
+	padding: 1vw;
+}
+
+main a img {
+	margin-bottom: 2vw;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 70%;
+	max-height: 12vw;
+}
+
+main a:hover{
+	background-image: url("../img/widgetclicked.png");
+	border-color: white;
+}

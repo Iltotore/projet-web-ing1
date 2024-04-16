@@ -64,6 +64,10 @@
 						@auth
 							<a href="/profile">Compte</a>
                             <a href="/cart">Panier</a>
+							<!-- If user is admin, add admin link -->
+							@if(Auth::user()->is_admin)
+								<a href="/admin">Admin</a>
+							@endif
 						@endauth
 						<a href="/contact">Contact</a>
 					</div>

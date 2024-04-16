@@ -304,6 +304,8 @@ footer p.please_dont_see_this {
 	opacity: 0.5;
 }
 
+/* Default form styles */
+
 input[type=submit]{
 	background-image: url("../img/widget.png");
 	background-size: 100% 100%;

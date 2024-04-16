@@ -89,6 +89,10 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::fallback(function () {return view('application', ["page_to_load" => "error", "title" => "Erreur"]);});
 
 // Admin-only
+Route::get('/admin', function () {return view('application', [
+	"page_to_load" => "admin",
+	"title" => "Panel Admin"
+]);})->middleware("admin");
 Route::get('/admin/products', function () {return view('application', [
 	"page_to_load" => "admin_products",
 	"title" => "Gestion produits"
