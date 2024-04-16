@@ -1,0 +1,40 @@
+.box {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding : 2%;
+    line-height: 150%;
+}
+
+.sign {
+    background-image: url("../img/signtropstylezebi.png");
+    padding : 2.5%;
+    border : solid;
+    border-color: black;
+    border-width: 6px;
+}
+
+button {
+	background-image: url("../img/widget.png");
+	background-size: 100% 100%;
+	font-family: 'Minecraft', sans-serif;
+	cursor: pointer;
+	color: white;
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 2%;
+    padding-left: 6%;
+    padding-right: 6%;
+    margin-top: 2.5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+input {
+    border : solid;
+    border-color: black;
+    border-width: 1px;
+    width: 40%;
+    padding: 8px;
+}
