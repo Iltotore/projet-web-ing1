@@ -1,4 +1,10 @@
 <h1>Gestionnaire produits</h1>
+@foreach($errors->all() as $error)
+	<div class="notif error">
+		<img src="{{ asset('img/white-cross.png') }}" alt="Croix blanche" onclick="closeWidget(this.parentNode)"/>
+		<p>{{$error}}</p>
+	</div>
+@endforeach
 <div id="product_manager_zone">
 	<div id="category_list">
 		@foreach(\App\Models\Category::all()->sortBy('name') as $category)
@@ -63,8 +69,8 @@
 
 					<!-- Price -->
 					<div class="product_details_field">
-						<label for="price">Prix :</label>
-						<input type="number" id="product_price" name="price" step=0.01 min=0 required/>
+						<label for="unit_price">Prix :</label>
+						<input type="number" id="product_price" name="unit_price" step=0.01 min=0 required/>
 					</div>
 
 					<!-- Submit -->

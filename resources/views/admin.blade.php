@@ -8,7 +8,7 @@
 		<img src="{{ asset('img/Plains_Villager_Base.webp') }}"/>
 		Gestionnaire Produits & Catégories
 	</a>
-	<a href="/admin/contact">
+	<a href="/admin/contacts">
 		<img src="{{ asset('img/Book_JE2_BE2.webp') }}"/>
 		Gestionnaire Contacts
 	</a>
