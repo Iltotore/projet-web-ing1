@@ -4,7 +4,7 @@ Hurr Shop est le projet noté de développement web de l'année 2023-2024 de CY 
 - Jordan DIZIN
 - Raphaël FROMENTIN
 - Clément PRAUD
-- Gaëtan RETHEL
+- Gaétan RETEL
 
 ## Installation
 
