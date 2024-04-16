@@ -101,6 +101,10 @@ Route::get('/admin/users', function () {return view('application', [
 	"page_to_load" => "admin_users",
 	"title" => "Gestion utilisateurs"
 ]);})->middleware("admin");
+Route::get('/admin/contacts', function () {return view('application', [
+    "page_to_load" => "admin_contacts",
+    "title" => "Gestion formulaires de contact"
+]);})->middleware("admin");
 
 
 Route::post("/auth/login", [AuthController::class, "login"]);
@@ -140,3 +144,4 @@ Route::post("/admin/user/remove", [AdminController::class, "removeUser"])->middl
 Route::post("/admin/user/resetPassword", [AdminController::class, "resetPassword"])->middleware(["admin", "verified"]);
 Route::post("/admin/contact/get", [AdminController::class, "getContacts"])->middleware(["admin", "verified"]);
 Route::post("/admin/contact/reply", [AdminController::class, "replyContact"])->middleware(["admin", "verified"]);
+Route::post("/admin/contact/remove", [AdminController::class, "removeContact"])->middleware(["admin", "verified"]);

@@ -289,4 +289,14 @@ class AdminController extends Controller
         return response()->json($contacts);
     }
 
+    /**
+     * remove the contact forms.
+     *
+     * @return Response
+     */
+    public function removeContact(): Response
+    {
+        return response(status: 200);
+    }
+
 }
