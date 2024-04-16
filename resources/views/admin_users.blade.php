@@ -7,9 +7,13 @@
 @endforeach
 <div class=manager>
 	<div id="user_list">
-		<div class="search_container">
-			<img class="search_icon"src="{{ asset('img/search-icon.svg') }}">
-			<input type="text" class="search_input" placeholder="Rechercher...">
+		<div class="top_bar">
+			<div class="search_container">
+				<img class="search_icon"src="{{ asset('img/search-icon.svg') }}">
+				<input type="text" class="search_input" placeholder="Rechercher...">
+			</div>
+
+			<button onclick="displayUserAddMenu()">+</button>
 		</div>
 		<hr>
 		<div id="user_table">
@@ -24,7 +28,7 @@
 
 				<tbody>
 					@foreach(\App\Models\User::all() as $user)
-						<tr onclick="displayUserDetails({{ $user }})">
+						<tr onclick="displayUserEditMenu({{ $user }})">
 							<td>{{ $user->id }}</td>
 							<td>{{ $user->name }}</td>
 							@if ($user->is_admin) <td>✅</td> @else <td>❌</td> @endif
@@ -36,15 +40,13 @@
 	</div>
 
 	<div id="user_details">
-		<div id="user_details_not_loaded">
+		<div id="user_details_empty">
 			<h2>Veuillez sélectionner un utilisateur</h2>
 		</div>
-		<div id="user_details_loaded" class="hidden">
-			<!-- img src="../img/user_image.jpg" /-->
-			<form action="/auth/update" method="post" autocomplete="off" >
-				@csrf
 
-				<input type="hidden" id="user_id" name="id"/>
+		<div id="user_details_add" class="hidden">
+			<form action="/admin/user/add" method="post" autocomplete="off" >
+				@csrf
 
 				<!-- Nom d'utilisateur -->
 				<div class="user_details_field">
@@ -58,59 +60,33 @@
 					<input type="text" id="email" name="email" required/>
 				</div>
 
-				<!-- First name -->
-				<div class="user_details_field">
-					<label for="first_name">Prénom :</label>
-					<input type="text" id="first_name" name="first_name" required/>
-				</div>
-
-				<!-- Last name -->
-				<div class="user_details_field">
-					<label for="last_name">Nom :</label>
-					<input type="text" id="last_name" name="last_name" required/>
-				</div>
-
-				<!-- Date de naissance -->
-				<div class="user_details_field">
-					<label for="birthday">Date de naissance :</label>
-					<input type="date" id="birthday" name="birth" required/>
-				</div>
-
-				<!-- Genre -->
-				<div class="user_details_field">
-					<label for="gender">Genre :</label>
-					<div id="gender">
-						<input type="radio" name="gender" value="male"/>
-						<label for="gender">Homme</label>
-						<input type="radio" name="gender" value="female"/>
-						<label for="gender">Femme</label>
-						<input type="radio" name="gender" value="null"/>
-						<label for="female">Autre</label>
-					</div>
-				</div>
-
-				<!-- Métier -->
-				<div class="user_details_field">
-					<label for="job">Métier: </label>
-					<select name="job" id="job">
-						<option value="null"></option>
-						@foreach(\App\Models\Job::all() as $job)
-							<option value="{{$job->id}}" @if(Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
-						@endforeach
-					</select>
-				</div>
-
-				<!-- Mot de passe : Ne pas l'afficher, simplement en autoriser la modification -->
+				<!-- Mot de passe -->
 				<div class="user_details_field">
 					<label for="password">Mot de passe :</label>
 					<input type="password" name="password" id="password" autocomplete="new-password"/>
 				</div>
 
-				<!-- Submit -->
+				<!-- Admin -->
 				<div class="user_details_field">
-					<input type="submit" value="Enregistrer"/>
+					<label for="is_admin">Admin :</label>
+					<!-- Workaround for a route limitation -->
+					<input type="hidden" name="is_admin" value="0">
+  					<input type="checkbox" id="checkbox" name="is_admin" value="1">
 				</div>
+
+				<input type="submit" value="Enregistrer"/>
 			</form>
+		</div>
+
+		<div id="user_details_edit" class="hidden">
+			<!-- Reset password button -->
+			<div class="user_details_field">
+				<form action="/admin/user/resetPassword" method="post">
+					@csrf
+					<input type="hidden" id="user_id_password_reset" name="id"/>
+					<input type="submit" value="Reinitialiser le mot de passe"/>
+				</form>
+			</div>
 
 			<!-- Delete button -->
 			<div class="user_details_field">

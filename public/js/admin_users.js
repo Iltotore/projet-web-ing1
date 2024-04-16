@@ -13,9 +13,6 @@ document.querySelector('.search_input').addEventListener('input', function() {
 });
 
 // User details system
-let not_loaded_div = document.querySelector('#user_details_not_loaded');
-let loaded_div = document.querySelector('#user_details_loaded');
-
 let user_id = document.querySelector('#user_id');
 let username_field = document.querySelector('#name');
 let email_field = document.querySelector('#email');
@@ -29,30 +26,32 @@ let gender_field = {
 };
 let job_field = document.querySelector('#job');
 let password_field = document.querySelector('#password');
+
+let user_details_empty = document.querySelector('#user_details_empty');
+let user_details_add = document.querySelector('#user_details_add');
+let user_details_edit = document.querySelector('#user_details_edit');
+
+// Add user
+
+function displayUserAddMenu() {
+	// Display add menu
+	user_details_empty.classList.add('hidden');
+	user_details_edit.classList.add('hidden');
+	user_details_add.classList.remove('hidden');
+}
+
+// Edit user
+
+let user_id_password_reset = document.querySelector('#user_id_password_reset');
 let user_id_delete = document.querySelector('#user_id_delete');
 
-function displayUserDetails(user) {
-	loaded_div.classList.remove('hidden');
-	not_loaded_div.classList.add('hidden');
+function displayUserEditMenu(user) {
+	// Display edit menu
+	user_details_empty.classList.add('hidden');
+	user_details_add.classList.add('hidden');
+	user_details_edit.classList.remove('hidden');
 
-	// Set values
-	user_id.value = user.id;
-	username_field.value = user.name;
-	email_field.value = user.email;
-	first_name_field.value = user.first_name;
-	last_name_field.value = user.last_name;
-	birthday_field.value = user.birth;
-	switch (user.gender) {
-		case 0:
-			gender_field[0].checked = true;
-			break;
-		case 1:
-			gender_field[1].checked = true;
-			break;
-		default:
-			gender_field[2].checked = true;
-			break;
-	}
-	job_field.value = user.job_id;
-	user_id_delete.value = user.id;
+	// Set fields to the appropriate values
+	user_id_password_reset.value = user.id
+	user_id_delete.value = user.id
 }
