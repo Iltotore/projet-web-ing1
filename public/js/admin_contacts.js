@@ -22,7 +22,7 @@ let first_name_field = document.querySelector('#first_name');
 let last_name_field = document.querySelector('#last_name');
 let birthday_field = document.querySelector('#birthday');
 let gender_field = document.querySelector('#gender');
-let job_field = document.querySelector('#job');
+let jobs_field = document.querySelector('#job').getElementsByTagName('div');
 let subject_field = document.querySelector('#subject');
 let content_field = document.querySelector('#content');
 let contact_id_delete = document.querySelector('#contact_id_delete');
@@ -33,23 +33,27 @@ function displayContactDetails(contact) {
 
 	// Set values
 	contact_id.value = contact.id;
-	email_field.value = contact.email;
-	first_name_field.value = contact.first_name;
-	last_name_field.value = contact.last_name;
-	birthday_field.value = contact.birth;
+	email_field.textContent = contact.email;
+	first_name_field.textContent = contact.first_name;
+	last_name_field.textContent = contact.last_name;
+	birthday_field.textContent = contact.birth;
 	switch (contact.gender) {
 		case 0:
-			gender_field = "Homme";
+			gender_field.textContent = "Homme";
 			break;
 		case 1:
-			gender_field = "Femme";
+			gender_field.textContent = "Femme";
 			break;
 		default:
-			gender_field = "Autre";
+			gender_field.textContent = "Autre";
 			break;
 	}
-	job_field.value = contact.job_id;
-    subject_field.value = contact.subject;
-    content_field.value = contact.content;
+    for(let i=0; i< jobs_field.length; i++ ) {
+        jobs_field[i].setAttribute("hidden", "");
+    }
+    jobs_field[contact.job_id].removeAttribute("hidden");
+    subject_field.textContent = contact.subject;
+    content_field.textContent = contact.content;
 	contact_id_delete.value = contact.id;
 }
+

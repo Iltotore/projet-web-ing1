@@ -35,9 +35,9 @@ class AdminController extends Controller
      * Add a given product in the database.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function addProduct(Request $request): JsonResponse
+    public function addProduct(Request $request): RedirectResponse
     {
         $args = $request->validate([
             "name" => ["required", "string", "max:255"],
@@ -56,7 +56,7 @@ class AdminController extends Controller
 
         $result = Product::create($args);
 
-        return response()->json($result);
+        return redirect("/admin/products");
     }
 
 
@@ -64,25 +64,25 @@ class AdminController extends Controller
      * Remove a given product from the database.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function removeProduct(Request $request): Response {
+    public function removeProduct(Request $request): RedirectResponse {
         $args = $request->validate([
             "id" => ["required", "exists:products,id"]
         ]);
 
         Product::find($args["id"])->delete();
 
-        return response(status: 200);
+        return redirect("/admin/products");
     }
 
     /**
      * Update a given product in the database.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function updateProduct(Request $request): JsonResponse {
+    public function updateProduct(Request $request): RedirectResponse {
 
         $args = $request->validate([
             "id" => ["required", "exists:products,id"],
@@ -110,7 +110,7 @@ class AdminController extends Controller
 
         $product->save();
 
-        return response()->json($product);
+        return redirect("/admin/products");
     }
 
     /**
@@ -129,9 +129,9 @@ class AdminController extends Controller
      * Add a given category in the database.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function addCategory(Request $request): JsonResponse {
+    public function addCategory(Request $request): RedirectResponse {
         $args = $request->validate([
             "name" => ["required", "string", "max:255"],
             "icon_data" => ["required", "file"]
@@ -145,32 +145,32 @@ class AdminController extends Controller
 
         $result = Category::create($args);
 
-        return response()->json($result);
+        return redirect("/admin/products");
     }
 
     /**
      * Remove a given category from the database.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function removeCategory(Request $request): Response {
+    public function removeCategory(Request $request): RedirectResponse {
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"]
         ]);
 
         Category::find($args["id"])->delete();
 
-        return response(status: 200);
+        return redirect("/admin/products");
     }
 
     /**
      * Update a given category in the database.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function updateCategory(Request $request): JsonResponse {
+    public function updateCategory(Request $request): RedirectResponse {
 
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"],
@@ -190,7 +190,7 @@ class AdminController extends Controller
 
         $category->save();
 
-        return response()->json($category);
+        return redirect("/admin/products");
     }
 
     /**
@@ -209,9 +209,9 @@ class AdminController extends Controller
      * Add a given user in the database.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function addUser(Request $request): JsonResponse {
+    public function addUser(Request $request): RedirectResponse {
         $args = $request->validate([
             "name" => ["required", "string", "max:255", "unique:users,name"],
             "email" => ["required", "email", "unique:users,email"],
@@ -221,32 +221,32 @@ class AdminController extends Controller
 
         $result = User::create($args);
 
-        return response()->json($result);
+        return redirect("/admin/users");
     }
 
     /**
      * Remove a given user from the database.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function removeUser(Request $request): Response {
+    public function removeUser(Request $request): RedirectResponse {
         $args = $request->validate([
             "id" => ["required", "exists:users,id"]
         ]);
 
-        $result = User::find($args["id"])->delete();
+        User::find($args["id"])->delete();
 
-        return response(status: 200);
+        return redirect("/admin/users");
     }
 
     /**
      * Reset the password of a given user.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function resetPassword(Request $request): JsonResponse {
+    public function resetPassword(Request $request): RedirectResponse {
         $args = $request->validate([
             "id" => ["required", "exists:users,id"]
         ]);
@@ -255,26 +255,26 @@ class AdminController extends Controller
 
         Password::sendResetLink([$user->email]);
 
-        return response()->json($user);
+        return redirect("/admin/users");
     }
 
     /**
      * Reply to a given contact form.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function replyContact(Request $request): Response {
+    public function replyContact(Request $request): RedirectResponse {
         $args = $request->validate([
             "id" => ["required", "exists:contact_forms,id"],
-            "mailBody" => ["required", "string", "max:500", "min:1"]
+            "mailBody" => ["required", "string", "max:1500", "min:1"]
         ]);
 
         $contactForm = ContactForm::find($args["id"]);
 
         // TODO send email and change return
 
-        return response(status: 200);
+        return redirect("/admin/contacts");
     }
 
     /**
@@ -290,13 +290,19 @@ class AdminController extends Controller
     }
 
     /**
-     * remove the contact forms.
+     * Remove a given contact form from the database.
      *
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function removeContact(): Response
-    {
-        return response(status: 200);
+    public function removeContact(Request $request): RedirectResponse {
+        $args = $request->validate([
+            "id" => ["required", "exists:contact_forms,id"]
+        ]);
+
+        ContactForm::find($args["id"])->delete();
+
+        return redirect("/admin/contacts");
     }
 
 }

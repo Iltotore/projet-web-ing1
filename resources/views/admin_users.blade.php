@@ -9,7 +9,7 @@
 	<div id="user_list">
 		<div class="top_bar">
 			<div class="search_container">
-				<img class="search_icon"src="{{ asset('img/search-icon.svg') }}">
+				<img class="search_icon" src="{{ asset('img/search-icon.svg') }}" alt="search icon">
 				<input type="text" class="search_input" placeholder="Rechercher...">
 			</div>
 
@@ -90,6 +90,7 @@
 
 			<!-- Delete button -->
 			<div class="user_details_field">
+                <br>
 				<form action="/admin/user/remove" method="post">
 					@csrf
 					<input type="hidden" id="user_id_delete" name="id"/>

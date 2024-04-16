@@ -92,15 +92,7 @@ class AdminTest extends TestCase
                 "category_id" => $category->id
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "id" => 1,
-            "name" => "product 01",
-            "description" => "This is the product n°01",
-            "unit_price" => 0.5,
-            "amount" => 5,
-            "category_id" => $category->id
-        ]);
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -139,7 +131,7 @@ class AdminTest extends TestCase
                 "id" => $product->id
             ]
         );
-        $response->assertSuccessful();
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -191,15 +183,7 @@ class AdminTest extends TestCase
                 "category_id" => $category2->id
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "id" => $product->id,
-            "name" => "abc",
-            "description" => "abc",
-            "unit_price" => 10.10,
-            "amount" => 10,
-            "category_id" => 2
-        ]);
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -257,10 +241,7 @@ class AdminTest extends TestCase
                 "icon_data" => $file
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "name" => "product 01"
-        ]);
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -299,7 +280,7 @@ class AdminTest extends TestCase
                 "id" => $category->id
             ]
         );
-        $response->assertSuccessful();
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -343,11 +324,7 @@ class AdminTest extends TestCase
                 "icon_data" => $file
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "id" => $category->id,
-            "name" => "abc"
-        ]);
+        $response->assertRedirect("/admin/products");
     }
 
     /**
@@ -406,12 +383,7 @@ class AdminTest extends TestCase
                 "is_admin" => 0
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "name" => "name",
-            "email" => "name@email.com",
-            "is_admin" => 0
-        ]);
+        $response->assertRedirect("/admin/users");
     }
 
     /**
@@ -450,7 +422,7 @@ class AdminTest extends TestCase
                 "id" => $user2->id
             ]
         );
-        $response->assertSuccessful();
+        $response->assertRedirect("/admin/users");
 
     }
 
@@ -490,10 +462,7 @@ class AdminTest extends TestCase
                 "id" => $user2->id
             ]
         );
-        $response->assertSuccessful();
-        $response->assertJson([
-            "id" => $user2->id
-        ]);
+        $response->assertRedirect("/admin/users");
     }
 
     /**
@@ -535,7 +504,7 @@ class AdminTest extends TestCase
                 "mailBody" => $sentences
             ]
         );
-        $response->assertSuccessful();
+        $response->assertRedirect("/admin/contacts");
     }
 
 
@@ -554,5 +523,45 @@ class AdminTest extends TestCase
         $response->assertSuccessful();
         $response->assertJsonIsArray();
         $response->assertJson($form);
+    }
+
+    /**
+     * Return errors when sent user data are either missing or invalid.
+     */
+    public function test_remove_invalid_contact(): void {
+        $user = User::factory()->create(["is_admin" => true]);
+
+        Auth::login($user);
+
+        $missingData = $this->postJson("/admin/user/remove");
+        $missingData->assertInvalid(["id"]);
+
+        $invalidData = $this->postJson(
+            "/admin/contact/remove",
+            [
+                "id" => 99999
+            ]
+        );
+
+        $invalidData->assertInvalid(["id"]);
+    }
+
+    /**
+     * Successfully remove user when valid arguments are given.
+     */
+    public function test_remove_successful_contact() {
+        $user = User::factory()->create(["is_admin" => true]);
+        $contactForm = ContactForm::factory()->create();
+
+        Auth::login($user);
+
+        $response = $this->postJson(
+            "/admin/contact/remove",
+            [
+                "id" => $contactForm->id
+            ]
+        );
+        $response->assertRedirect("/admin/contacts");
+
     }
 }

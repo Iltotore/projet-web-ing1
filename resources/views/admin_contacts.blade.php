@@ -41,29 +41,42 @@
 		<div id="contact_details_loaded" class="hidden">
 			<table>
 				<tr>
-					<td>Prénom:</td><td id="first_name"></td>
+					<td>Prénom:</td>
+                    <td id="first_name"></td>
 				</tr>
 				<tr>
-					<td>Nom:</td><td id="last_name"></td>
+					<td>Nom:</td>
+                    <td id="last_name"></td>
 				</tr>
 				<tr>
-					<td>mail:</td><td id="email"></td>
+					<td>mail:</td>
+                    <td id="email"></td>
 				</tr>
 				<tr>
-					<td>Genre:</td><td id="gender"></td>
+					<td>Genre:</td>
+                    <td id="gender"></td>
 				</tr>
 				<tr>
-					<td>Date de naissance:</td><td id="birthday"></td>
+					<td>Date de naissance:</td>
+                    <td id="birthday"></td>
 				</tr>
 				<tr>
-					<td>Métier:</td><td id="job"></td>
+					<td>Métier:</td>
+                    <td id="job">
+                        @foreach(\App\Models\Job::all() as $job)
+                            <div hidden>{{$job->name}}</div>
+                        @endforeach
+                    </td>
 				</tr>
 			</table>
+
+            <br>
 
 			<table>
 				<tr>
 					<td id="subject"></td>
 				</tr>
+                <tr></tr>
 				<tr>
 					<td id="content"></td>
 				</tr>
@@ -88,6 +101,7 @@
 
 			<!-- Delete button -->
 			<div class="contact_details_field">
+                <br>
 				<form action="/admin/contact/remove" method="post">
 					@csrf
 					<input type="hidden" id="contact_id_delete" name="id"/>
