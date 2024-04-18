@@ -63,7 +63,7 @@
 }
 
 #subject {
-    width: 25vw;
+    width: 35vw;
 }
 
 textarea {
@@ -75,4 +75,10 @@ textarea {
 #title {
     font-size: x-large;
     padding-bottom: 10px;
+}
+
+#counterContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

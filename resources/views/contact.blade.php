@@ -41,48 +41,23 @@
                                 <option value="{{$job->id}}" @if(Auth::user() != null && Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
                             @endforeach
                         </select>
-                    </div> 
-                    <hr/>   
+                    </div>
+                    <hr/>
                     <div class="inputsub">
-                        <label for="subject">Objet: </label> 
+                        <label for="subject">Objet: </label>
                         <input type="text" id="subject" name="subject" maxlength="100" oninput="updateCounterSubject()" required/>
                         <div id="counterSubject">0/100</div>
                     </div>
                     <div class="inputsub">
                         <label for="content">Message: </label>
                         <textarea name="content" maxlength="1000" oninput="updateCounterContent()" required></textarea>
-                        <div id="counterContent">0/1000</div>
                     </div>
+                    <div id="counterContent">0/1000</div>
                     <div class="button">
                         <input type="submit" value="Envoyer"/>
                     </div>
                 </form>
             </div>
         </div>
-        <script type="text/javascript"> <!-- unable to load js in file.js ; error MIME type invalid -->
-
-            function updateCounterSubject() {
-                let textarea = document.getElementsByName("subject")[0];
-                let charCount = document.getElementById("counterSubject");
-                let maxChars = parseInt(textarea.getAttribute("maxlength"));
-
-                if (textarea.value.length > maxChars) {
-                    textarea.value = textarea.value.substring(0, maxChars);
-                }
-                charCount.textContent = textarea.value.length + "/" + maxChars;
-            }
-
-            function updateCounterContent() {
-                let textarea = document.getElementsByName("content")[0];
-                let charCount = document.getElementById("counterContent");
-                let maxChars = parseInt(textarea.getAttribute("maxlength"));
-
-                if (textarea.value.length > maxChars) {
-                    textarea.value = textarea.value.substring(0, maxChars);
-                }
-                charCount.textContent = textarea.value.length + "/" + maxChars;
-            }
-
-        </script>
     </body>
 </html>
