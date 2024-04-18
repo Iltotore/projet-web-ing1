@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
             "amount" => 40
         ]);
 
-        $armors->products()->create([
+        $alchemy->products()->create([
             "name" => "poudre de redstone",
             "icon" => "Redstone.webp",
             "description" => "La poudre de redstone peut être obtenue en minant du minerai de redstone avec une pioche en fer ou de qualité supérieure, ou en vainquant une sorcière. ",
@@ -458,7 +458,7 @@ class ProductSeeder extends Seeder
             "amount" => 64
         ]);
 
-        $armors->products()->create([
+        $fruits->products()->create([
             "name" => "pain",
             "icon" => "Pain.webp",
             "description" => "Le pain est un aliment qui s'obtient principalement à partir du blé. Consommé il restaure Faim et saturation. ",
@@ -554,7 +554,7 @@ class ProductSeeder extends Seeder
             "amount" => 64
         ]);
 
-        $armors->products()->create([
+        $textiles->products()->create([
             "name" => "lit blanc",
             "icon" => "Lit_blanc.webp",
             "description" => "Les lits sont des blocs permettant au joueur de dormir pour faire passer la nuit beaucoup plus rapidement et de réinitialiser son point d'apparition dans le monde normal. ",
