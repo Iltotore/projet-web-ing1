@@ -1,4 +1,4 @@
-<h1>Gestionnaire produits</h1>
+<h1>Gestionnaire produits et categories</h1>
 @foreach($errors->all() as $error)
 	<div class="notif error">
 		<img src="{{ asset('img/white-cross.png') }}" alt="Croix blanche" onclick="closeWidget(this.parentNode)"/>
@@ -9,7 +9,7 @@
 	<div id="category_list">
 		@foreach(\App\Models\Category::all()->sortBy('name') as $category)
 			<button class="category_button" onclick="loadCategoryProducts({{$category}})">
-				<img class="category_button_image" src="{{ asset("category/" . $category['icon']) }}"/>
+				<img class="category_button_image" src="{{ asset("category/" . $category['icon']) }}" alt="category image"/>
 			</button>
 		@endforeach
 		<button class="category_button" onclick="showAddCategory()">+</button>
@@ -52,7 +52,7 @@
 					<!-- Icône -->
 					<div class="product_details_field">
 						<label for="icon_data">Icône :</label>
-						<input type="file" id="product_icon" name="icon_data" required/>
+						<input type="file" id="product_icon" name="icon_data"/>
 					</div>
 
 					<!-- Description -->
@@ -98,7 +98,7 @@
 					<!-- Icon -->
 					<div class="product_details_field">
 						<label for="icon_data">Icône :</label>
-						<input type="file" id="category_icon" name="icon_data" required/>
+						<input type="file" id="category_icon" name="icon_data"/>
 					</div>
 
 					<!-- Submit -->

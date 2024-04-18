@@ -143,7 +143,7 @@ class AdminTest extends TestCase
         Auth::login($user);
 
         $missingData = $this->postJson("/admin/product/update");
-        $missingData->assertInvalid(["id"]);
+        $missingData->assertInvalid(["id", "name", "description", "unit_price", "amount", "category_id"]);
 
         $invalidData = $this->postJson(
             "/admin/product/update",
@@ -156,7 +156,7 @@ class AdminTest extends TestCase
             ]
         );
 
-        $invalidData->assertInvalid(["id", "icon_data", "unit_price", "amount", "category_id"]);
+        $invalidData->assertInvalid(["id", "name", "description", "icon_data", "unit_price", "amount", "category_id"]);
     }
 
     /**
@@ -292,7 +292,7 @@ class AdminTest extends TestCase
         Auth::login($user);
 
         $missingData = $this->postJson("/admin/category/update");
-        $missingData->assertInvalid(["id", "name", "icon_data"]);
+        $missingData->assertInvalid(["id", "name"]);
 
         $invalidData = $this->postJson(
             "/admin/category/update",

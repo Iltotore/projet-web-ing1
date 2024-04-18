@@ -88,7 +88,7 @@ class AdminController extends Controller
             "id" => ["required", "exists:products,id"],
             "name" => ["required", "max:255", "string"],
             "description" => ["required", "max:255", "string"],
-            "icon_data" => ["required", "file"],
+            "icon_data" => ["nullable", "file"],
             "unit_price" => ["required", "numeric", "gt:0"],
             "amount" => ["required", "integer", "gte:0"],
             "category_id" => ["required", "integer", "exists:categories,id", "gte:0"]
@@ -103,10 +103,12 @@ class AdminController extends Controller
         $product->category_id = $args["category_id"];
 
         // Store the file in storage\app\public folder
-        $file = $request->file('icon_data');
-        $filePath = $file->store('uploads', 'public');
+        if($args["icon_data"] != null) {
+            $file = $request->file('icon_data');
+            $filePath = $file->store('uploads', 'public');
+            $product["icon"] = $filePath;
+        }
 
-        $product["icon"] = $filePath;
 
         $product->save();
 
@@ -175,7 +177,7 @@ class AdminController extends Controller
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"],
             "name" => ["required", "string", "max:255"],
-            "icon_data" => ["required", "file"]
+            "icon_data" => ["nullable", "file"]
         ]);
 
         $category = Category::find($args["id"]);
@@ -183,10 +185,11 @@ class AdminController extends Controller
         $category->name = $args["name"];
 
         // Store the file in storage\app\public folder
-        $file = $request->file('icon_data');
-        $filePath = $file->store('uploads', 'public');
-
-        $category["icon"] = $filePath;
+        if($args["icon_data"] != null) {
+            $file = $request->file('icon_data');
+            $filePath = $file->store('uploads', 'public');
+            $category["icon"] = $filePath;
+        }
 
         $category->save();
 
