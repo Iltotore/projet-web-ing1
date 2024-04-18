@@ -17,6 +17,7 @@ const product_icon = document.getElementById('product_icon');
 const product_description = document.getElementById('product_description');
 const product_amount = document.getElementById('product_amount');
 const product_price = document.getElementById('product_price');
+const product_category_id = document.getElementById('product_category_id');
 const delete_product_div = document.getElementById('delete_product_div');
 
 const category_id = document.getElementById('category_id');
@@ -42,7 +43,7 @@ function loadCategoryProducts(category) {
 	.then(products => {
 		// Empty the table and list
 		product_table_list_container.innerHTML = "";
-		
+
 		products.forEach(product => {
 			const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1);
 			const tr = document.createElement('tr');
@@ -56,7 +57,7 @@ function loadCategoryProducts(category) {
 				<td>${product.amount}</td>
 				<td>${product.unit_price}€</td>
 			`;
-			
+
 			product_table_list_container.appendChild(tr);
 		});
 
@@ -80,6 +81,9 @@ function showProduct(product) {
 	product_description.value = product.description;
 	product_amount.value = product.amount;
 	product_price.value = product.unit_price;
+    for (let i = 0; i < product_category_id.options.length; i++) {
+        product_category_id.options[i].selected = product_category_id.options[i].value == product.category_id;
+    }
 
 	// Delete button
 	delete_product_div.innerHTML = `
