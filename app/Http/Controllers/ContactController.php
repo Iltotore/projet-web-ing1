@@ -31,7 +31,7 @@ class ContactController extends Controller {
 
         $gender = $request->gender;
 
-        if($gender == null) $args["gender"] = null;
+        if($gender == null || $gender == "other") $args["gender"] = null;
         else if($gender == "male") $args["gender"] = 0;
         else if($gender == "female") $args["gender"] = 1;
         else return back()->withErrors(["gender" => "Invalid gender"]);
