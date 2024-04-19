@@ -18,14 +18,14 @@ h1 {
 	width: fit-content;
 }
 
-/* User list */
+/* contact list */
 
-div.manager div#user_list {
+div.manager div#contact_list {
 	background: rgba(0, 0, 0, 0.6);
 	padding: 1vw;
 }
 
-div.manager div#user_details {
+div.manager div#contact_details {
 	background: rgba(73, 35, 1, 0.6);
 }
 
@@ -66,42 +66,50 @@ div.manager hr {
 	outline: none;
 }
 
-/* User table */
+/* contact table */
 
-div#user_table table {
+div#contact_table table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-div#user_table th, div#user_table td {
+div#contact_table th, div#contact_table td {
 	padding: 0.1vw;
 	text-align: center;
 }
 
-div#user_table thead {
+div#contact_table thead {
 	background: rgba(0, 0, 0, 0.65);
 }
 
-div#user_table tbody {
+div#contact_table tbody {
 	background: rgba(0, 0, 0, 0.3);
 }
 
-div#user_table tbody td {
+div#contact_table tbody td {
 	padding: 0.4vw;
 }
 
-div#user_table tbody tr:hover {
+div#contact_table tbody tr:hover {
 	background: rgba(0, 0, 0, 0.5);
 }
 
-/* User details */
+/* contact details */
 
-div#user_details {
+div#contact_details {
 	display: flex;
 	flex-direction: column;
 	padding: 1vw;
 }
 
-div#user_details div {
+/* Not loaded */
+
+div#contact_details div#contact_details_not_loaded {
+	margin: auto;
+}
+
+/* Loaded */
+
+div#contact_details div#contact_details_loaded {
 	margin: auto;
 }

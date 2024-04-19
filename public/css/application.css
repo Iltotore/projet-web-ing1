@@ -33,6 +33,10 @@ img {
 	max-height: 100%;
 }
 
+textarea {
+	font: inherit;
+}
+
 /* Navigation bar */
 
 nav#navbar {
@@ -316,6 +320,8 @@ footer p {
 footer p.please_dont_see_this {
 	opacity: 0.5;
 }
+
+/* Default form styles */
 
 input[type=submit]{
 	background-image: url("../img/widget.png");

@@ -13,14 +13,13 @@
 		    <link rel="stylesheet" href="{{ asset('css/'.($page_to_load ?? "error").'.css') }}">
         @endif
 
-        @if(file_exists(public_path("js/" . $page_to_load . ".js")))
-            <script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
-        @endif
+		<!-- CSRF Token -->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
     <!-- Contenu de la page -->
 	<body onload="loadNavbarLogic()">
 		<nav id="navbar">
-			<p>HurrShop est votre nouvel espace d'achat d'equipements et materiaux.</p>
+			<p>HurrShop est votre nouvel espace d'achat d'équipements et de matériaux.</p>
 			<hr>
 			<ul>
 				<li><a href="/">Page d'accueil</a></li>
@@ -65,6 +64,10 @@
 						@auth
 							<a href="/profile">Compte</a>
                             <a href="/cart">Panier</a>
+							<!-- If user is admin, add admin link -->
+							@if(Auth::user()->is_admin)
+								<a href="/admin">Admin</a>
+							@endif
 						@endauth
 						<a href="/contact">Contact</a>
 					</div>
@@ -97,8 +100,12 @@
 					</div>
 				</div>
 				<p>© 2024 HurrShop. Tous droits réservés.</p>
-				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un proces pour arnaque.</p>
+				<p class="please_dont_see_this">HurrShop est un produit de Hrmmm.Inc.<br>En utilisant ce site, vous acceptez de ne pas nous envoyer un procès pour arnaque.</p>
 			</footer>
 		</div>
 	</body>
+
+	@if(file_exists(public_path("js/" . $page_to_load . ".js")))
+		<script type="text/javascript" src="{{asset("js/" . $page_to_load . ".js")}}"></script>
+	@endif
 </html>
