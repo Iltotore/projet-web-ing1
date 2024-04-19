@@ -28,29 +28,29 @@ const delete_category_div = document.getElementById('delete_category_div');
 const add_product_button = document.getElementById('add_product_button');
 
 function loadCategoryProducts(category) {
-	fetch("/admin/product/get", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Accept": "application/json",
-		},
-		body: JSON.stringify({
-			"_token": csrf_token,
-			"category": category.id
-		})
-	})
-	.then(response => response.json())
-	.then(products => {
-		// Empty the table and list
-		product_table_list_container.innerHTML = "";
+    fetch("/admin/product/get", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+            "_token": csrf_token,
+            "category": category.id
+        })
+    })
+        .then(response => response.json())
+        .then(products => {
+            // Empty the table and list
+            product_table_list_container.innerHTML = "";
 
-		products.forEach(product => {
-			const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1);
-			const tr = document.createElement('tr');
-			tr.classList.add('product_row');
-			tr.onclick = () => showProduct(product); // Set onclick handler
+            products.forEach(product => {
+                const product_name = product.name.charAt(0).toUpperCase() + product.name.slice(1);
+                const tr = document.createElement('tr');
+                tr.classList.add('product_row');
+                tr.onclick = () => showProduct(product); // Set onclick handler
 
-			tr.innerHTML = `
+                tr.innerHTML = `
 				<td>${product.id}</td>
 				<td><img src="/product/${product.icon}" alt="icon" class="product_icon"/></td>
 				<td>${product_name}</td>
@@ -58,123 +58,115 @@ function loadCategoryProducts(category) {
 				<td>${product.unit_price}€</td>
 			`;
 
-			product_table_list_container.appendChild(tr);
-		});
+                product_table_list_container.appendChild(tr);
+            });
 
-		// Show the category details
-		showCategory(category);
-	});
+            // Show the category details
+            showCategory(category);
+        });
 }
 
 function showProduct(product) {
-	product_form.action = `/admin/product/update`;
+    product_form.action = `/admin/product/update`;
 
-	// Swap views
-	placeholder.classList.add('hidden');
-	category_details.classList.add('hidden');
-	product_details.classList.remove('hidden');
+    // Swap views
+    placeholder.classList.add('hidden');
+    category_details.classList.add('hidden');
+    product_details.classList.remove('hidden');
 
-	// Set values
-	product_id.value = product.id;
-	product_name.value = product.name;
-	// product_icon.value = product.icon;
-	product_description.value = product.description;
-	product_amount.value = product.amount;
-	product_price.value = product.unit_price;
+    // Set values
+    product_id.value = product.id;
+    product_name.value = product.name;
+    // product_icon.value = product.icon;
+    product_description.value = product.description;
+    product_amount.value = product.amount;
+    product_price.value = product.unit_price;
     for (let i = 0; i < product_category_id.options.length; i++) {
         product_category_id.options[i].selected = product_category_id.options[i].value == product.category_id;
     }
 
-	// Delete button
-	delete_product_div.innerHTML = `
+    // Delete button
+    delete_product_div.innerHTML = `
 		<button onclick="deleteProduct(${product.id})">Supprimer</button>
 	`;
 }
 
 function showAddProduct() {
-	product_form.action = "/admin/product/add";
+    product_form.action = "/admin/product/add";
 
-	// Swap views
-	placeholder.classList.add('hidden');
-	category_details.classList.add('hidden');
-	product_details.classList.remove('hidden');
+    // Swap views
+    placeholder.classList.add('hidden');
+    category_details.classList.add('hidden');
+    product_details.classList.remove('hidden');
 
-	// Set values
-	product_id.value = "";
-	product_name.value = "";
-	// product_icon.value = "";
-	product_description.value = "";
-	product_amount.value = "";
-	product_price.value = "";
+    // Set values
+    product_id.value = "";
+    product_name.value = "";
+    // product_icon.value = "";
+    product_description.value = "";
+    product_amount.value = "";
+    product_price.value = "";
 
-	// Delete button
-	delete_product_div.innerHTML = "";
+    // Delete button
+    delete_product_div.innerHTML = "";
 }
 
 function deleteProduct(product_id) {
-	fetch("/admin/product/remove", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Accept": "application/json",
-		},
-		body: JSON.stringify({
-			"_token": csrf_token,
-			"id": product_id
-		})
-	})
-	.then(response => location.reload()); // Reload the page
+    fetch("/admin/product/remove", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+            "_token": csrf_token,
+            "id": product_id
+        })
+    })
+        .then(response => location.reload()); // Reload the page
 }
 
 function showCategory(category) {
-	category_form.action = "/admin/category/update";
-	add_product_button.classList.remove('hidden');
+    category_form.action = "/admin/category/update";
+    add_product_button.classList.remove('hidden');
 
-	// Swap views
-	placeholder.classList.add('hidden');
-	product_details.classList.add('hidden');
-	category_details.classList.remove('hidden');
+    // Swap views
+    placeholder.classList.add('hidden');
+    product_details.classList.add('hidden');
+    category_details.classList.remove('hidden');
 
-	// Set values
-	category_id.value = category.id;
-	category_name.value = category.name;
-	// category_icon.value = category.icon;
+    // Set values
+    category_id.value = category.id;
+    category_name.value = category.name;
+    // category_icon.value = category.icon;
 
-	// Delete button
-	delete_category_div.innerHTML = `
+    // Delete button
+    delete_category_div.innerHTML = `
 		<button onclick="deleteCategory(${category.id})">Supprimer</button>
 	`;
 }
 
-function deleteCategory(category_id) {
-	fetch("/admin/category/remove", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Accept": "application/json",
-		},
-		body: JSON.stringify({
-			"_token": csrf_token,
-			"id": category_id
-		})
-	})
-	.then(response => location.reload()); // Reload the page
+async function deleteCategory(category_id) {
+    await sendJSON("/admin/category/remove", {
+        "_token": csrf_token,
+        "id": category_id
+    })
 }
 
 function showAddCategory() {
-	category_form.action = "/admin/category/add";
-	add_product_button.classList.add('hidden');
+    category_form.action = "/admin/category/add";
+    add_product_button.classList.add('hidden');
 
-	// Swap views
-	placeholder.classList.add('hidden');
-	product_details.classList.add('hidden');
-	category_details.classList.remove('hidden');
+    // Swap views
+    placeholder.classList.add('hidden');
+    product_details.classList.add('hidden');
+    category_details.classList.remove('hidden');
 
-	// Set values
-	category_id.value = "";
-	category_name.value = "";
-	// category_icon.value = "";
+    // Set values
+    category_id.value = "";
+    category_name.value = "";
+    // category_icon.value = "";
 
-	// Delete button
-	delete_category_div.innerHTML = "";
+    // Delete button
+    delete_category_div.innerHTML = "";
 }

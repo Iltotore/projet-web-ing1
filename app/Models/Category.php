@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class Category extends Model
 {
@@ -31,5 +33,10 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function clearIcon(): void {
+        $file_path = public_path("/category/" . $this->icon);
+        if (File::exists($file_path)) File::delete($file_path);
     }
 }

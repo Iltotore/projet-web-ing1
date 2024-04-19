@@ -7,12 +7,14 @@ use App\Models\ContactForm;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\ContactReply;
+use http\Exception\RuntimeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
@@ -139,16 +141,17 @@ class AdminController extends Controller
     public function addCategory(Request $request): RedirectResponse {
         $args = $request->validate([
             "name" => ["required", "string", "max:255"],
-            "icon_data" => ["required", "file"]
+            "icon_data" => ["image"]
         ]);
 
-        // Store the file in storage\app\public folder
-        $file = $request->file('icon_data');
-        $filePath = $file->store('uploads', 'public');
+        if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $file = $request->file('icon_data');
+            $file->storePubliclyAs('/category', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $args["icon"] = $args["name"] . "." . $file->getClientOriginalExtension();
+        }
 
-        $args["icon"] = $filePath;
-
-        $result = Category::create($args);
+        Category::create($args);
 
         return redirect("/admin/products");
     }
@@ -157,16 +160,18 @@ class AdminController extends Controller
      * Remove a given category from the database.
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function removeCategory(Request $request): RedirectResponse {
+    public function removeCategory(Request $request): JsonResponse {
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"]
         ]);
 
-        Category::find($args["id"])->delete();
+        $category = Category::find($args["id"]);
+        $category->clearIcon();
+        $category->delete();
 
-        return redirect("/admin/products");
+        return response()->json(["redirect" => "/admin/products"]);
     }
 
     /**
@@ -185,14 +190,15 @@ class AdminController extends Controller
 
         $category = Category::find($args["id"]);
 
-        $category->name = $args["name"];
-
-        // Store the file in storage\app\public folder
         if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $category->clearIcon();
             $file = $request->file('icon_data');
-            $filePath = $file->store('uploads', 'public');
-            $category["icon"] = $filePath;
+            $file->storePubliclyAs('/category', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $category->icon = $args["name"] . "." . $file->getClientOriginalExtension();
         }
+
+        $category->name = $args["name"];
 
         $category->save();
 
