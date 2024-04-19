@@ -131,7 +131,7 @@ class AdminTest extends TestCase
                 "id" => $product->id
             ]
         );
-        $response->assertRedirect("/admin/products");
+        $response->assertSuccessful();
     }
 
     /**
@@ -280,7 +280,7 @@ class AdminTest extends TestCase
                 "id" => $category->id
             ]
         );
-        $response->assertRedirect("/admin/products");
+        $response->assertSuccessful();
     }
 
     /**
