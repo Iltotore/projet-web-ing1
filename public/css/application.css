@@ -78,21 +78,38 @@ ul#product_list li img {
 	padding-right: 5%;
 }
 
+/* Navbar indication animation */
+nav#navbar {
+	animation: i_exist 5s ease-in-out 0s infinite;
+}
+nav#navbar.active {
+	animation: none;
+}
+@keyframes i_exist {
+	from {
+		transform: translateX(-93%);
+	}
+	15% {
+		transform: translateX(-87%);
+	}
+	30% {
+		transform: translateX(-93%);
+	}
+	to {
+		transform: translateX(-93%);
+	}
+}
+
 /* Dynamic navbar */
 
-#navbar {
+nav#navbar {
     position: fixed;
     z-index: 9999;
-
-	/* Animation */
-    transition: transform 0.2s;
-	transform: translateX(-92%);
-
     overflow-y: auto;
 
 	box-shadow: 2px 0px 0.25em 0.1em rgba(0, 0, 0, 0.6);
 }
-#navbar.active {
+nav#navbar.active {
     transform: translateX(0);
 }
 
