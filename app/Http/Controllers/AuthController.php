@@ -74,8 +74,8 @@ class AuthController extends Controller {
             "email" => ["required", "email", "unique:users,email"],
             "password" => ["required", "confirmed", "between:8,100"],
             "password_confirmation" => ["required"],
-            "first_name" => ["string", "max:255"],
-            "last_name" => ["string", "max:255"],
+            "first_name" => ["nullable", "string", "max:255"],
+            "last_name" => ["nullable", "string", "max:255"],
             "birth" => ["date"],
             "job_id" => ["exists:jobs,id"]
         ]);
