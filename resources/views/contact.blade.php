@@ -32,11 +32,10 @@
                             <label for="gender">Femme </label>
                             <input type="radio" name="gender" value="female" @if(Auth::user() != null && Auth::user()->gender === 1) checked @endif />
                             <label for="gender">Autre </label>
-                            <input type="radio" name="gender" value="null" @if(Auth::user() != null && Auth::user()->gender === null) checked @endif />
+                            <input type="radio" name="gender" value="other" @if(Auth::user() != null && Auth::user()->gender === null) checked @endif />
                         </div>
                         <label for="job_id">Metier: </label>
                         <select name="job_id" id="job" required>
-                            <option value="null"></option>
                             @foreach(\App\Models\Job::all() as $job)
                                 <option value="{{$job->id}}" @if(Auth::user() != null && Auth::user()->job_id == $job->id) selected @endif>{{$job->name}} </option>
                             @endforeach
