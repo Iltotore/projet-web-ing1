@@ -82,7 +82,7 @@ function showProduct(product) {
     product_amount.value = product.amount;
     product_price.value = product.unit_price;
     for (let i = 0; i < product_category_id.options.length; i++) {
-        product_category_id.options[i].selected = product_category_id.options[i].value == product.category_id;
+        product_category_id.options[i].selected = product_category_id.options[i].value === product.category_id;
     }
 
     // Delete button
@@ -111,19 +111,11 @@ function showAddProduct() {
     delete_product_div.innerHTML = "";
 }
 
-function deleteProduct(product_id) {
-    fetch("/admin/product/remove", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify({
-            "_token": csrf_token,
-            "id": product_id
-        })
+async function deleteProduct(product_id) {
+    await sendJSON("/admin/product/remove", {
+        "_token": csrf_token,
+        "id": product_id
     })
-        .then(response => location.reload()); // Reload the page
 }
 
 function showCategory(category) {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\File;
 
 class Product extends Model
 {
@@ -37,4 +38,8 @@ class Product extends Model
             ->withPivot(['amount']);
     }
 
+    public function clearIcon(): void {
+        $file_path = public_path("/product/" . $this->icon);
+        if (File::exists($file_path)) File::delete($file_path);
+    }
 }

@@ -39,7 +39,7 @@
             </div>
 
             <div id="product_details" class="hidden">
-                <form id="product_form" method="post">
+                <form id="product_form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" id="product_id" name="id"/>
