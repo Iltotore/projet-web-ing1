@@ -51,7 +51,7 @@ function displayContactDetails(contact) {
     for(let i=0; i< jobs_field.length; i++ ) {
         jobs_field[i].setAttribute("hidden", "");
     }
-    jobs_field[contact.job_id].removeAttribute("hidden");
+    jobs_field[contact.job_id-1].removeAttribute("hidden");
     subject_field.textContent = contact.subject;
     content_field.textContent = contact.content;
 	contact_id_delete.value = contact.id;

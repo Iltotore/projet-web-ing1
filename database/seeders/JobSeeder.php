@@ -13,11 +13,6 @@ class JobSeeder extends Seeder
     public function run(): void
     {
         Job::create([
-            "name" => "sans emploi",
-            "image" => "Villageois_Plaines.webp"
-        ]);
-
-        Job::create([
             "name" => "armurier",
             "image" => "Villageois_Plaines_Armurier.webpp"
         ]);
@@ -70,6 +65,11 @@ class JobSeeder extends Seeder
         Job::create([
             "name" => "prêtre",
             "image" => "Villageois_Plaines_Pretre.webp"
+        ]);
+
+        Job::create([
+            "name" => "sans emploi",
+            "image" => "Villageois_Plaines.webp"
         ]);
 
         Job::create([
