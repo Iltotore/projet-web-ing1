@@ -2,7 +2,6 @@
 <h1>Gestionnaire produits et categories</h1>
 @foreach($errors->all() as $error)
     <div class="notif error">
-        <img src="{{ asset('img/white-cross.png') }}" alt="Croix blanche" onclick="closeWidget(this.parentNode)"/>
         <p>{{$error}}</p>
     </div>
 @endforeach
@@ -40,7 +39,7 @@
             </div>
 
             <div id="product_details" class="hidden">
-                <form id="product_form" method="post">
+                <form id="product_form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" id="product_id" name="id"/>
@@ -96,7 +95,7 @@
             </div>
 
             <div id="category_details" class="hidden">
-                <form id="category_form" method="post">
+                <form id="category_form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" id="category_id" name="id"/>

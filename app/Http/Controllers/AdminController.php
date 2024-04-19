@@ -10,9 +10,8 @@ use App\Notifications\ContactReply;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
@@ -45,19 +44,20 @@ class AdminController extends Controller
         $args = $request->validate([
             "name" => ["required", "string", "max:255"],
             "description" => ["required", "string", "max:255"],
-            "icon_data" => ["required", "file"],
+            "icon_data" => ["required", "image"],
             "unit_price" => ["required", "numeric", "gt:0"],
             "amount" => ["required", "integer", "gte:0"],
             "category_id" => ["required", "exists:categories,id", "integer", "gte:0"]
         ]);
 
-        // Store the file in storage\app\public folder
-        $file = $request->file('icon_data');
-        $filePath = $file->store('uploads', 'public');
+        if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $file = $request->file('icon_data');
+            $file->storePubliclyAs('/product', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $args["icon"] = $args["name"] . "." . $file->getClientOriginalExtension();
+        }
 
-        $args["icon"] = $filePath;
-
-        $result = Product::create($args);
+        Product::create($args);
 
         return redirect("/admin/products");
     }
@@ -67,16 +67,18 @@ class AdminController extends Controller
      * Remove a given product from the database.
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function removeProduct(Request $request): RedirectResponse {
+    public function removeProduct(Request $request): JsonResponse {
         $args = $request->validate([
             "id" => ["required", "exists:products,id"]
         ]);
 
-        Product::find($args["id"])->delete();
+        $product = Product::find($args["id"]);
+        $product->clearIcon();
+        $product->delete();
 
-        return redirect("/admin/products");
+        return response()->json(["redirect" => "/admin/products"]);
     }
 
     /**
@@ -91,26 +93,29 @@ class AdminController extends Controller
             "id" => ["required", "exists:products,id"],
             "name" => ["required", "max:255", "string"],
             "description" => ["required", "max:255", "string"],
-            "icon_data" => ["nullable", "file"],
+            "icon_data" => ["nullable", "image"],
             "unit_price" => ["required", "numeric", "gt:0"],
             "amount" => ["required", "integer", "gte:0"],
             "category_id" => ["required", "integer", "exists:categories,id", "gte:0"]
         ]);
 
+        Log::info("update product");
+
         $product = Product::find($args["id"]);
+
+        if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $product->clearIcon();
+            $file = $request->file('icon_data');
+            $file->storePubliclyAs('/product', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $product->icon = $args["name"] . "." . $file->getClientOriginalExtension();
+        }
 
         $product->name = $args["name"];
         $product->description = $args["description"];
         $product->unit_price = $args["unit_price"];
         $product->amount = $args["amount"];
         $product->category_id = $args["category_id"];
-
-        // Store the file in storage\app\public folder
-        if($args["icon_data"] != null) {
-            $file = $request->file('icon_data');
-            $filePath = $file->store('uploads', 'public');
-            $product["icon"] = $filePath;
-        }
 
 
         $product->save();
@@ -139,16 +144,17 @@ class AdminController extends Controller
     public function addCategory(Request $request): RedirectResponse {
         $args = $request->validate([
             "name" => ["required", "string", "max:255"],
-            "icon_data" => ["required", "file"]
+            "icon_data" => ["image"]
         ]);
 
-        // Store the file in storage\app\public folder
-        $file = $request->file('icon_data');
-        $filePath = $file->store('uploads', 'public');
+        if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $file = $request->file('icon_data');
+            $file->storePubliclyAs('/category', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $args["icon"] = $args["name"] . "." . $file->getClientOriginalExtension();
+        }
 
-        $args["icon"] = $filePath;
-
-        $result = Category::create($args);
+        Category::create($args);
 
         return redirect("/admin/products");
     }
@@ -157,16 +163,18 @@ class AdminController extends Controller
      * Remove a given category from the database.
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function removeCategory(Request $request): RedirectResponse {
+    public function removeCategory(Request $request): JsonResponse {
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"]
         ]);
 
-        Category::find($args["id"])->delete();
+        $category = Category::find($args["id"]);
+        $category->clearIcon();
+        $category->delete();
 
-        return redirect("/admin/products");
+        return response()->json(["redirect" => "/admin/products"]);
     }
 
     /**
@@ -180,19 +188,20 @@ class AdminController extends Controller
         $args = $request->validate([
             "id" => ["required", "exists:categories,id"],
             "name" => ["required", "string", "max:255"],
-            "icon_data" => ["nullable", "file"]
+            "icon_data" => ["nullable", "image"]
         ]);
 
         $category = Category::find($args["id"]);
 
-        $category->name = $args["name"];
-
-        // Store the file in storage\app\public folder
         if($args["icon_data"] != null) {
+            // Store the file in storage\app\public folder
+            $category->clearIcon();
             $file = $request->file('icon_data');
-            $filePath = $file->store('uploads', 'public');
-            $category["icon"] = $filePath;
+            $file->storePubliclyAs('/category', $args["name"] . "." . $file->getClientOriginalExtension(), 'public');
+            $category->icon = $args["name"] . "." . $file->getClientOriginalExtension();
         }
+
+        $category->name = $args["name"];
 
         $category->save();
 
