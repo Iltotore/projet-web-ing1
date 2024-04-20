@@ -13,8 +13,12 @@
                     <div id="title">Votre profil :</div>
                     <hr/>
                     <div class="button">
-                        <button onclick="window.location.href = '/profile'">Votre profil</button>
-                        <button onclick="window.location.href = '/login'">Se connecter</button>
+                        @auth
+                            <button onclick="window.location.href = '/profile'">Votre profil</button>
+                        @else
+                            <button onclick="window.location.href = '/login'">Se connecter</button>
+                        @endauth
+
                     </div>
                 </div>
             </div>
