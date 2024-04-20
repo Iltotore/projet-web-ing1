@@ -82,7 +82,7 @@ function showProduct(product) {
     product_amount.value = product.amount;
     product_price.value = product.unit_price;
     for (let i = 0; i < product_category_id.options.length; i++) {
-        product_category_id.options[i].selected = product_category_id.options[i].value === product.category_id;
+        product_category_id.options[i].selected = product_category_id.options[i].value == product.category_id;
     }
 
     // Delete button
