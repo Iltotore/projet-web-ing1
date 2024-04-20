@@ -35,7 +35,7 @@
 
 	<div id="contact_details">
 		<div id="contact_details_not_loaded">
-			<h2>Veuillez sélectionner un utilisateur</h2>
+			<h2>Veuillez sélectionner un formulaire</h2>
 		</div>
 
 		<div id="contact_details_loaded" class="hidden">
