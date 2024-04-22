@@ -13,7 +13,7 @@
                 <input type="hidden" name="redirect" value="{{ request()->get('redirect') ?? '/' }}">
                 <div class="grill">
                     <label for="name">Pseudo: </label>
-                    <input type="text" name="name" required class="@error('name') invalid @enderror"/>
+                    <input type="text" name="name" required value="{{ old('name') }}" class="@error('name') invalid @enderror"/>
                     @error("name")
                         <li class="error">{{ $message }}</li>
                     @enderror
@@ -35,32 +35,32 @@
                 @csrf
                 <div class="grill">
                     <label for="name">Pseudo: </label>
-                    <input type="text" name="name" required class="@error('name') invalid @enderror"/>
+                    <input type="text" name="name" required value="{{ old('name') }}" class="@error('name') invalid @enderror"/>
                     @error("name")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="email">Email: </label>
-                    <input type="email" name="email" required class="@error('email') invalid @enderror"/>
+                    <input type="email" name="email" required value="{{ old('email') }}" class="@error('email') invalid @enderror"/>
                     @error("email")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="first_name">Prenom: </label>
-                    <input type="first_name" name="first_name" class="@error('first_name') invalid @enderror"/>
+                    <input type="first_name" name="first_name" value="{{ old('first_name') }}" class="@error('first_name') invalid @enderror"/>
                     @error("first_name")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="last_name">Nom: </label>
-                    <input type="text" name="last_name" class="@error('last_name') invalid @enderror"/>
+                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="@error('last_name') invalid @enderror"/>
                     @error("last_name")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <label for="birth">Date de naissance: </label>
-                    <input type="date" name="birth" class="@error('birth') invalid @enderror"/>
+                    <input type="date" name="birth" value="{{ old('birth') }}" class="@error('birth') invalid @enderror"/>
                     @error("birth")
                         <li class="error">{{ $message }}</li>
                     @enderror
                     <legend>Genre:</legend>
-                    <div id=genre class="@error('gender') invalid @enderror">
+                    <div id=genre value="{{ old('gender') }}" class="@error('gender') invalid @enderror">
                         <label for="gender">Homme </label>
                         <input type="radio" name="gender" value="male"/>
                         <label for="gender">Femme </label>
@@ -75,7 +75,7 @@
                     <select name="job" id="job" class="@error('job') invalid @enderror">
                         <option value="null"></option>
                         @foreach(Job::all() as $job)
-                            <option value="{{$job->id}}">{{$job->name}}</option>
+                            <option value="{{$job->id}}" @if(old('job') == $job->id) selected @endif>{{$job->name}}</option>
                         @endforeach
                     </select>
                     @error("job")

@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -36,8 +35,6 @@ class AuthController extends Controller {
 
         if (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
-
-            Log::info("Redirect to " . $redirect);
 
             return redirect()->to($redirect);
         } else {
@@ -134,7 +131,6 @@ class AuthController extends Controller {
 
     public function verifyEmail(EmailVerificationRequest $request): RedirectResponse {
         $request->fulfill();
-        Log::info($request->getUser() . " registered");
 
         return redirect('/');
     }
