@@ -20,6 +20,7 @@ Artisan::command("inspire", function () {
 })->purpose("Display an inspiring quote");
 
 Artisan::command("db:setup", function () {
+    $this->call("db:wipe");
     $this->call("migrate:refresh");
     $this->call("db:seed");
 });
