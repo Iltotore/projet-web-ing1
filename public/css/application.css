@@ -323,15 +323,16 @@ footer p.please_dont_see_this {
 
 /* Default form styles */
 
-input[type=submit]{
+input[type=submit], button{
 	background-image: url("../img/widget.png");
 	background-size: 100% 100%;
 	font-family: 'Minecraft', sans-serif;
 	cursor: pointer;
 	color: white;
+	padding: 0.3vw;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover, button:hover{
 	background-image: url("../img/widgetclicked.png");
 	border-color: white;
 }

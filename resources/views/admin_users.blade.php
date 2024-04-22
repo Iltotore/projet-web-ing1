@@ -7,13 +7,13 @@
 @endforeach
 <div class=manager>
 	<div id="user_list">
-		<div class="top_bar">
+		<div id="top_bar">
 			<div class="search_container">
 				<img class="search_icon" src="{{ asset('img/search-icon.svg') }}" alt="search icon">
 				<input type="text" class="search_input" placeholder="Rechercher...">
 			</div>
 
-			<button onclick="displayUserAddMenu()">+</button>
+			<button onclick="displayUserAddMenu()">Ajouter un utilisateur</button>
 		</div>
 		<hr>
 		<div id="user_table">
@@ -48,6 +48,8 @@
 			<form action="/admin/user/add" method="post" autocomplete="off" >
 				@csrf
 
+				<img src="{{ asset('img/user_image.jpg') }}" alt="user default image"/>
+
 				<!-- Nom d'utilisateur -->
 				<div class="user_details_field">
 					<label for="name">Nom d'utilisateur :</label>
@@ -79,6 +81,8 @@
 		</div>
 
 		<div id="user_details_edit" class="hidden">
+			<h2 id="user_details_username"></h2>
+
 			<!-- Reset password button -->
 			<div class="user_details_field">
 				<form action="/admin/user/resetPassword" method="post">
