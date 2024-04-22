@@ -84,15 +84,17 @@ tr.product_row img {
 
 div#details_zone {
 	flex: 1 1 auto;
+	/* Workaround */
+	overflow: hidden;
 }
 
 div#details_zone > div {
 	padding: 0.5vw;
 }
 
+/* Accidentally applies to everything in the forms, ended up looking nice anyways */
 div#details_zone * {
 	min-height: 100%;
-
 	display: flex;
 	flex-direction: column;
 }
