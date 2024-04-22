@@ -6,8 +6,11 @@
     <body>
         <div class="box">
             <div class="sign">
-                <h1>Erreur 404 !</h1>
-                <p>Hurr. Huh. Pin ! Puh ! Puh ! <i>Pwuh !</i></p>
+				<div id="error_title">
+					<img src="{{ asset('img/big-vindicator-face.webp') }}" alt="404 image"/>
+					<h1>Erreur 404 !</h1>
+				</div>
+                <i><p>Pin ! Puh ! Puh ! <i id="pain">Pwuh !</i></p></i>
 				<p>Page non trouvée...</p>
             </div>
         </div>
