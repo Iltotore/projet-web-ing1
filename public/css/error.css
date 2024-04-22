@@ -1,4 +1,16 @@
-main i {
+main i#pain {
 	font-size: 1em;
 	color: rgb(255, 0, 0);
+}
+
+div#error_title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+div#error_title img {
+	width: 4.5vw;
+	margin-right: 1vw;
 }

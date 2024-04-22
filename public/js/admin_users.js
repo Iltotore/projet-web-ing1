@@ -44,6 +44,7 @@ function displayUserAddMenu() {
 
 let user_id_password_reset = document.querySelector('#user_id_password_reset');
 let user_id_delete = document.querySelector('#user_id_delete');
+let user_details_username = document.querySelector('#user_details_username');
 
 function displayUserEditMenu(user) {
 	// Display edit menu
@@ -54,4 +55,5 @@ function displayUserEditMenu(user) {
 	// Set fields to the appropriate values
 	user_id_password_reset.value = user.id
 	user_id_delete.value = user.id
+	user_details_username.textContent = user.name
 }

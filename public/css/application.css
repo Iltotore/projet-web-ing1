@@ -82,38 +82,21 @@ ul#product_list li img {
 	padding-right: 5%;
 }
 
-/* Navbar indication animation */
-nav#navbar {
-	animation: i_exist 5s ease-in-out 0s infinite;
-}
-nav#navbar.active {
-	animation: none;
-}
-@keyframes i_exist {
-	from {
-		transform: translateX(-93%);
-	}
-	15% {
-		transform: translateX(-87%);
-	}
-	30% {
-		transform: translateX(-93%);
-	}
-	to {
-		transform: translateX(-93%);
-	}
-}
-
 /* Dynamic navbar */
 
-nav#navbar {
+#navbar {
     position: fixed;
     z-index: 9999;
+
+	/* Animation */
+    transition: transform 0.2s;
+	transform: translateX(-92%);
+
     overflow-y: auto;
 
 	box-shadow: 2px 0px 0.25em 0.1em rgba(0, 0, 0, 0.6);
 }
-nav#navbar.active {
+#navbar.active {
     transform: translateX(0);
 }
 
@@ -323,15 +306,16 @@ footer p.please_dont_see_this {
 
 /* Default form styles */
 
-input[type=submit]{
+input[type=submit], button{
 	background-image: url("../img/widget.png");
 	background-size: 100% 100%;
 	font-family: 'Minecraft', sans-serif;
 	cursor: pointer;
 	color: white;
+	padding: 0.3vw;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover, button:hover{
 	background-image: url("../img/widgetclicked.png");
 	border-color: white;
 }

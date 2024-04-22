@@ -84,11 +84,17 @@ tr.product_row img {
 
 div#details_zone {
 	flex: 1 1 auto;
+	/* Workaround */
+	overflow: hidden;
 }
 
+div#details_zone > div {
+	padding: 0.5vw;
+}
+
+/* Accidentally applies to everything in the forms, ended up looking nice anyways */
 div#details_zone * {
 	min-height: 100%;
-
 	display: flex;
 	flex-direction: column;
 }
@@ -107,4 +113,10 @@ div#details_zone div#product_details {
 
 div#details_zone div#category_details {
 	background-color: rgba(0, 65, 30, 0.311);
+}
+
+/* Gap between fields */
+
+div#details_zone div.product_details_field {
+	margin-bottom: 0.5vw;
 }
