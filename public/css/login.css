@@ -11,8 +11,16 @@
     padding : 2.5%;
     border : solid;
     border-color: black;
-    border-width: 3px;
+    border-width: 2px;
 	box-shadow: 0px 0px 0.30em 0.10em rgba(0, 0, 0, 0.6);
+}
+
+.sign h1 {
+	margin-top: 0;
+	margin-bottom: 2vw;
+	margin-left: auto;
+	margin-right: auto;
+	width: fit-content;
 }
 
 .grill {

@@ -7,6 +7,7 @@
     <body>
     <div class="box">
         <div class="sign">
+			<h1>Connexion</h1>
             <form action="/auth/login" method="post">
                 @csrf
                 <input type="hidden" name="redirect" value="{{ request()->get('redirect') ?? '/' }}">
@@ -29,6 +30,7 @@
             </form>
         </div>
         <div class="sign">
+			<h1>Inscription</h1>
             <form action="/auth/register" method="post">
                 @csrf
                 <div class="grill">
