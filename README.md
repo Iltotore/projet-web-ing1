@@ -8,6 +8,14 @@ HurrShop est le projet noté de développement web de l'année 2023-2024 de CY T
 
 ## Installation
 
+### Cloner le projet
+
+Vous pouvez cloner le projet depuis `git` via la commande suivante:
+
+```sh
+git clone https://github.com/Iltotore/projet-web-ing1.git
+```
+
 ### Installer les dépendances de PHP Composer (Linux)
 
 Si vous avez déjà Composer installé sur votre système, vous pouvez passer cette étape, car vous avez déjà les dépendances
@@ -46,12 +54,16 @@ Le projet est maintenant prêt à être utilisé.
 
 ### Mettre en place la base de données
 
-Le projet dispose de migrations SQL et de seeders pour mettre en place et peupler la base de données. Il faut pour cela
+Le projet dispose de migrations SQL et de seeders pour mettre en place et peupler la base de données, déjà mise en place par défaut. Il faut pour cela
 exécuter la commande suivante :
 
 ```php
 php artisan db:setup
 ```
+
+### Gestion des mails
+
+Par défaut, les mails sont affichés dans le terminal. Si vous souhaitez utiliser un autre service tel qu'un serveur SMTP (comme montré sur la vidéo avec [DebugMail](https://debugmail.io)), vous devez modifier votre `.env`. Un exemple commenté y est inclus.
 
 ## Lancer le serveur
 
