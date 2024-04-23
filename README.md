@@ -61,6 +61,13 @@ exécuter la commande suivante :
 php artisan db:setup
 ```
 
+Par défaut, deux utilisateurs sont déjà présents:
+- Notch
+  - Mot de passe: `Hmmmmmmm`
+  - Admin
+- Steve
+  - Mot de passe: `Hmmmmmmm`
+
 ### Gestion des mails
 
 Par défaut, les mails sont affichés dans le terminal. Si vous souhaitez utiliser un autre service tel qu'un serveur SMTP (comme montré sur la vidéo avec [DebugMail](https://debugmail.io)), vous devez modifier votre `.env`. Un exemple commenté y est inclus.
