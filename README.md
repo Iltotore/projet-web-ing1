@@ -6,6 +6,8 @@ HurrShop est le projet noté de développement web de l'année 2023-2024 de CY T
 - Clément PRAUD
 - Gaétan RETEL
 
+[Vidéo de présentation](https://youtu.be/g0jnVfDYqUc)
+
 ## Installation
 
 ### Cloner le projet
