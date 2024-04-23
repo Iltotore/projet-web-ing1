@@ -35,7 +35,7 @@ Note : vous pouvez également préciser la version de PHP souhaitée dans le nom
 ### Installer les dépendances du projet
 
 Le projet est basé sur le framework Laravel.
-Pour l'installer avec ses dépendances, il faut exécuter la commande suivante :
+Pour l'installer avec ses dépendances, il faut vous placer à l'intérieur du dossier et exécuter la commande suivante :
 
 ```php
 php composer install
@@ -46,7 +46,11 @@ php composer install
 Le projet dépend de variables stockées dans le fichier `.env`.
 
 La configuration par défaut ce situe dans le fichier `.env.example`.
-Vous pouvez le copier/coller ou le renommer en `.env` pour l'utiliser.
+Vous pouvez le copier/coller ou le renommer en `.env` pour l'utiliser :
+
+```shell
+cp .env.example .env
+```
 
 Une base de données par défaut est aussi fournie.
 
